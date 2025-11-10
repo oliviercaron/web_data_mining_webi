@@ -1,0 +1,210 @@
+---
+title: "Introduction à SQL avec R"
+subtitle: "Base IMDB (movies & directors) — Découverte pratique"
+author:
+  - name: "Olivier Caron"
+    affiliations: "Université Paris Dauphine - PSL"
+format:
+  html:
+    toc: true
+    code-fold: true
+execute:
+  echo: true
+  warning: false
+---
+
+## Objectif de la séance
+
+Ce document vous permettra de :
+
+- Vous connecter à une base **SQLite** depuis R,
+- Explorer les **tables** et leurs **attributs**,
+- Réaliser vos premières **requêtes SQL** simples (SELECT, WHERE, ORDER BY, LIMIT),
+- Découvrir la **jointure** entre deux tables.
+
+---
+
+## 1. Connexion à la base
+
+```{r}
+library(DBI)
+library(RSQLite)
+
+# Chemin vers la base locale (à adapter si besoin)
+db_path <- "../data_full/movie_imdb_sql/movie.sqlite"
+
+# Connexion
+con <- dbConnect(RSQLite::SQLite(), db_path)
+con
+```
+
+---
+
+## 2. Explorer la base
+
+### Lister les tables disponibles
+
+```{r}
+dbListTables(con)
+```
+
+### Voir les colonnes (attributs) de chaque table
+
+```{r}
+tables <- dbListTables(con)
+
+for (t in tables) {
+  cat("\n--- Table :", t, "---\n")
+  print(dbListFields(con, t))
+}
+```
+
+---
+
+## 3. Lire quelques lignes de chaque table
+
+```{r}
+for (t in tables) {
+  cat("\n### Aperçu de", t, "\n")
+  print(dbGetQuery(con, paste0("SELECT * FROM ", t, " LIMIT 5;")))
+}
+```
+
+---
+
+## 4. Premières requêtes simples
+
+### a) Sélectionner toutes les informations sur les réalisateurs
+
+```{r}
+dbGetQuery(con, "SELECT * FROM directors LIMIT 10;")
+```
+
+### b) Sélectionner uniquement le nom et le genre des réalisateurs
+
+```{r}
+dbGetQuery(con, "SELECT name, gender FROM directors LIMIT 10;")
+```
+
+---
+
+## 5. Conditions et filtres (`WHERE`)
+
+### a) Trouver les réalisateurs nommés *Steven Spielberg*
+
+```{r}
+dbGetQuery(con, "SELECT * FROM directors WHERE name = 'Steven Spielberg';")
+```
+
+### b) Trouver tous les réalisateurs dont le prénom commence par *Steven*
+
+```{r}
+dbGetQuery(con, "SELECT * FROM directors WHERE name LIKE 'Steven%';")
+```
+
+### c) Films sortis après 2010
+
+```{r}
+dbGetQuery(con, "
+  SELECT original_title, release_date
+  FROM movies
+  WHERE release_date > '2010-01-01'
+  ORDER BY release_date ASC
+  LIMIT 10;
+")
+```
+
+---
+
+## 6. Trier et limiter (`ORDER BY`, `LIMIT`)
+
+### a) Les 5 films les plus populaires
+
+```{r}
+dbGetQuery(con, "
+  SELECT original_title, popularity, revenue
+  FROM movies
+  ORDER BY popularity DESC
+  LIMIT 5;
+")
+```
+
+### b) Les 5 films au plus gros budget
+
+```{r}
+dbGetQuery(con, "
+  SELECT original_title, budget
+  FROM movies
+  ORDER BY budget DESC
+  LIMIT 5;
+")
+```
+
+---
+
+## 7. Combiner les tables (JOIN)
+
+### Relier les films à leurs réalisateurs
+
+```{r}
+dbGetQuery(con, "
+  SELECT m.original_title, d.name AS director_name, m.release_date
+  FROM movies m
+  JOIN directors d ON d.id = m.director_id
+  LIMIT 10;
+")
+```
+
+### Exercice : trouvez les films réalisés par *James Cameron*
+
+```{r}
+dbGetQuery(con, "
+  SELECT m.original_title, m.release_date, m.revenue
+  FROM movies m
+  JOIN directors d ON d.id = m.director_id
+  WHERE d.name = 'James Cameron'
+  ORDER BY m.release_date;
+")
+```
+
+---
+
+## 8. Un peu d'analyse descriptive
+
+### Nombre total de films
+
+```{r}
+dbGetQuery(con, "SELECT COUNT(*) AS total_movies FROM movies;")
+```
+
+### Nombre total de réalisateurs
+
+```{r}
+dbGetQuery(con, "SELECT COUNT(*) AS total_directors FROM directors;")
+```
+
+### Films par année (exemple)
+
+```{r}
+dbGetQuery(con, "
+  SELECT substr(release_date,1,4) AS year, COUNT(*) AS n
+  FROM movies
+  WHERE year IS NOT NULL
+  GROUP BY year
+  ORDER BY year ASC
+  LIMIT 10;
+")
+```
+
+---
+
+## 9. Fin de séance
+
+### Déconnexion propre
+
+```{r}
+dbDisconnect(con)
+```
+
+> Vous venez de réaliser vos premières requêtes SQL dans R !  
+> Ces commandes sont universelles et s’appliquent à toute base marketing, e-commerce ou CRM.

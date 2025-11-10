@@ -1,0 +1,1850 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<script src="cours_1_files/libs/clipboard/clipboard.min.js"></script>
+<script src="cours_1_files/libs/quarto-html/tabby.min.js"></script>
+<script src="cours_1_files/libs/quarto-html/popper.min.js"></script>
+<script src="cours_1_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="cours_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="cours_1_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="cours_1_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.6.42">
+
+  <meta name="author" content="Olivier Caron">
+  <title>Web Data Mining &amp; Business Intelligence</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="cours_1_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="cours_1_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for citations */
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+      margin-bottom: 0em;
+    }
+    .hanging-indent div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }  </style>
+  <link rel="stylesheet" href="cours_1_files/libs/revealjs/dist/theme/quarto-7305b09eb733fa85903ef661c69bedac.css">
+  <link href="cours_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="cours_1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="cours_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="cours_1_files/libs/revealjs/plugin/reveal-chalkboard/font-awesome/css/all.css" rel="stylesheet">
+  <link href="cours_1_files/libs/revealjs/plugin/reveal-chalkboard/style.css" rel="stylesheet">
+  <link href="cours_1_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-image="ubd_bg1.png" data-background-position="center" data-background-size="cover" class="quarto-title-block center">
+  <h1 class="title">Web Data Mining &amp; Business Intelligence</h1>
+  <p class="subtitle">Introduction Data Mining et Web Intelligence</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Olivier Caron 
+</div>
+        <p class="quarto-title-affiliation">
+            Paris Dauphine - PSL
+          </p>
+    </div>
+</div>
+
+</section>
+<section id="objectif-général-du-cours" class="slide level2">
+<h2>Objectif général du cours</h2>
+<p><strong>Web Data Mining &amp; Business Intelligence (M2 Marketing Digital, 18h, 3 ECTS)</strong></p>
+<p><strong>Objectif global :</strong></p>
+<ul>
+<li>Donner une connaissance solide des méthodes et outils du <strong>Web Data Mining</strong>.</li>
+<li>Acquérir un savoir-faire pratique : <strong>collecte</strong> (API, scraping), <strong>transformation</strong> et <strong>visualisation</strong>.</li>
+<li>Apprendre à passer des données brutes à des insights visuels (cartes, graphes, dashboards).</li>
+<li>Comprendre la structure des <strong>communautés en ligne</strong>.</li>
+<li>Intégrer l’<strong>IA générative</strong> (LLMs) comme outil d’assistance au code et à l’analyse.</li>
+</ul>
+</section>
+<section id="compétences-visées" class="slide level2">
+<h2>Compétences visées</h2>
+<ol type="1">
+<li><strong>Comprendre</strong> les enjeux de la collecte et de la veille digitale.</li>
+<li><strong>Maîtriser</strong> les formats et outils fondamentaux pour extraire et transformer des données web.</li>
+<li><strong>Savoir appliquer</strong> les bases du datamining, de la dataviz, du SIG et de l’analyse de réseaux.</li>
+<li><strong>Communiquer</strong> des indicateurs clés via un tableau de bord opérationnel</li>
+</ol>
+</section>
+<section id="planning-du-cours-18h" class="slide level2" style="font-size:0.8em">
+<h2>Planning du cours (18h)</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Horaire</th>
+<th style="text-align: left;">Durée</th>
+<th style="text-align: left;">Séance</th>
+<th style="text-align: left;">Thème (proposition)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Lundi 10/11/2025</td>
+<td style="text-align: left;">13h – 17h</td>
+<td style="text-align: left;">4h</td>
+<td style="text-align: left;">Séance 1</td>
+<td style="text-align: left;">Intro Web Data Mining &amp; BI</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Mercredi 19/11/2025</td>
+<td style="text-align: left;">13h – 17h</td>
+<td style="text-align: left;">4h</td>
+<td style="text-align: left;">Séance 2</td>
+<td style="text-align: left;">Visualisation de données &amp; storytelling</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lundi 24/11/2025</td>
+<td style="text-align: left;">13h – 17h</td>
+<td style="text-align: left;">4h</td>
+<td style="text-align: left;">Séance 3</td>
+<td style="text-align: left;">Réductions, régressions, classifications…</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Lundi 01/12/2025</td>
+<td style="text-align: left;">9h – 12h</td>
+<td style="text-align: left;">3h</td>
+<td style="text-align: left;">Séance 4</td>
+<td style="text-align: left;">Comprendre et utiliser les données géographiques</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Vendredi 05/12/2025</td>
+<td style="text-align: left;">9h – 12h</td>
+<td style="text-align: left;">3h</td>
+<td style="text-align: left;">Séance 5</td>
+<td style="text-align: left;">Analyses de réseaux</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="évaluation-projet-final" class="slide level2">
+<h2>Évaluation &amp; projet final</h2>
+<div title="Projet final">
+<div class="callout callout-important callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Projet final</strong></p>
+</div>
+<div class="callout-content">
+<ul>
+<li>Travail en <strong>groupes de 2–3 étudiants</strong></li>
+<li>Projet : (création d’un <strong>rapport de collectes de données</strong>) OU/ET <strong>analyse des données</strong></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p><strong>À faire</strong></p>
+<ul>
+<li>Collecte &amp; analyse d’un corpus web</li>
+<li>Production d’<strong>insights</strong> &amp; de <strong>recommandations</strong></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><strong>Livrable</strong></p>
+<ul>
+<li>Rapport <strong>Quarto HTML</strong> (reproductible)</li>
+</ul>
+</div></div>
+</section>
+<section id="section" class="slide level2" data-background-color="#4A708B">
+<h2></h2>
+<p><br> <br></p>
+<h1 style="color: white; text-align: center;">
+<p>Partie 1 : Introduction</p>
+</h1>
+</section>
+<section id="le-monde-a-changé" class="slide level2">
+<h2>Le monde a changé</h2>
+<ul>
+<li>Nous sommes passés d’un monde “pauvre en données” (analogique) à un monde “riche en données” (numérique).</li>
+<li>Chaque minute en 2022 : <strong>5.7M</strong> de recherches Google, <strong>65k</strong> photos Instagram, <strong>$6M</strong> de transactions en ligne <span class="citation" data-cites="boegershausenFieldsGoldScraping2022">(<a href="#/références" role="doc-biblioref" onclick="">Boegershausen et al. 2022</a>)</span>.</li>
+<li>Cette transition change fondamentalement la recherche sociale et marketing.</li>
+</ul>
+<div title="L'analogie de Salganik">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>L’analogie de Salganik</strong></p>
+</div>
+<div class="callout-content">
+<p>“Les chercheurs en sciences sociales sont en train de vivre une transition similaire à celle de la photographie vers la cinématographie.” <span class="citation" data-cites="salganikBitBitSocial2019">(<a href="#/références" role="doc-biblioref" onclick="">Salganik 2019, 5</a>)</span></p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="quest-ce-que-le-data-mining" class="slide level2">
+<h2>Qu’est-ce que le Data Mining ?</h2>
+<ul>
+<li><strong>“La Fouille de Données”</strong> (ou <em>forage</em>/<em>exploration</em> de données).</li>
+<li>Un processus <strong>non trivial</strong> pour extraire des informations <strong>implicites</strong>, <strong>inconnues</strong> et <strong>potentiellement utiles</strong> à partir de grandes bases de données.</li>
+<li>La métaphore : chercher des <strong>pépites</strong> (insights) dans une <strong>montagne de données</strong> (logs, transactions, textes).</li>
+</ul>
+</section>
+<section id="le-data-mining-un-carrefour" class="slide level2">
+<h2>Le Data Mining : un carrefour</h2>
+<p>Le Data Mining n’est pas un domaine isolé, il se situe à l’intersection de plusieurs disciplines :</p>
+<ul>
+<li><strong>Statistique</strong> (Analyse exploratoire, modèles prédictifs)</li>
+<li><strong>Intelligence Artificielle</strong> (Apprentissage machine / Machine Learning)</li>
+<li><strong>Gestion de Bases de Données</strong> (Data Warehouse, SQL)</li>
+<li><strong>Visualisation</strong> (Dataviz)</li>
+</ul>
+<div title="Pour le Marketing">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Pour le Marketing</strong></p>
+</div>
+<div class="callout-content">
+<p>Le développement du <strong>CRM (Gestion de la Relation Client)</strong> a été un moteur majeur : on est passé d’un marketing “produit” à un marketing “client” (fidélisation, attrition, scoring).</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="les-grandes-tâches-du-data-mining" class="slide level2">
+<h2>Les grandes tâches du Data Mining</h2>
+<p>On peut classer les méthodes en deux grandes familles :</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="descriptif-non-supervisé">1. Descriptif (Non-Supervisé)</h3>
+<p><em>Décrire ce qui s’est passé (sans a priori).</em></p>
+<ul>
+<li><strong>Clustering (Segmentation)</strong>
+<ul>
+<li>Regrouper les clients qui se ressemblent.</li>
+<li><em>Ex: Segmenter la base client.</em></li>
+</ul></li>
+<li><strong>Règles d’Association</strong>
+<ul>
+<li>Trouver les produits souvent achetés ensemble.</li>
+<li><em>Ex: Le “panier de la ménagère”.</em></li>
+</ul></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="prédictif-supervisé">2. Prédictif (Supervisé)</h3>
+<p><em>Prédire ce qui va se passer (en apprenant du passé).</em></p>
+<ul>
+<li><strong>Classification (Scoring)</strong>
+<ul>
+<li>Prédire une <em>catégorie</em>.</li>
+<li><em>Ex: Ce client va-t-il “churner” (partir) ? (Oui/Non)</em></li>
+</ul></li>
+<li><strong>Régression</strong>
+<ul>
+<li>Prédire une <em>valeur numérique</em>.</li>
+<li><em>Ex: Combien ce client va-t-il dépenser ?</em></li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="big-bang-data" class="slide level2">
+<h2>“Big bang Data”</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/clipboard-1942119366.png" class="quarto-figure quarto-figure-center" style="width:55.0%"></p>
+</figure>
+</div>
+</section>
+<section id="nombre-dutilisateurs-actifs-en-2025-en-millions" class="slide level2">
+<h2>Nombre d’utilisateurs actifs en 2025 (en millions)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/statista_reseaux_sociaux_2025.png" class="quarto-figure quarto-figure-center" style="width:95.0%"></p>
+</figure>
+</div>
+</section>
+<section id="nous-produisons-tous-des-données-tout-le-temps" class="slide level2" style="font-size:0.7em">
+<h2>Nous produisons tous des données, tout le temps</h2>
+<ul>
+<li><strong>Données actives</strong> : celles que nous créons consciemment (posts, emails, avis).</li>
+<li><strong>Données passives (traces numériques)</strong> : celles que nous laissons sans y penser (logs de connexion, historique de navigation, données de géolocalisation).</li>
+<li>L’idée que les <strong>citoyens</strong> sont des <strong>capteurs”</strong> <span class="citation" data-cites="goodchildCitizensSensorsWorld2007">(<a href="#/références" role="doc-biblioref" onclick="">Goodchild 2007</a>)</span> : chaque individu équipé d’un smartphone devient un capteur mobile, générant un flux constant de données géolocalisées.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/clipboard-1697869989.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="openstreetmap-information-géographique-bénévole-igb" class="slide level2">
+<h2>OpenStreetMap : information géographique bénévole (IGB)</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/clipboard-2148876383.png" class="quarto-figure quarto-figure-center" style="width:85.0%"></p>
+</figure>
+</div>
+</section>
+<section id="fontaine-à-boire-à-paris" class="slide level2">
+<h2>Fontaine à boire à Paris</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/clipboard-3041618446.png" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="les-données-test-de-rorschach" class="slide level2">
+<h2>Les données “Test de Rorschach”</h2>
+<p>Matthew Salganik décrit une étude sur la pauvreté au Rwanda utilisant des logs mobiles comme un <strong>test de Rorschach</strong> <span class="citation" data-cites="salganikBitBitSocial2019">(<a href="#/références" role="doc-biblioref" onclick="">Salganik 2019</a>)</span> :</p>
+<ul>
+<li>Un <strong>scientifique spécialiste en sciences sociales</strong> y voit un nouvel outil de mesure.</li>
+<li>Un <strong>data scientist</strong> y voit un problème de machine learning.</li>
+<li>Une <strong>entreprise</strong> y voit une opportunité de valorisation.</li>
+<li>Un <strong>défenseur de la vie privée</strong> y voit une surveillance de masse.</li>
+<li>Un <strong>décideur politique</strong> y voit un outil pour créer un monde meilleur.</li>
+</ul>
+<p><strong>Ils ont tous raison.</strong> Ce cours vise à vous donner toutes ces perspectives.</p>
+</section>
+<section id="étude-de-cas---prédire-la-pauvreté-avec-les-métadonnées-mobiles-blumenstockpredictingpovertywealth2015" class="slide level2" style="font-size:0.8em">
+<h2>Étude de cas - Prédire la pauvreté avec les métadonnées mobiles <span class="citation" data-cites="blumenstockPredictingPovertyWealth2015">(<a href="#/références" role="doc-biblioref" onclick="">Blumenstock, Cadamuro, and On 2015</a>)</span></h2>
+<ul>
+<li>Étude menée au <strong>Rwanda</strong> sur <strong>1,5 million</strong> d’utilisateurs de téléphones mobiles.<br>
+</li>
+<li>Les chercheurs ont combiné :
+<ul>
+<li>les <strong>logs d’appels/SMS</strong> (données passives, anonymisées),<br>
+</li>
+<li>et une <strong>enquête auprès de 856 individus</strong> sur leurs actifs et conditions de vie.<br>
+</li>
+</ul></li>
+<li>Un <strong>modèle de machine learning (Elastic Net)</strong> prédit la richesse individuelle avec une <strong>corrélation r = 0,68</strong>.<br>
+</li>
+<li>Les <strong>cartes de richesse</strong> agrégées par district atteignent <strong>r ≈ 0,9</strong> avec les données officielles (DHS).<br>
+</li>
+<li><strong>Coût</strong> : 12 000 $ et 4 semaines, contre plus d’1 M $ et 18 mois pour une enquête nationale classique.</li>
+</ul>
+<div title="Message clé">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Message clé</strong></p>
+</div>
+<div class="callout-content">
+<p>Les <strong>traces numériques</strong> peuvent servir à estimer la <strong>pauvreté et la richesse</strong> d’une population à grande échelle, en temps quasi réel, à partir de données déjà existantes.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="prédire-à-partir-des-métadonnées" class="slide level2">
+<h2>Prédire à partir des métadonnées</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/clipboard-334154282.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</section>
+<section id="le-marketing-à-lère-du-bit-by-bit" class="slide level2">
+<h2>Le Marketing à l’ère du “Bit by Bit”</h2>
+<ul>
+<li>Le marketing traditionnel reposait sur des données “Custommade” (<strong>faites sur mesure</strong>) :
+<ul>
+<li>Sondages, focus groups.</li>
+<li>Coûteuses, lentes, à petite échelle.</li>
+</ul></li>
+<li>Le marketing moderne utilise des données “Readymade” (<strong>prêtes à l’emploi</strong>) :
+<ul>
+<li>Traces numériques, logs de serveurs, données de réseaux sociaux.</li>
+<li>Disponibles en temps réel, à grande échelle, mais pas conçues pour la recherche.</li>
+</ul></li>
+</ul>
+</section>
+<section id="limportance-des-données-le-nouvel-or-noir" class="slide level2">
+<h2>L’importance des données : le nouvel Or noir ?</h2>
+<ul>
+<li>Les données web sont une “mine d’or” potentielle pour les insights marketing <span class="citation" data-cites="boegershausenFieldsGoldScraping2022">(<a href="#/références" role="doc-biblioref" onclick="">Boegershausen et al. 2022</a>)</span>.</li>
+<li>Elles permettent d’observer des comportements réels, à grande échelle, et non des intentions déclarées.</li>
+<li>C’est le carburant de l’économie numérique.</li>
+</ul>
+</section>
+<section id="limportance-des-données-lère-des-llms" class="slide level2">
+<h2>L’importance des données : l’ère des LLMs</h2>
+<ul>
+<li>Les “Grands Modèles de Langage” (LLM) comme GPT, Claude, Mistral, sont entièrement dépendants des données.</li>
+<li>Leur performance vient de l’ingestion de <strong>l’intégralité du web</strong> (ou presque).</li>
+<li>Le “Web Data” n’est plus seulement un sujet d’analyse ; c’est devenu la <strong>matière première de l’IA</strong>.</li>
+<li>Comprendre comment ces données sont structurées, biaisées et collectées est essentiel pour comprendre l’IA.</li>
+</ul>
+</section>
+<section id="les-llms-ont-besoin-de-plus-de-données" class="slide level2">
+<h2>Les LLMs ont besoin de plus de données</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/clipboard-14807539.png" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</section>
+<section id="la-croissance-des-données-web-en-recherche" class="slide level2">
+<h2>La croissance des données web en recherche</h2>
+<ul>
+<li>L’utilisation des données web dans les journaux de marketing a plus que triplé en 10 ans.</li>
+<li>Principalement via le <strong>Web Scraping</strong> (59%) et les <strong>APIs</strong> (12%).</li>
+<li>Sources les plus fréquentes : Amazon, Twitter, IMDb, Facebook.</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/boegershausen_fig1.PNG" class="quarto-figure quarto-figure-center" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="typologie-4-voies-de-création-de-connaissance-à-partir-des-données-web-boegershausenfieldsgoldscraping2022" class="slide level2" style="font-size:0.7em">
+<h2>Typologie : 4 voies de création de connaissance à partir des données web <span class="citation" data-cites="boegershausenFieldsGoldScraping2022">(<a href="#/références" role="doc-biblioref" onclick="">Boegershausen et al. 2022</a>)</span></h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 27%">
+<col style="width: 36%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Voie</strong></th>
+<th style="text-align: left;"><strong>Objectif principal</strong></th>
+<th style="text-align: left;"><strong>Exemples d’études</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>1. Étudier de nouveaux phénomènes</strong></td>
+<td style="text-align: left;">Explorer de nouveaux comportements ou marchés.</td>
+<td style="text-align: left;">Toubia &amp; Stephen (2013) : motivations de contribution ; Chevalier &amp; Mayzlin (2006) : impact des avis en ligne.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>2. Accroître la validité écologique</strong></td>
+<td style="text-align: left;">Observer des comportements réels hors labo.</td>
+<td style="text-align: left;">Sridhar &amp; Srinivasan (2012) ; Wu &amp; Cosguner (2020) : effets “decoy”.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>3. Favoriser l’avancée méthodologique</strong></td>
+<td style="text-align: left;">Développer de nouvelles méthodes d’analyse.</td>
+<td style="text-align: left;">Netzer et al.&nbsp;(2012) ; Tirunillai &amp; Tellis (2012) : données UGC pour prédire performances boursières.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>4. Améliorer la mesure</strong></td>
+<td style="text-align: left;">Construire de nouvelles métriques ou instruments.</td>
+<td style="text-align: left;">Huang et al.&nbsp;(2016) ; Datta et al.&nbsp;(2022) : saisonnalité à partir de 14 pays × 11 ans.</td>
+</tr>
+</tbody>
+</table>
+<div title="Résumé">
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Résumé</strong></p>
+</div>
+<div class="callout-content">
+<p>Les données web ne servent pas qu’à mesurer : elles <strong>ouvrent de nouveaux objets</strong>, <strong>augmentent la validité</strong>, <strong>font progresser la méthode</strong> et <strong>raffinent la mesure</strong>.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="les-10-caractéristiques-des-big-data" class="slide level2">
+<h2>Les 10 caractéristiques des “Big Data”</h2>
+<p>Les sources de <strong>Big Data</strong> présentent <strong>dix caractéristiques majeures</strong> <span class="citation" data-cites="salganikBitBitSocial2019">(<a href="#/références" role="doc-biblioref" onclick="">Salganik 2019</a>)</span>.</p>
+<p>Elles ne sont <strong>PAS</strong> conçues pour la recherche.</p>
+</section>
+<section id="trois-caractéristiques-favorables" class="slide level2">
+<h2>Trois caractéristiques favorables</h2>
+<h3 id="grandes-big">1. Grandes (<em>Big</em>)</h3>
+<ul>
+<li>Volumes d’observations <strong>très élevés</strong> → analyses fines, sous-groupes, phénomènes rares.<br>
+</li>
+<li>➜ Plus de <strong>puissance statistique</strong> et possibilité d’étudier des <strong>événements peu fréquents</strong>.<br>
+</li>
+<li><em>Exemple :</em> étude de la <strong>mobilité sociale</strong> aux États-Unis par <strong>code postal</strong><br>
+</li>
+<li><em>Attention :</em> « Big » ≠ « meilleur » — une base gigantesque peut être <strong>systématiquement biaisée</strong>.<br>
+</li>
+<li><em>Enjeu :</em> vérifier la <strong>qualité et la structure</strong> des données avant de conclure.</li>
+</ul>
+</section>
+<section id="trois-caractéristiques-favorables-1" class="slide level2">
+<h2>Trois caractéristiques favorables</h2>
+<h3 id="toujours-actives-always-on">2. Toujours actives (<em>Always-on</em>)</h3>
+<ul>
+<li>Données <strong>collectées en continu</strong>, souvent en <strong>temps réel</strong>.<br>
+</li>
+<li>➜ Permettent d’analyser des <strong>événements imprévus</strong> (crise, manifestation, catastrophe, épidémie).<br>
+</li>
+<li>➜ Favorisent l’étude de <strong>dynamiques temporelles</strong> (évolution des opinions, mobilisations, contagion sociale).<br>
+</li>
+<li><em>Exemple :</em> <strong>Google Flu Trends</strong> – estimation de la grippe à partir des recherches Google (Salganik 2019, p.&nbsp;21).<br>
+</li>
+<li><em>Limite :</em> les plateformes évoluent → <strong>dérive temporelle</strong>.</li>
+<li><em>Enjeu :</em> tirer parti du temps réel <strong>sans confondre variation comportementale et changement de mesure</strong>.</li>
+</ul>
+</section>
+<section id="trois-caractéristiques-favorables-2" class="slide level2">
+<h2>Trois caractéristiques favorables</h2>
+<h3 id="non-réactives-non-reactive">3. Non réactives (<em>Non-reactive</em>)</h3>
+<ul>
+<li>Les comportements observés ne sont <strong>pas influencés par la présence du chercheur</strong>.<br>
+</li>
+<li>Contrairement aux enquêtes ou expériences, les individus <strong>ignorent être observés</strong>.<br>
+</li>
+<li>➜ Réduction des biais de <strong>désirabilité sociale</strong> et des <strong>effets d’observation</strong>.<br>
+</li>
+<li>Très utile pour étudier des <strong>sujets sensibles</strong> (santé, politique, racisme, sexualité).<br>
+</li>
+<li><em>Exemple :</em> analyses des <strong>requêtes Google</strong> révélant des attitudes racistes (Stephens-Davidowitz, 2014 ; Salganik 2019, p.&nbsp;23).<br>
+</li>
+<li><em>Limite éthique :</em> absence de <strong>consentement informé</strong> et possible atteinte à la <strong>vie privée</strong>.</li>
+</ul>
+</section>
+<section id="sept-caractéristiques-problématiques" class="slide level2">
+<h2>Sept caractéristiques problématiques</h2>
+<h3 id="incomplètes-incomplete">4. Incomplètes (<em>Incomplete</em>)</h3>
+<ul>
+<li>Données riches en <strong>traces comportementales</strong>, mais pauvres en <strong>informations contextuelles</strong>.<br>
+</li>
+<li>Manquent souvent : âge, genre, revenu, motivations, opinions, contexte hors-ligne.<br>
+</li>
+<li>➜ Difficulté à relier ces variables à des <strong>construits théoriques</strong> (ex. : <em>intelligence</em>, <em>confiance</em>, <em>capital social</em>).<br>
+</li>
+<li>Risque de <strong>fausse interprétation</strong> : les comportements observés ne traduisent pas nécessairement les concepts visés.<br>
+</li>
+<li><em>Problème de validité de construit</em> : “mesurer sans comprendre”.<br>
+</li>
+<li><em>Exemple :</em> les “likes” ne mesurent pas directement la <strong>popularité</strong> ou la <strong>satisfaction</strong>, mais seulement une action visible.</li>
+</ul>
+</section>
+<section id="sept-caractéristiques-problématiques-1" class="slide level2">
+<h2>Sept caractéristiques problématiques</h2>
+<h3 id="inaccessibles-inaccessible">5. Inaccessibles (<em>Inaccessible</em>)</h3>
+<ul>
+<li>Une grande partie des données les plus riches (Facebook, Google, télécoms, plateformes e-commerce) sont <strong>privées et fermées</strong> à la recherche.<br>
+</li>
+<li>Les entreprises invoquent :
+<ul>
+<li>des <strong>risques juridiques</strong> (protection des données, RGPD, propriété intellectuelle),<br>
+</li>
+<li>des <strong>risques éthiques</strong> (confidentialité, consentement),<br>
+</li>
+<li>des <strong>risques commerciaux</strong> (secret industriel, réputation).<br>
+</li>
+</ul></li>
+<li>➜ <strong>Asymétrie d’accès</strong> : les chercheurs publics n’ont souvent qu’un accès partiel, voire aucun.<br>
+</li>
+<li><strong>Conséquence :</strong> faible <strong>reproductibilité</strong>, dépendance à des <strong>partenariats d’entreprise</strong>.<br>
+</li>
+<li><em>Exemple :</em> peu de chercheurs externes ont accès à la base complète de Facebook, Twitter/X ou TikTok pour évaluer leurs effets sociaux.</li>
+</ul>
+</section>
+<section id="sept-caractéristiques-problématiques-2" class="slide level2">
+<h2>Sept caractéristiques problématiques</h2>
+<h3 id="non-représentatives-non-representative">6. Non représentatives (<em>Non-representative</em>)</h3>
+<ul>
+<li>Les utilisateurs d’une plateforme ne reflètent pas la <strong>population générale</strong>.<br>
+</li>
+<li>Exemple typique : <strong>Twitter/X</strong> → public jeune, urbain, politisé.<br>
+</li>
+<li>➜ <strong>Biais de couverture</strong> : seules les personnes connectées ou actives sont observables.<br>
+</li>
+<li><strong>Conséquence :</strong> généraliser ces données à la société entière est risqué.<br>
+</li>
+<li><em>Exemple historique :</em> le <strong>sondage du Literary Digest</strong> (1936) — des millions de réponses, mais un échantillon biaisé (classes aisées, abonnés au téléphone) → prédiction totalement fausse.</li>
+<li><strong>Leçon :</strong> “beaucoup de données” ne garantit pas la <strong>représentativité</strong>.</li>
+</ul>
+</section>
+<section id="sept-caractéristiques-problématiques-3" class="slide level2">
+<h2>Sept caractéristiques problématiques</h2>
+<h3 id="instables-drifting">7. Instables (<em>Drifting</em>)</h3>
+<ul>
+<li>Les plateformes, les utilisateurs et les usages évoluent en permanence (Salganik, 2019, p.&nbsp;33).<br>
+</li>
+<li>Trois types de dérive :
+<ul>
+<li><strong>Population</strong> : qui utilise la plateforme change (ex. : public de Twitter au fil du temps).<br>
+</li>
+<li><strong>Comportement</strong> : les pratiques se transforment (ex. : signification du “like”).<br>
+</li>
+<li><strong>Système</strong> : l’algorithme ou l’interface sont modifiés.<br>
+</li>
+</ul></li>
+<li>➜ Les comparaisons dans le temps sont <strong>incertaines</strong> ; les séries peuvent être faussées.<br>
+</li>
+<li><em>Exemple :</em> un changement d’API ou de recommandation altère la structure des données collectées.</li>
+</ul>
+</section>
+<section id="sept-caractéristiques-problématiques-4" class="slide level2">
+<h2>Sept caractéristiques problématiques</h2>
+<h3 id="influencées-par-les-algorithmes-algorithmically-confounded">8. Influencées par les algorithmes (<em>Algorithmically confounded</em>)</h3>
+<ul>
+<li>Les comportements observés sont <strong>façonnés par les algorithmes</strong> de la plateforme.<br>
+</li>
+<li>Exemples :
+<ul>
+<li><strong>Fil d’actualité Facebook</strong> → visibilité biaisée selon l’engagement.<br>
+</li>
+<li><strong>Recommandations</strong> (“Personnes que vous pourriez connaître”, “Vidéos similaires”) → créent les liens qu’elles semblent mesurer.<br>
+</li>
+</ul></li>
+<li>Les données ne reflètent pas un monde “naturel”, mais un <strong>monde co-construit par la plateforme</strong>.<br>
+</li>
+<li>Risque de <strong>circularité</strong> : les algorithmes produisent les tendances qu’ils détectent.</li>
+</ul>
+</section>
+<section id="sept-caractéristiques-problématiques-5" class="slide level2">
+<h2>Sept caractéristiques problématiques</h2>
+<h3 id="brouillonnes-ou-sales-dirty">9. Brouillonnes ou « sales » (<em>Dirty</em>)</h3>
+<ul>
+<li>Contiennent du <strong>bruit</strong> : bots, spams, faux comptes, erreurs, doublons.<br>
+</li>
+<li>➜ Risque de conclusions biaisées si le nettoyage est insuffisant.<br>
+</li>
+<li><em>Exemple :</em> une étude des émotions le 11/09 faussée par un seul <strong>bot</strong> (Salganik, 2019, p.&nbsp;37–38).<br>
+</li>
+<li><em>Enjeu :</em> privilégier la <strong>qualité</strong> et la <strong>traçabilité</strong> du nettoyage plutôt que la taille brute.</li>
+</ul>
+</section>
+<section id="sept-caractéristiques-problématiques-6" class="slide level2">
+<h2>Sept caractéristiques problématiques</h2>
+<h3 id="sensibles-sensitive">10. Sensibles (<em>Sensitive</em>)</h3>
+<ul>
+<li>Contiennent des <strong>informations personnelles</strong> (santé, politique, sexualité, géolocalisation).<br>
+</li>
+<li>Même “anonymisées”, elles sont souvent <strong>ré-identifiables</strong> par croisement.<br>
+</li>
+<li><em>Exemple :</em> jeu de données <strong>Netflix Prize</strong> → ré-identification via IMDb (Salganik, 2019, p.&nbsp;39).<br>
+</li>
+<li>Enjeux : <strong>vie privée, consentement, éthique de la recherche, conformité RGPD</strong>.<br>
+</li>
+<li><em>Règle d’or :</em> toujours traiter les Big Data comme si elles étaient <strong>potentiellement identifiantes</strong>.</li>
+</ul>
+</section>
+<section id="conclusion" class="slide level2">
+<h2>Conclusion</h2>
+<ul>
+<li>Les Big Data offrent <strong>des opportunités inédites</strong> pour la recherche sociale : ampleur, continuité, naturalité des comportements.<br>
+</li>
+<li>Mais elles présentent <strong>de fortes limites méthodologiques et éthiques</strong> : biais de sélection, dérive temporelle, manque de contexte, risques pour la vie privée.<br>
+</li>
+<li>➜ L’enjeu est de <strong>tirer parti de leurs atouts</strong> (taille, “always-on”, non-réactivité)<br>
+tout en <strong>maîtrisant leurs limites</strong> (incomplétude, non-représentativité, dérive, sensibilité).<br>
+</li>
+<li><em>Conclusion :</em> plus que des données “nouvelles”, les Big Data exigent <strong>de nouvelles pratiques de recherche</strong>.</li>
+</ul>
+</section>
+<section id="cadre-méthodologique-de-la-collecte-de-données-web" class="slide level2">
+<h2>Cadre méthodologique de la collecte de données web</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/method_framework_collecting_web_data.PNG" class="quarto-figure quarto-figure-center" style="width:80.0%"></p>
+</figure>
+</div>
+</section>
+<section id="rappel-récupérer-des-données-en-ligne" class="slide level2">
+<h2>Rappel : récupérer des données en ligne</h2>
+<p><a href="https://oliviercaron.github.io/etudes_qualitatives_web/cours_3/cours_3.html#/title-slide">Cours 3 Scraping : Etudes qualitatives sur le web</a></p>
+</section>
+<section id="section-1" class="slide level2" data-background-color="#4A708B">
+<h2></h2>
+<p><br> <br></p>
+<h1 style="color: white; text-align: center;">
+<p>Partie 2 : Business (Web) Intelligence (BI)</p>
+</h1>
+</section>
+<section id="web-mining-vs.-business-intelligence" class="slide level2">
+<h2>Web Mining vs.&nbsp;Business Intelligence</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="web-data-mining-lexploration">Web Data Mining (L’exploration)</h3>
+<ul>
+<li><strong>Objectif</strong> : Découvrir des <em>patterns</em> cachés, nouveaux, inattendus.</li>
+<li><strong>Méthodes</strong> : Machine learning, NLP (qu’on ne voit pas ici), analyse de réseau.</li>
+<li><strong>Question type</strong> : “Que disent les clients que nous n’avions pas anticipé ?”</li>
+<li><strong>Orientation</strong> : Passé / Futur (prédiction).</li>
+<li><em>Basé sur les données “Readymade” &amp; “Sales”.</em></li>
+</ul>
+</div><div class="column" style="width:50%;">
+<h3 id="business-intelligence-le-pilotage">Business Intelligence (Le pilotage)</h3>
+<ul>
+<li><strong>Objectif</strong> : Mesurer des <em>métriques</em> définies, suivre la performance.</li>
+<li><strong>Méthodes</strong> : Dashboards, KPIs, requêtes SQL, Dataviz.</li>
+<li><strong>Question type</strong> : “Quel est notre taux de conversion ce mois-ci par rapport au mois dernier ?”</li>
+<li><strong>Orientation</strong> : Passé / Présent (monitoring).</li>
+<li><em>Basé sur des données internes, structurées, propres.</em></li>
+</ul>
+</div></div>
+</section>
+<section id="web-intelligence-un-terme-flou-et-daté" class="slide level2" style="font-size:0.8em">
+<h2>Web Intelligence : un terme flou et daté ?</h2>
+<blockquote>
+<p>Malgré son usage historique, <strong>le terme “Web Intelligence” n’est plus vraiment dominant</strong> dans les publications récentes ni dans les intitulés de poste.<br>
+On lui préfère aujourd’hui des notions plus précises comme <strong>Data Science</strong>, <strong>Analytics</strong>, ou <strong>Social Media Intelligence</strong> voire <strong>Computational Social Science</strong></p>
+</blockquote>
+<ul>
+<li><strong>Problème de définition</strong>
+<ul>
+<li>Mélange souvent entre <em>Business Intelligence</em>, <em>Web Analytics</em>, <em>Data Mining</em> et <em>AI appliquée au Web</em>.<br>
+</li>
+<li>Selon les contextes, il désigne soit une approche technique, soit une démarche de veille stratégique.</li>
+</ul></li>
+<li><strong>Évolution terminologique</strong>
+<ul>
+<li>Les travaux récents parlent plutôt de <em>Data Science for the Web</em> ou <em>Web Analytics</em> (plus opérationnels).<br>
+</li>
+<li>Dans les discussions professionnelles (ex. Reddit, LinkedIn), “Web Intelligence” apparaît rarement comme domaine autonome.</li>
+</ul></li>
+</ul>
+</section>
+<section id="une-terminologie-façonnée-par-lindustrie" class="slide level2" style="font-size:0.9em">
+<h2>Une terminologie façonnée par l’industrie ?</h2>
+<ul>
+<li><p><strong>L’industrie impose les mots-clés</strong> : les grandes plateformes (Google, Meta, Adobe, SAP, etc.) diffusent leur vocabulaire via leurs outils et certifications.<br>
+→ Ex. <em>Google Analytics</em>, <em>Adobe Digital Intelligence</em>, <em>SAP Web Intelligence</em>.</p></li>
+<li><p>Le terme <strong>“Web Intelligence”</strong> persiste surtout dans le monde académique ou lié à SAP,<br>
+mais <strong>n’est presque plus utilisé comme intitulé de poste</strong>.</p></li>
+<li><p>Les appellations actuelles parlent plutôt de :<br>
+→ <em>Data / Business Analytics</em>, <em>Data Science</em>, <em>Digital Marketing Analytics</em>,<br>
+→ <em>Product Analytics</em>, <em>Marketing Intelligence</em>, <em>Consumer Insights</em>,<br>
+→ ou encore <em>Digital Intelligence</em> dans les grands groupes.</p></li>
+</ul>
+<blockquote>
+<p>En bref : la <strong>terminologie suit les outils et les besoins métiers</strong>,<br>
+et “Web Intelligence” a été largement remplacée par un langage centré sur <strong>l’analyse de données au service de la décision et de la performance</strong>.</p>
+</blockquote>
+</section>
+<section id="le-processus-de-bi" class="slide level2">
+<h2>Le processus de BI</h2>
+<p>La BI n’est pas juste un outil, c’est un processus :</p>
+<ol type="1">
+<li><strong>Collecte (ETL)</strong> : <strong>E</strong>xtract (des sources), <strong>T</strong>ransform (nettoyer, joindre), <strong>L</strong>oad (charger dans un entrepôt).</li>
+<li><strong>Stockage (Data Warehouse)</strong> : une base de données optimisée pour l’analyse (ex: Snowflake, BigQuery).</li>
+<li><strong>Analyse (Olap/Requêtes)</strong> : calculer les agrégats, les KPIs.</li>
+<li><strong>Visualisation (Reporting)</strong> : présenter les résultats aux décideurs (Dashboards).</li>
+</ol>
+</section>
+<section id="le-cycle-de-la-business-intelligence" class="slide level2">
+<h2>Le cycle de la Business Intelligence</h2>
+<p><img data-src="images/clipboard-2225984287.png"></p>
+</section>
+<section id="le-pilotage-de-la-performance" class="slide level2">
+<h2>Le Pilotage de la Performance</h2>
+<ul>
+<li>On ne peut pas améliorer ce qu’on ne mesure pas.</li>
+<li>Le pilotage consiste à définir des objectifs et à suivre les métriques qui s’y rapportent.</li>
+<li>L’outil principal : Le <strong>KPI</strong> (Key Performance Indicator).</li>
+</ul>
+</section>
+<section id="quest-ce-quun-bon-kpi" class="slide level2" style="font-size:0.9em">
+<h2>Qu’est-ce qu’un bon KPI ?</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<h3 id="un-bon-kpi-doit-être-s.m.a.r.t.">Un bon KPI doit être <strong>S.M.A.R.T.</strong></h3>
+<ul>
+<li><strong>S</strong>pécifique → Clair, précis, non ambigu.<br>
+</li>
+<li><strong>M</strong>esurable → Quantifiable.<br>
+</li>
+<li><strong>A</strong>tteignable → Réaliste mais ambitieux.<br>
+</li>
+<li><strong>R</strong>elevant (Pertinent) → Lié à un objectif stratégique.<br>
+</li>
+<li><strong>T</strong>emporellement défini → Avec une échéance (ex : <em>d’ici Q4</em>).</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p><img data-src="images/clipboard-454828140.png"></p>
+</div></div>
+</section>
+<section id="exemple" class="slide level2" style="font-size:0.9em">
+<h2>Exemple</h2>
+<h3 id="objectif-stratégique">Objectif stratégique</h3>
+<p>Augmenter les <strong>revenus issus du canal social</strong> du site web.</p>
+<h3 id="kpi-s.m.a.r.t.">KPI S.M.A.R.T.</h3>
+<blockquote>
+<p><strong>“Augmenter de 25 % les ventes en ligne provenant des réseaux sociaux d’ici la fin du trimestre.”</strong></p>
+</blockquote>
+<ul>
+<li><strong>S</strong>pécifique : cible un canal précis (réseaux sociaux).<br>
+</li>
+<li><strong>M</strong>esurable : +25 % de ventes.<br>
+</li>
+<li><strong>A</strong>tteignable : croissance réaliste sur la base des performances actuelles.<br>
+</li>
+<li><strong>R</strong>elevant : lié à l’objectif global d’augmentation du chiffre d’affaires digital.<br>
+</li>
+<li><strong>T</strong>emporel : échéance fixée à la fin du trimestre.</li>
+</ul>
+</section>
+<section id="les-kpi-dans-la-recherche-académique-menendezidentifyingkeyperformance2020" class="slide level2" style="font-size:0.8em">
+<h2>Les KPI dans la recherche académique <span class="citation" data-cites="menendezIdentifyingKeyPerformance2020">(<a href="#/références" role="doc-biblioref" onclick="">Menendez, Saura, and Sanchez 2020</a>)</span></h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<ul>
+<li>Revue systématique de <strong>1 088 articles</strong>, dont <strong>58 études</strong> retenues.<br>
+</li>
+<li>Objectif : identifier les <strong>KPI clés</strong> pour mesurer la performance marketing des applications mobiles.<br>
+</li>
+<li>Méthodologie : revue PRISMA sur Scopus, Web of Science, ScienceDirect, PsyINFO et PubMed.</li>
+</ul>
+<p><strong>Deux grandes catégories de KPI :</strong></p>
+<ul>
+<li><strong>Quantitatifs</strong> : volume d’installations, trafic, taux de conversion, durée d’utilisation, utilisateurs actifs.<br>
+</li>
+<li><strong>Qualitatifs</strong> : notes, avis, éléments visuels, processus d’inscription, expérience utilisateur.</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<blockquote>
+<p>Les KPI ne servent pas uniquement à mesurer la performance.<br>
+Ils traduisent aussi la <strong>stratégie marketing</strong> et la <strong>valeur perçue par l’utilisateur</strong>.</p>
+<p>Cette étude montre comment la recherche académique<br>
+contribue à distinguer les <strong>indicateurs pertinents</strong> des simples <em>vanity metrics</em>.</p>
+</blockquote>
+</div></div>
+</section>
+<section id="le-piège-des-vanity-metrics" class="slide level2" style="font-size:0.9em">
+<h2>Le piège des “Vanity Metrics”</h2>
+<ul>
+<li><p><strong>Définition</strong> : des métriques séduisantes mais peu informatives,<br>
+qui ne permettent pas de <strong>décision ou d’action stratégique</strong>.<br>
+Elles mesurent la visibilité plutôt que la valeur.</p></li>
+<li><p><strong>Exemples</strong> : nombre de téléchargements, vues ou abonnés sans analyse d’usage.</p></li>
+<li><p>Selon <span class="citation" data-cites="menendezIdentifyingKeyPerformance2020">(<a href="#/références" role="doc-biblioref" onclick="">Menendez, Saura, and Sanchez 2020</a>)</span>, la recherche distingue les <strong>indicateurs réellement explicatifs</strong> (engagement, rétention, conversion)<br>
+des mesures purement descriptives.</p></li>
+<li><p>Un KPI doit refléter <strong>un comportement ou un résultat utile à la stratégie marketing</strong>.</p></li>
+</ul>
+</section>
+<section id="exemple-vanity-metrics-vs.-actionable-metrics" class="slide level2">
+<h2>Exemple : “Vanity Metrics” vs.&nbsp;“Actionable Metrics”</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Vanity Metric (L’Ego)</th>
+<th style="text-align: left;">Actionable Metric (La Stratégie)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Nombre total d’inscrits</td>
+<td style="text-align: left;">Nombre d’utilisateurs <em>actifs</em> (MAU/WAU)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nombre de vues de la page</td>
+<td style="text-align: left;">Taux de conversion (Vue -&gt; Achat)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nombre de “J’aime” sur un post</td>
+<td style="text-align: left;">Taux d’engagement (Clics / Partages)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Temps passé sur le site</td>
+<td style="text-align: left;">Taux de rebond (Bounce Rate)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nombre de téléchargements d’app</td>
+<td style="text-align: left;">Taux de rétention (J1, J7, J30)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="kpis-essentiels-en-marketing-digital-13" class="slide level2">
+<h2>KPIs Essentiels en Marketing Digital (1/3)</h2>
+<h3 id="acquisition">1. Acquisition</h3>
+<p><em>Comment les clients nous trouvent-ils ?</em></p>
+<ul>
+<li><strong>CPC (Coût Par Clic)</strong> : <code>Coût de la campagne / Nombre de clics</code></li>
+<li><strong>CPM (Coût Pour Mille)</strong> : <code>(Coût / Impressions) * 1000</code></li>
+<li><strong>CTR (Click-Through Rate)</strong> : <code>(Clics / Impressions) * 100</code> (Taux de Clic)</li>
+<li><strong>CAC (Coût d’Acquisition Client)</strong> : <code>Coûts Marketing &amp; Vente / Nouveaux Clients</code></li>
+</ul>
+</section>
+<section id="kpis-essentiels-en-marketing-digital-23" class="slide level2">
+<h2>KPIs Essentiels en Marketing Digital (2/3)</h2>
+<h3 id="conversion">2. Conversion</h3>
+<p><em>Les clients font-ils ce qu’on attend d’eux ?</em></p>
+<ul>
+<li><strong>Taux de Conversion (CVR)</strong> : <code>(Conversions / Visiteurs) * 100</code>
+<ul>
+<li><em>La conversion peut être un achat, une inscription, un téléchargement…</em></li>
+</ul></li>
+<li><strong>Panier Moyen (AOV - Average Order Value)</strong> : <code>Revenu Total / Nombre de Commandes</code></li>
+<li><strong>Taux d’Abandon de Panier</strong> : <code>(Paniers créés - Achats) / Paniers créés</code></li>
+</ul>
+</section>
+<section id="kpis-essentiels-en-marketing-digital-33" class="slide level2">
+<h2>KPIs Essentiels en Marketing Digital (3/3)</h2>
+<h3 id="rétention-fidélisation">3. Rétention &amp; Fidélisation</h3>
+<p><em>Les clients reviennent-ils ?</em></p>
+<ul>
+<li><strong>Taux de Rétention</strong> : <code>% de clients de la période N qui reviennent en N+1</code>.</li>
+<li><strong>Taux de Churn (Attrition)</strong> : <code>(Clients perdus / Clients début de période) * 100</code>
+<ul>
+<li><em>L’inverse de la rétention.</em></li>
+</ul></li>
+<li><strong>CLV (Customer Lifetime Value)</strong> : <code>(Panier Moyen * Fréquence d'achat) * Durée de vie client</code>
+<ul>
+<li>Le KPI le plus important ? Permet de savoir combien on peut dépenser pour acquérir un client (CAC &lt; CLV).</li>
+</ul></li>
+</ul>
+</section>
+<section id="kpis-essentiels-du-marketing-digital-synthèse" class="slide level2" style="font-size:0.55em">
+<h2>KPIs Essentiels du Marketing Digital : Synthèse</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>KPI</strong></th>
+<th style="text-align: left;"><strong>Formule / Source</strong></th>
+<th style="text-align: left;"><strong>Objectif</strong></th>
+<th style="text-align: left;"><strong>Interprétation / Usage</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>CTR (Click-Through Rate)</strong></td>
+<td style="text-align: left;"><code>(Clics / Impressions) × 100</code></td>
+<td style="text-align: left;">Mesurer l’efficacité d’une campagne à générer du trafic.</td>
+<td style="text-align: left;">Un CTR élevé indique que le message et le ciblage fonctionnent bien.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>CPC (Cost Per Click)</strong></td>
+<td style="text-align: left;"><code>Dépenses publicitaires / Nombre de clics</code></td>
+<td style="text-align: left;">Évaluer le coût d’acquisition de visiteurs.</td>
+<td style="text-align: left;">Plus il est bas pour un même trafic qualifié, mieux c’est.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>CAC (Customer Acquisition Cost)</strong></td>
+<td style="text-align: left;"><code>Coûts Marketing &amp; Vente / Nouveaux Clients</code></td>
+<td style="text-align: left;">Mesurer le coût d’obtention d’un nouveau client.</td>
+<td style="text-align: left;">À comparer avec le CLV pour juger la rentabilité.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>ROAS (Return On Ad Spend)</strong></td>
+<td style="text-align: left;"><code>Revenus générés / Dépenses publicitaires</code></td>
+<td style="text-align: left;">Mesurer la rentabilité d’une campagne.</td>
+<td style="text-align: left;">ROAS &gt; 1 → campagne rentable.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Conversion Rate (CVR)</strong></td>
+<td style="text-align: left;"><code>(Conversions / Visiteurs) × 100</code></td>
+<td style="text-align: left;">Mesurer la capacité du site à transformer.</td>
+<td style="text-align: left;">Indique la performance du tunnel de conversion.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>AOV (Average Order Value)</strong></td>
+<td style="text-align: left;"><code>Revenu total / Nombre de commandes</code></td>
+<td style="text-align: left;">Calculer la valeur moyenne d’un achat.</td>
+<td style="text-align: left;">Sert à optimiser les ventes additionnelles ou cross-selling.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Retention Rate</strong></td>
+<td style="text-align: left;"><code>(Clients revenant en N+1 / Clients en N) × 100</code></td>
+<td style="text-align: left;">Mesurer la fidélité client.</td>
+<td style="text-align: left;">Évalue la satisfaction et la valeur de long terme.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Churn Rate (Attrition)</strong></td>
+<td style="text-align: left;"><code>(Clients perdus / Clients au début de la période) × 100</code></td>
+<td style="text-align: left;">Suivre les pertes clients.</td>
+<td style="text-align: left;">L’inverse de la rétention, indicateur de risque.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>CLV (Customer Lifetime Value)</strong></td>
+<td style="text-align: left;"><code>(Panier moyen × Fréquence d’achat) × Durée de vie client</code></td>
+<td style="text-align: left;">Mesurer la valeur totale d’un client.</td>
+<td style="text-align: left;">CLV &gt; CAC = business model sain.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Engagement Rate (Social Media)</strong></td>
+<td style="text-align: left;"><code>(Interactions totales / Impressions) × 100</code></td>
+<td style="text-align: left;">Mesurer la qualité des interactions sur les réseaux.</td>
+<td style="text-align: left;">Indique la pertinence du contenu et la force de la communauté.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="section-2" class="slide level2" data-background-color="#4A708B">
+<h2></h2>
+<p><br> <br></p>
+<h1 style="color: white; text-align: center;">
+<p>Partie 3 : Trouver des données (démo)</p>
+</h1>
+</section>
+<section id="pourquoi-apprendre-le-sql" class="slide level2">
+<h2>Pourquoi apprendre le SQL ?</h2>
+<ul>
+<li>Le <strong>SQL (Structured Query Language)</strong> est le <strong>langage universel des données</strong>.<br>
+</li>
+<li>Il permet d’<strong>interroger</strong>, <strong>filtrer</strong>, <strong>croiser</strong> et <strong>agréger</strong> les informations stockées dans des bases de données.<br>
+</li>
+<li>Tous les outils marketing et analytiques (CRM, e-commerce, web-tracking, data warehouses) s’appuient sur des <strong>bases relationnelles</strong> accessibles en SQL.</li>
+</ul>
+<h3 id="en-marketing-digital-le-sql-sert-à">En marketing digital, le SQL sert à :</h3>
+<ul>
+<li>Extraire des segments clients ciblés (ex. “clients actifs sur 3 mois”)</li>
+<li>Mesurer la performance de campagnes (CTR, conversions, ROAS…)</li>
+<li>Alimenter des tableaux de bord BI ou des modèles prédictifs</li>
+</ul>
+</section>
+<section id="une-base-relationnelle-cest-quoi" class="slide level2">
+<h2>Une base relationnelle, c’est quoi ?</h2>
+<ul>
+<li>Un ensemble de <strong>tables</strong> reliées entre elles par des <strong>clés</strong> :
+<ul>
+<li><strong>Clé primaire (PK)</strong> : identifie chaque ligne (ex. <code>client_id</code>, <code>movie_id</code>)</li>
+<li><strong>Clé étrangère (FK)</strong> : fait le lien vers une autre table (ex. <code>director_id</code>)</li>
+</ul></li>
+<li>Chaque table contient :
+<ul>
+<li>des <strong>colonnes</strong> → variables (nom, budget, date, etc.)</li>
+<li>des <strong>lignes</strong> → observations (un client, un film, une commande…)</li>
+</ul></li>
+</ul>
+<p>L’intérêt : éviter la redondance, garantir la cohérence, faciliter les jointures.</p>
+</section>
+<section id="image-de-base-de-données" class="slide level2">
+<h2>Image de base de données</h2>
+<p><img data-src="images/clipboard-152706542.png"></p>
+<aside class="notes">
+<p><strong>Idée principale :</strong><br>
+Une base de données relationnelle n’est pas un grand tableau unique, mais un ensemble de <strong>tables reliées entre elles</strong>.</p>
+<p>Ici, on distingue quatre tables : <strong>Customer</strong>, <strong>Order</strong>, <strong>Delivery</strong> et <strong>Products</strong>.<br>
+Chaque table contient des <strong>colonnes</strong> (variables) et des <strong>lignes</strong> (observations).</p>
+<p><strong>PK (Primary Key)</strong><br>
+- La clé primaire identifie chaque ligne de façon unique.<br>
+- Exemples : <code>Customer_ID</code>, <code>Order_ID</code>, <code>Product_ID</code>.<br>
+- Elle fonctionne comme une “carte d’identité” de chaque élément.</p>
+<p><strong>FK (Foreign Key)</strong><br>
+- La clé étrangère relie une table à une autre.<br>
+- Exemples :<br>
+- <code>Customer_ID</code> dans la table <strong>Order</strong> fait le lien vers le client concerné.<br>
+- <code>Delivery_ID</code> relie chaque commande à son mode de livraison.<br>
+- <code>Product_ID</code> relie une commande au produit commandé.</p>
+<p><strong>Pourquoi modéliser ainsi ?</strong></p>
+<ul>
+<li>Pour <strong>éviter les doublons</strong> (le nom du client n’est pas recopié à chaque commande).<br>
+</li>
+<li>Pour <strong>faciliter les analyses</strong> grâce aux jointures.<br>
+</li>
+<li>Pour <strong>organiser les données</strong> selon des thématiques claires : clients, produits, commandes, livraisons.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="les-4-grandes-opérations-sql-crud" class="slide level2" style="font-size:0.9em">
+<h2>Les 4 grandes opérations SQL (CRUD)</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Action</th>
+<th style="text-align: left;">Commande</th>
+<th style="text-align: left;">Exemple marketing</th>
+<th style="text-align: left;">Objectif</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>C</strong>reate</td>
+<td style="text-align: left;"><code>INSERT</code></td>
+<td style="text-align: left;">Ajouter un nouveau client</td>
+<td style="text-align: left;">Enrichir la base</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>R</strong>ead</td>
+<td style="text-align: left;"><code>SELECT</code></td>
+<td style="text-align: left;">Extraire les commandes de novembre</td>
+<td style="text-align: left;">Analyser</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>U</strong>pdate</td>
+<td style="text-align: left;"><code>UPDATE</code></td>
+<td style="text-align: left;">Corriger un email client</td>
+<td style="text-align: left;">Maintenir la qualité</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>D</strong>elete</td>
+<td style="text-align: left;"><code>DELETE</code></td>
+<td style="text-align: left;">Supprimer les doublons</td>
+<td style="text-align: left;">Nettoyer les données</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>En pratique, les analystes utilisent surtout <strong>SELECT</strong>, les opérations d’écriture étant réservées aux data engineers ou aux scripts ETL.</p>
+</blockquote>
+</section>
+<section id="le-raisonnement-dune-requête-sql" class="slide level2" style="font-size:0.8em">
+<h2>Le raisonnement d’une requête SQL</h2>
+<p>Une requête suit toujours la même logique séquentielle :</p>
+<ol type="1">
+<li><strong>FROM</strong> – Quelle(s) table(s) ?<br>
+</li>
+<li><strong>JOIN</strong> – Comment les relier ?<br>
+</li>
+<li><strong>WHERE</strong> – Quelles conditions ?<br>
+</li>
+<li><strong>GROUP BY</strong> – Sur quoi agréger ?<br>
+</li>
+<li><strong>HAVING</strong> – Quels groupes garder ?<br>
+</li>
+<li><strong>SELECT</strong> – Quelles colonnes afficher ?<br>
+</li>
+<li><strong>ORDER BY</strong> – Dans quel ordre ?<br>
+</li>
+<li><strong>LIMIT</strong> – Combien de lignes ?</li>
+</ol>
+<p>Exemple :</p>
+<blockquote>
+<p>“Dans la table <em>campagnes</em>, sélectionne les campagnes Facebook de 2024, calcule le CTR moyen par pays, trie du plus fort au plus faible.”</p>
+</blockquote>
+</section>
+<section id="typologie-des-requêtes-marketing" class="slide level2">
+<h2>Typologie des requêtes marketing</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Type de requête</th>
+<th style="text-align: left;">Objectif</th>
+<th style="text-align: left;">Exemples</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Descriptive</strong></td>
+<td style="text-align: left;">Observer ce qui s’est passé</td>
+<td style="text-align: left;">“Combien de clics par canal ?”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Diagnostique</strong></td>
+<td style="text-align: left;">Comprendre pourquoi</td>
+<td style="text-align: left;">“Pourquoi la conversion baisse ?”</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Prédictive</strong></td>
+<td style="text-align: left;">Anticiper</td>
+<td style="text-align: left;">“Quels clients vont racheter ?”</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Prescriptive</strong></td>
+<td style="text-align: left;">Agir</td>
+<td style="text-align: left;">“Quels segments relancer ?”</td>
+</tr>
+</tbody>
+</table>
+<p>Le SQL couvre <strong>les deux premières étapes</strong> ; les suivantes s’appuient sur les données qu’il extrait.</p>
+</section>
+<section id="sql-dans-le-quotidien-marketing" class="slide level2">
+<h2>SQL dans le quotidien (marketing)</h2>
+<ul>
+<li>Extraction d’audiences depuis un <strong>CRM</strong> ou un <strong>data warehouse</strong></li>
+<li>Analyse de performance multi-canal (ex. Facebook / Google Ads)</li>
+<li>Suivi des parcours utilisateurs (logs, événements web)</li>
+<li>Calculs de KPIs (CAC, CLV, ROAS, taux de churn)</li>
+<li>Alimentation d’outils BI (Tableau, Power BI, Metabase)</li>
+</ul>
+<p><strong>Moralité :</strong> savoir écrire une requête SQL, c’est savoir <strong>poser une bonne question aux données</strong>.</p>
+</section>
+<section id="à-retenir-avant-la-démo" class="slide level2">
+<h2>À retenir avant la démo</h2>
+<ul>
+<li>Le SQL est <strong>déclaratif</strong> : on décrit <em>ce qu’on veut</em>, pas <em>comment le faire</em>.<br>
+</li>
+<li>La logique est <strong>tabulaire et relationnelle</strong>.<br>
+</li>
+<li>En entreprise, les données sont souvent dans un <strong>entrepôt (data warehouse)</strong> accessible en SQL.<br>
+</li>
+<li>L’analyste marketing utilise SQL pour :
+<ul>
+<li>comprendre le comportement client,</li>
+<li>mesurer la performance des campagnes,</li>
+<li>créer les indicateurs de pilotage.</li>
+</ul></li>
+</ul>
+<p>Prochaine étape : <strong>démo SQL en R</strong> sur la base <em>IMDB</em> (films &amp; réalisateurs).</p>
+</section>
+<section id="références" class="slide level2 smaller scrollable">
+<h2>Références</h2>
+
+<script> window._input_file = "---\n" + "title: \"Web Data Mining & Business Intelligence\"\n" + "subtitle: \"Introduction Data Mining et Web Intelligence\"\n" + "author:\n" + "  - name: \"Olivier Caron\"\n" + "    affiliations: \"Paris Dauphine - PSL\"\n" + "format:\n" + "  ubd-revealjs:\n" + "    self-contained: false\n" + "    chalkboard: true\n" + "    transition: fade\n" + "    auto-stretch: false\n" + "    width: 1250\n" + "    height: 760\n" + "    toc: true\n" + "    toc-depth: 1\n" + "    code-block-height: 700px\n" + "execute:\n" + "  echo: true\n" + "bibliography: refs.bib\n" + "revealjs-plugins:\n" + "  - editable\n" + "filters:\n" + "  - editable\n" + "---\n" + "\n" + "## Objectif général du cours\n" + "\n" + "**Web Data Mining & Business Intelligence (M2 Marketing Digital, 18h, 3 ECTS)**\n" + "\n" + "**Objectif global :**\n" + "\n" + "-   Donner une connaissance solide des méthodes et outils du **Web Data Mining**.\n" + "-   Acquérir un savoir-faire pratique : **collecte** (API, scraping), **transformation** et **visualisation**.\n" + "-   Apprendre à passer des données brutes à des insights visuels (cartes, graphes, dashboards).\n" + "-   Comprendre la structure des **communautés en ligne**.\n" + "-   Intégrer l'**IA générative** (LLMs) comme outil d'assistance au code et à l'analyse.\n" + "\n" + "## Compétences visées\n" + "\n" + "1.  **Comprendre** les enjeux de la collecte et de la veille digitale.\n" + "2.  **Maîtriser** les formats et outils fondamentaux pour extraire et transformer des données web.\n" + "3.  **Savoir appliquer** les bases du datamining, de la dataviz, du SIG et de l’analyse de réseaux.\n" + "4.  **Communiquer** des indicateurs clés via un tableau de bord opérationnel\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Planning du cours (18h) {style=\"font-size:0.8em\"}\n" + "\n" + "| Date | Horaire | Durée | Séance | Thème (proposition) |\n" + "|:-------------|:-------------|:-------------|:-------------|:---------------|\n" + "| Lundi 10/11/2025 | 13h – 17h | 4h | Séance 1 | Intro Web Data Mining & BI |\n" + "| Mercredi 19/11/2025 | 13h – 17h | 4h | Séance 2 | Visualisation de données & storytelling |\n" + "| Lundi 24/11/2025 | 13h – 17h | 4h | Séance 3 | Réductions, régressions, classifications... |\n" + "| Lundi 01/12/2025 | 9h – 12h | 3h | Séance 4 | Comprendre et utiliser les données géographiques |\n" + "| Vendredi 05/12/2025 | 9h – 12h | 3h | Séance 5 | Analyses de réseaux |\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Évaluation & projet final\n" + "\n" + "::: {.callout-important title=\"Projet final\"}\n" + "-   Travail en **groupes de 2–3 étudiants**\n" + "-   Projet : (création d'un **rapport de collectes de données**) OU/ET **analyse des données**\n" + ":::\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "**À faire**\n" + "\n" + "-   Collecte & analyse d’un corpus web\n" + "-   Production d’**insights** & de **recommandations**\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "**Livrable**\n" + "\n" + "-   Rapport **Quarto HTML** (reproductible)\n" + ":::\n" + ":::::\n" + "\n" + "##  {background-color=\"#4A708B\"}\n" + "\n" + "<br> <br>\n" + "\n" + "<h1 style=\"color: white; text-align: center;\">\n" + "\n" + "Partie 1 : Introduction\n" + "\n" + "</h1>\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Le monde a changé\n" + "\n" + "-   Nous sommes passés d'un monde \"pauvre en données\" (analogique) à un monde \"riche en données\" (numérique).\n" + "-   Chaque minute en 2022 : **5.7M** de recherches Google, **65k** photos Instagram, **\$6M** de transactions en ligne [@boegershausenFieldsGoldScraping2022].\n" + "-   Cette transition change fondamentalement la recherche sociale et marketing.\n" + "\n" + "::: {.callout-note title=\"L'analogie de Salganik\"}\n" + "\"Les chercheurs en sciences sociales sont en train de vivre une transition similaire à celle de la photographie vers la cinématographie.\" [@salganikBitBitSocial2019, p. 5]\n" + ":::\n" + "\n" + "## Qu'est-ce que le Data Mining ?\n" + "\n" + "-   **\"La Fouille de Données\"** (ou *forage*/*exploration* de données).\n" + "-   Un processus **non trivial** pour extraire des informations **implicites**, **inconnues** et **potentiellement utiles** à partir de grandes bases de données.\n" + "-   La métaphore : chercher des **pépites** (insights) dans une **montagne de données** (logs, transactions, textes).\n" + "\n" + "## Le Data Mining : un carrefour\n" + "\n" + "Le Data Mining n'est pas un domaine isolé, il se situe à l'intersection de plusieurs disciplines :\n" + "\n" + "-   **Statistique** (Analyse exploratoire, modèles prédictifs)\n" + "-   **Intelligence Artificielle** (Apprentissage machine / Machine Learning)\n" + "-   **Gestion de Bases de Données** (Data Warehouse, SQL)\n" + "-   **Visualisation** (Dataviz)\n" + "\n" + "::: {.callout-note title=\"Pour le Marketing\"}\n" + "Le développement du **CRM (Gestion de la Relation Client)** a été un moteur majeur : on est passé d'un marketing \"produit\" à un marketing \"client\" (fidélisation, attrition, scoring).\n" + ":::\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Les grandes tâches du Data Mining\n" + "\n" + "On peut classer les méthodes en deux grandes familles :\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "### 1. Descriptif (Non-Supervisé)\n" + "\n" + "*Décrire ce qui s'est passé (sans a priori).*\n" + "\n" + "-   **Clustering (Segmentation)**\n" + "    -   Regrouper les clients qui se ressemblent.\n" + "    -   *Ex: Segmenter la base client.*\n" + "-   **Règles d'Association**\n" + "    -   Trouver les produits souvent achetés ensemble.\n" + "    -   *Ex: Le \"panier de la ménagère\".*\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "### 2. Prédictif (Supervisé)\n" + "\n" + "*Prédire ce qui va se passer (en apprenant du passé).*\n" + "\n" + "-   **Classification (Scoring)**\n" + "    -   Prédire une *catégorie*.\n" + "    -   *Ex: Ce client va-t-il \"churner\" (partir) ? (Oui/Non)*\n" + "-   **Régression**\n" + "    -   Prédire une *valeur numérique*.\n" + "    -   *Ex: Combien ce client va-t-il dépenser ?*\n" + ":::\n" + ":::::\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## \"Big bang Data\"\n" + "\n" + "![](images/clipboard-1942119366.png){width=\"55%\" fig-align=\"center\"}\n" + "\n" + "## Nombre d'utilisateurs actifs en 2025 (en millions)\n" + "\n" + "```{r}\n" + "#| eval: false\n" + "#| echo: false\n" + "# install.packages(c(\"tidyverse\", \"scales\")) # à décommenter si besoin\n" + "\n" + "library(tidyverse)\n" + "library(scales)\n" + "\n" + "# --- Données Statista (janvier 2025) ---\n" + "# Unités : millions d'utilisateurs actifs\n" + "reseaux <- tribble(\n" + "  ~reseau,            ~utilisateurs_millions,\n" + "  \"Facebook\",         3070,\n" + "  \"YouTube\",          2530,\n" + "  \"Instagram\",        2000,\n" + "  \"WhatsApp\",         2000,\n" + "  \"TikTok\",           1590,\n" + "  \"WeChat\",           1380,\n" + "  \"Telegram\",         950,\n" + "  \"Messenger\",        947,\n" + "  \"Snapchat\",         850,\n" + "  \"Douyin\",           766,\n" + "  \"Kuaishou\",         714,\n" + "  \"Reddit\",           606,\n" + "  \"Weibo\",            599,\n" + "  \"X (ex Twitter)\",   586,\n" + "  \"QQ\",               562,\n" + "  \"Pinterest\",        537\n" + ") %>%\n" + "  mutate(reseau = fct_reorder(reseau, utilisateurs_millions))\n" + "\n" + "# Palette douce (bleus/gris)\n" + "pal <- c(\"#DCE6F2\", \"#C8D9EE\", \"#B3CDEA\", \"#9EC0E6\", \"#8AB4E2\",\n" + "         \"#76A8DE\", \"#629CD9\", \"#4E90D5\", \"#3A84D1\", \"#2F78C3\",\n" + "         \"#2A6CAE\", \"#265F99\", \"#225384\", \"#1D466F\", \"#183A5A\", \"#132E45\")\n" + "\n" + "# Format des labels : séparateur fin insécable pour les milliers, virgule décimale\n" + "fmt_nb <- label_number(accuracy = 1,\n" + "                       big.mark = \"\u202f\",\n" + "                       decimal.mark = \",\")\n" + "\n" + "# --- Graphique ---\n" + "p <- ggplot(reseaux, aes(x = reseau, y = utilisateurs_millions, fill = reseau)) +\n" + "  geom_col(width = 0.7, show.legend = FALSE) +\n" + "  scale_fill_manual(values = pal) +\n" + "  coord_flip(clip = \"off\") +\n" + "  geom_text(aes(label = fmt_nb(utilisateurs_millions)),\n" + "            hjust = -0.1, size = 3.7) +\n" + "  scale_y_continuous(expand = expansion(mult = c(0, 0.08)),\n" + "                     labels = fmt_nb) +\n" + "  labs(\n" + "    title = \"Réseaux sociaux les plus populaires dans le monde (janvier 2025)\",\n" + "    subtitle = \"Classement par nombre d’utilisateurs actifs (en millions)\",\n" + "    x = NULL, y = \"Utilisateurs actifs (millions)\",\n" + "    caption = \"Source : Statista\"\n" + "  ) +\n" + "  theme_minimal(base_size = 12) +\n" + "  theme(\n" + "    plot.title = element_text(face = \"bold\", size = 15),\n" + "    plot.subtitle = element_text(margin = margin(b = 8)),\n" + "    axis.text.y = element_text(margin = margin(r = 5)),\n" + "    axis.text.x = element_text(color = \"grey30\"),\n" + "    panel.grid.major.y = element_blank(),\n" + "    panel.grid.minor = element_blank(),\n" + "    plot.caption = element_text(color = \"grey40\", size = 9, margin = margin(t = 8))\n" + "  )\n" + "\n" + "ggsave(\n" + "  filename = \"images/statista_reseaux_sociaux_2025.png\",\n" + "  plot = p,\n" + "  width = 13,\n" + "  height = 7,\n" + "  dpi = 600,\n" + "  units = \"in\"\n" + ")\n" + "\n" + "\n" + "```\n" + "\n" + "![](images/statista_reseaux_sociaux_2025.png){width=\"95%\" fig-align=\"center\"}\n" + "\n" + "## Nous produisons tous des données, tout le temps {style=\"font-size:0.7em\"}\n" + "\n" + "-   **Données actives** : celles que nous créons consciemment (posts, emails, avis).\n" + "-   **Données passives (traces numériques)** : celles que nous laissons sans y penser (logs de connexion, historique de navigation, données de géolocalisation).\n" + "-   L'idée que les **citoyens** sont des **capteurs\"** [@goodchildCitizensSensorsWorld2007] : chaque individu équipé d'un smartphone devient un capteur mobile, générant un flux constant de données géolocalisées.\n" + "\n" + "![](images/clipboard-1697869989.png){width=\"60%\" fig-align=\"center\"}\n" + "\n" + "## OpenStreetMap : information géographique bénévole (IGB)\n" + "\n" + "![](images/clipboard-2148876383.png){fig-align=\"center\" width=\"85%\"}\n" + "\n" + "## Fontaine à boire à Paris\n" + "\n" + "![](images/clipboard-3041618446.png){fig-align=\"center\" width=\"60%\"}\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Les données \"Test de Rorschach\"\n" + "\n" + "Matthew Salganik décrit une étude sur la pauvreté au Rwanda utilisant des logs mobiles comme un **test de Rorschach** [@salganikBitBitSocial2019] :\n" + "\n" + "-   Un **scientifique spécialiste en sciences sociales** y voit un nouvel outil de mesure.\n" + "-   Un **data scientist** y voit un problème de machine learning.\n" + "-   Une **entreprise** y voit une opportunité de valorisation.\n" + "-   Un **défenseur de la vie privée** y voit une surveillance de masse.\n" + "-   Un **décideur politique** y voit un outil pour créer un monde meilleur.\n" + "\n" + "**Ils ont tous raison.** Ce cours vise à vous donner toutes ces perspectives.\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Étude de cas - Prédire la pauvreté avec les métadonnées mobiles [@blumenstockPredictingPovertyWealth2015] {style=\"font-size:0.8em\"}\n" + "\n" + "-   Étude menée au **Rwanda** sur **1,5 million** d’utilisateurs de téléphones mobiles.\\n" + "-   Les chercheurs ont combiné :\n" + "    -   les **logs d’appels/SMS** (données passives, anonymisées),\\n" + "    -   et une **enquête auprès de 856 individus** sur leurs actifs et conditions de vie.\\n" + "-   Un **modèle de machine learning (Elastic Net)** prédit la richesse individuelle avec une **corrélation r = 0,68**.\\n" + "-   Les **cartes de richesse** agrégées par district atteignent **r ≈ 0,9** avec les données officielles (DHS).\\n" + "-   **Coût** : 12 000 \$ et 4 semaines, contre plus d’1 M \$ et 18 mois pour une enquête nationale classique.\n" + "\n" + "::: {.callout-tip title=\"Message clé\"}\n" + "Les **traces numériques** peuvent servir à estimer la **pauvreté et la richesse** d’une population à grande échelle, en temps quasi réel, à partir de données déjà existantes.\n" + ":::\n" + "\n" + "## Prédire à partir des métadonnées\n" + "\n" + "![](images/clipboard-334154282.png){fig-align=\"center\" width=\"80%\"}\n" + "\n" + "## Le Marketing à l'ère du \"Bit by Bit\"\n" + "\n" + "-   Le marketing traditionnel reposait sur des données \"Custommade\" (**faites sur mesure**) :\n" + "    -   Sondages, focus groups.\n" + "    -   Coûteuses, lentes, à petite échelle.\n" + "-   Le marketing moderne utilise des données \"Readymade\" (**prêtes à l'emploi**) :\n" + "    -   Traces numériques, logs de serveurs, données de réseaux sociaux.\n" + "    -   Disponibles en temps réel, à grande échelle, mais pas conçues pour la recherche.\n" + "\n" + "## L'importance des données : le nouvel Or noir ?\n" + "\n" + "-   Les données web sont une \"mine d'or\" potentielle pour les insights marketing [@boegershausenFieldsGoldScraping2022].\n" + "-   Elles permettent d'observer des comportements réels, à grande échelle, et non des intentions déclarées.\n" + "-   C'est le carburant de l'économie numérique.\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## L'importance des données : l'ère des LLMs\n" + "\n" + "-   Les \"Grands Modèles de Langage\" (LLM) comme GPT, Claude, Mistral, sont entièrement dépendants des données.\n" + "-   Leur performance vient de l'ingestion de **l'intégralité du web** (ou presque).\n" + "-   Le \"Web Data\" n'est plus seulement un sujet d'analyse ; c'est devenu la **matière première de l'IA**.\n" + "-   Comprendre comment ces données sont structurées, biaisées et collectées est essentiel pour comprendre l'IA.\n" + "\n" + "## Les LLMs ont besoin de plus de données\n" + "\n" + "![](images/clipboard-14807539.png){fig-align=\"center\" width=\"80%\"}\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## La croissance des données web en recherche\n" + "\n" + "-   L'utilisation des données web dans les journaux de marketing a plus que triplé en 10 ans.\n" + "-   Principalement via le **Web Scraping** (59%) et les **APIs** (12%).\n" + "-   Sources les plus fréquentes : Amazon, Twitter, IMDb, Facebook.\n" + "\n" + "![](images/boegershausen_fig1.PNG){fig-align=\"center\" width=\"60%\"}\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Typologie : 4 voies de création de connaissance à partir des données web [@boegershausenFieldsGoldScraping2022] {style=\"font-size:0.7em\"}\n" + "\n" + "| **Voie** | **Objectif principal** | **Exemples d’études** |\n" + "|:-------------------|:-------------------------|:-------------------------|\n" + "| **1. Étudier de nouveaux phénomènes** | Explorer de nouveaux comportements ou marchés. | Toubia & Stephen (2013) : motivations de contribution ; Chevalier & Mayzlin (2006) : impact des avis en ligne. |\n" + "| **2. Accroître la validité écologique** | Observer des comportements réels hors labo. | Sridhar & Srinivasan (2012) ; Wu & Cosguner (2020) : effets “decoy”. |\n" + "| **3. Favoriser l’avancée méthodologique** | Développer de nouvelles méthodes d’analyse. | Netzer et al. (2012) ; Tirunillai & Tellis (2012) : données UGC pour prédire performances boursières. |\n" + "| **4. Améliorer la mesure** | Construire de nouvelles métriques ou instruments. | Huang et al. (2016) ; Datta et al. (2022) : saisonnalité à partir de 14 pays × 11 ans. |\n" + "\n" + "::: {.callout-tip title=\"Résumé\"}\n" + "Les données web ne servent pas qu’à mesurer : elles **ouvrent de nouveaux objets**, **augmentent la validité**, **font progresser la méthode** et **raffinent la mesure**.\n" + ":::\n" + "\n" + "## Les 10 caractéristiques des \"Big Data\"\n" + "\n" + "Les sources de **Big Data** présentent **dix caractéristiques majeures** [@salganikBitBitSocial2019].\n" + "\n" + "Elles ne sont **PAS** conçues pour la recherche.\n" + "\n" + "## Trois caractéristiques favorables\n" + "\n" + "### 1. Grandes (*Big*)\n" + "\n" + "-   Volumes d’observations **très élevés** → analyses fines, sous-groupes, phénomènes rares.\\n" + "-   ➜ Plus de **puissance statistique** et possibilité d’étudier des **événements peu fréquents**.\\n" + "-   *Exemple :* étude de la **mobilité sociale** aux États-Unis par **code postal**\\n" + "-   *Attention :* « Big » ≠ « meilleur » — une base gigantesque peut être **systématiquement biaisée**.\\n" + "-   *Enjeu :* vérifier la **qualité et la structure** des données avant de conclure.\n" + "\n" + "## Trois caractéristiques favorables\n" + "\n" + "### 2. Toujours actives (*Always-on*)\n" + "\n" + "-   Données **collectées en continu**, souvent en **temps réel**.\\n" + "-   ➜ Permettent d’analyser des **événements imprévus** (crise, manifestation, catastrophe, épidémie).\\n" + "-   ➜ Favorisent l’étude de **dynamiques temporelles** (évolution des opinions, mobilisations, contagion sociale).\\n" + "-   *Exemple :* **Google Flu Trends** – estimation de la grippe à partir des recherches Google (Salganik 2019, p. 21).\\n" + "-   *Limite :* les plateformes évoluent → **dérive temporelle**.\n" + "-   *Enjeu :* tirer parti du temps réel **sans confondre variation comportementale et changement de mesure**.\n" + "\n" + "## Trois caractéristiques favorables\n" + "\n" + "### 3. Non réactives (*Non-reactive*)\n" + "\n" + "-   Les comportements observés ne sont **pas influencés par la présence du chercheur**.\\n" + "-   Contrairement aux enquêtes ou expériences, les individus **ignorent être observés**.\\n" + "-   ➜ Réduction des biais de **désirabilité sociale** et des **effets d’observation**.\\n" + "-   Très utile pour étudier des **sujets sensibles** (santé, politique, racisme, sexualité).\\n" + "-   *Exemple :* analyses des **requêtes Google** révélant des attitudes racistes (Stephens-Davidowitz, 2014 ; Salganik 2019, p. 23).\\n" + "-   *Limite éthique :* absence de **consentement informé** et possible atteinte à la **vie privée**.\n" + "\n" + "## Sept caractéristiques problématiques\n" + "\n" + "### 4. Incomplètes (*Incomplete*)\n" + "\n" + "-   Données riches en **traces comportementales**, mais pauvres en **informations contextuelles**.\\n" + "-   Manquent souvent : âge, genre, revenu, motivations, opinions, contexte hors-ligne.\\n" + "-   ➜ Difficulté à relier ces variables à des **construits théoriques** (ex. : *intelligence*, *confiance*, *capital social*).\\n" + "-   Risque de **fausse interprétation** : les comportements observés ne traduisent pas nécessairement les concepts visés.\\n" + "-   *Problème de validité de construit* : “mesurer sans comprendre”.\\n" + "-   *Exemple :* les “likes” ne mesurent pas directement la **popularité** ou la **satisfaction**, mais seulement une action visible.\n" + "\n" + "## Sept caractéristiques problématiques\n" + "\n" + "### 5. Inaccessibles (*Inaccessible*)\n" + "\n" + "-   Une grande partie des données les plus riches (Facebook, Google, télécoms, plateformes e-commerce) sont **privées et fermées** à la recherche.\\n" + "-   Les entreprises invoquent :\n" + "    -   des **risques juridiques** (protection des données, RGPD, propriété intellectuelle),\\n" + "    -   des **risques éthiques** (confidentialité, consentement),\\n" + "    -   des **risques commerciaux** (secret industriel, réputation).\\n" + "-   ➜ **Asymétrie d’accès** : les chercheurs publics n’ont souvent qu’un accès partiel, voire aucun.\\n" + "-   **Conséquence :** faible **reproductibilité**, dépendance à des **partenariats d’entreprise**.\\n" + "-   *Exemple :* peu de chercheurs externes ont accès à la base complète de Facebook, Twitter/X ou TikTok pour évaluer leurs effets sociaux.\n" + "\n" + "## Sept caractéristiques problématiques\n" + "\n" + "### 6. Non représentatives (*Non-representative*)\n" + "\n" + "-   Les utilisateurs d’une plateforme ne reflètent pas la **population générale**.\\n" + "-   Exemple typique : **Twitter/X** → public jeune, urbain, politisé.\\n" + "-   ➜ **Biais de couverture** : seules les personnes connectées ou actives sont observables.\\n" + "-   **Conséquence :** généraliser ces données à la société entière est risqué.\\n" + "-   *Exemple historique :* le **sondage du Literary Digest** (1936) — des millions de réponses, mais un échantillon biaisé (classes aisées, abonnés au téléphone) → prédiction totalement fausse.\n" + "-   **Leçon :** “beaucoup de données” ne garantit pas la **représentativité**.\n" + "\n" + "## Sept caractéristiques problématiques\n" + "\n" + "### 7. Instables (*Drifting*)\n" + "\n" + "-   Les plateformes, les utilisateurs et les usages évoluent en permanence (Salganik, 2019, p. 33).\\n" + "-   Trois types de dérive :\n" + "    -   **Population** : qui utilise la plateforme change (ex. : public de Twitter au fil du temps).\\n" + "    -   **Comportement** : les pratiques se transforment (ex. : signification du “like”).\\n" + "    -   **Système** : l’algorithme ou l’interface sont modifiés.\\n" + "-   ➜ Les comparaisons dans le temps sont **incertaines** ; les séries peuvent être faussées.\\n" + "-   *Exemple :* un changement d’API ou de recommandation altère la structure des données collectées.\n" + "\n" + "## Sept caractéristiques problématiques\n" + "\n" + "### 8. Influencées par les algorithmes (*Algorithmically confounded*)\n" + "\n" + "-   Les comportements observés sont **façonnés par les algorithmes** de la plateforme.\\n" + "-   Exemples :\n" + "    -   **Fil d’actualité Facebook** → visibilité biaisée selon l’engagement.\\n" + "    -   **Recommandations** (“Personnes que vous pourriez connaître”, “Vidéos similaires”) → créent les liens qu’elles semblent mesurer.\\n" + "-   Les données ne reflètent pas un monde “naturel”, mais un **monde co-construit par la plateforme**.\\n" + "-   Risque de **circularité** : les algorithmes produisent les tendances qu’ils détectent.\n" + "\n" + "## Sept caractéristiques problématiques\n" + "\n" + "### 9. Brouillonnes ou « sales » (*Dirty*)\n" + "\n" + "-   Contiennent du **bruit** : bots, spams, faux comptes, erreurs, doublons.\\n" + "-   ➜ Risque de conclusions biaisées si le nettoyage est insuffisant.\\n" + "-   *Exemple :* une étude des émotions le 11/09 faussée par un seul **bot** (Salganik, 2019, p. 37–38).\\n" + "-   *Enjeu :* privilégier la **qualité** et la **traçabilité** du nettoyage plutôt que la taille brute.\n" + "\n" + "## Sept caractéristiques problématiques\n" + "\n" + "### 10. Sensibles (*Sensitive*)\n" + "\n" + "-   Contiennent des **informations personnelles** (santé, politique, sexualité, géolocalisation).\\n" + "-   Même “anonymisées”, elles sont souvent **ré-identifiables** par croisement.\\n" + "-   *Exemple :* jeu de données **Netflix Prize** → ré-identification via IMDb (Salganik, 2019, p. 39).\\n" + "-   Enjeux : **vie privée, consentement, éthique de la recherche, conformité RGPD**.\\n" + "-   *Règle d’or :* toujours traiter les Big Data comme si elles étaient **potentiellement identifiantes**.\n" + "\n" + "## Conclusion\n" + "\n" + "-   Les Big Data offrent **des opportunités inédites** pour la recherche sociale : ampleur, continuité, naturalité des comportements.\\n" + "-   Mais elles présentent **de fortes limites méthodologiques et éthiques** : biais de sélection, dérive temporelle, manque de contexte, risques pour la vie privée.\\n" + "-   ➜ L’enjeu est de **tirer parti de leurs atouts** (taille, “always-on”, non-réactivité)\\n" + "    tout en **maîtrisant leurs limites** (incomplétude, non-représentativité, dérive, sensibilité).\\n" + "-   *Conclusion :* plus que des données “nouvelles”, les Big Data exigent **de nouvelles pratiques de recherche**.\n" + "\n" + "## Cadre méthodologique de la collecte de données web\n" + "\n" + "![](images/method_framework_collecting_web_data.PNG){fig-align=\"center\" width=\"80%\"}\n" + "\n" + "## Rappel : récupérer des données en ligne\n" + "\n" + "[Cours 3 Scraping : Etudes qualitatives sur le web](https://oliviercaron.github.io/etudes_qualitatives_web/cours_3/cours_3.html#/title-slide)\n" + "\n" + "##  {background-color=\"#4A708B\"}\n" + "\n" + "<br> <br>\n" + "\n" + "<h1 style=\"color: white; text-align: center;\">\n" + "\n" + "Partie 2 : Business (Web) Intelligence (BI)\n" + "\n" + "</h1>\n" + "\n" + "## Web Mining vs. Business Intelligence\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "### Web Data Mining (L'exploration)\n" + "\n" + "-   **Objectif** : Découvrir des *patterns* cachés, nouveaux, inattendus.\n" + "-   **Méthodes** : Machine learning, NLP (qu'on ne voit pas ici), analyse de réseau.\n" + "-   **Question type** : \"Que disent les clients que nous n'avions pas anticipé ?\"\n" + "-   **Orientation** : Passé / Futur (prédiction).\n" + "-   *Basé sur les données \"Readymade\" & \"Sales\".*\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "### Business Intelligence (Le pilotage)\n" + "\n" + "-   **Objectif** : Mesurer des *métriques* définies, suivre la performance.\n" + "-   **Méthodes** : Dashboards, KPIs, requêtes SQL, Dataviz.\n" + "-   **Question type** : \"Quel est notre taux de conversion ce mois-ci par rapport au mois dernier ?\"\n" + "-   **Orientation** : Passé / Présent (monitoring).\n" + "-   *Basé sur des données internes, structurées, propres.*\n" + ":::\n" + ":::::\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Web Intelligence : un terme flou et daté ? {style=\"font-size:0.8em\"}\n" + "\n" + "> Malgré son usage historique, **le terme “Web Intelligence” n’est plus vraiment dominant** dans les publications récentes ni dans les intitulés de poste.\\n" + "> On lui préfère aujourd’hui des notions plus précises comme **Data Science**, **Analytics**, ou **Social Media Intelligence** voire **Computational Social Science**\n" + "\n" + "-   **Problème de définition**\n" + "    -   Mélange souvent entre *Business Intelligence*, *Web Analytics*, *Data Mining* et *AI appliquée au Web*.\\n" + "    -   Selon les contextes, il désigne soit une approche technique, soit une démarche de veille stratégique.\n" + "-   **Évolution terminologique**\n" + "    -   Les travaux récents parlent plutôt de *Data Science for the Web* ou *Web Analytics* (plus opérationnels).\\n" + "    -   Dans les discussions professionnelles (ex. Reddit, LinkedIn), “Web Intelligence” apparaît rarement comme domaine autonome.\n" + "\n" + "## Une terminologie façonnée par l'industrie ? {style=\"font-size:0.9em\"}\n" + "\n" + "-   **L’industrie impose les mots-clés** : les grandes plateformes (Google, Meta, Adobe, SAP, etc.) diffusent leur vocabulaire via leurs outils et certifications.\\n" + "    → Ex. *Google Analytics*, *Adobe Digital Intelligence*, *SAP Web Intelligence*.\n" + "\n" + "-   Le terme **“Web Intelligence”** persiste surtout dans le monde académique ou lié à SAP,\\n" + "    mais **n’est presque plus utilisé comme intitulé de poste**.\n" + "\n" + "-   Les appellations actuelles parlent plutôt de :\\n" + "    → *Data / Business Analytics*, *Data Science*, *Digital Marketing Analytics*,\\n" + "    → *Product Analytics*, *Marketing Intelligence*, *Consumer Insights*,\\n" + "    → ou encore *Digital Intelligence* dans les grands groupes.\n" + "\n" + "> En bref : la **terminologie suit les outils et les besoins métiers**,\\n" + "> et “Web Intelligence” a été largement remplacée par un langage centré sur **l’analyse de données au service de la décision et de la performance**.\n" + "\n" + "## Le processus de BI\n" + "\n" + "La BI n'est pas juste un outil, c'est un processus :\n" + "\n" + "1.  **Collecte (ETL)** : **E**xtract (des sources), **T**ransform (nettoyer, joindre), **L**oad (charger dans un entrepôt).\n" + "2.  **Stockage (Data Warehouse)** : une base de données optimisée pour l'analyse (ex: Snowflake, BigQuery).\n" + "3.  **Analyse (Olap/Requêtes)** : calculer les agrégats, les KPIs.\n" + "4.  **Visualisation (Reporting)** : présenter les résultats aux décideurs (Dashboards).\n" + "\n" + "## Le cycle de la Business Intelligence\n" + "\n" + "![](images/clipboard-2225984287.png)\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Le Pilotage de la Performance\n" + "\n" + "-   On ne peut pas améliorer ce qu'on ne mesure pas.\n" + "-   Le pilotage consiste à définir des objectifs et à suivre les métriques qui s'y rapportent.\n" + "-   L'outil principal : Le **KPI** (Key Performance Indicator).\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Qu'est-ce qu'un bon KPI ? {style=\"font-size:0.9em\"}\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "### Un bon KPI doit être **S.M.A.R.T.**\n" + "\n" + "-   **S**pécifique → Clair, précis, non ambigu.\\n" + "-   **M**esurable → Quantifiable.\\n" + "-   **A**tteignable → Réaliste mais ambitieux.\\n" + "-   **R**elevant (Pertinent) → Lié à un objectif stratégique.\\n" + "-   **T**emporellement défini → Avec une échéance (ex : *d’ici Q4*).\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "![](images/clipboard-454828140.png)\n" + ":::\n" + ":::::\n" + "\n" + "## Exemple {style=\"font-size:0.9em\"}\n" + "\n" + "### Objectif stratégique\n" + "\n" + "Augmenter les **revenus issus du canal social** du site web.\n" + "\n" + "### KPI S.M.A.R.T.\n" + "\n" + "> **“Augmenter de 25 % les ventes en ligne provenant des réseaux sociaux d’ici la fin du trimestre.”**\n" + "\n" + "-   **S**pécifique : cible un canal précis (réseaux sociaux).\\n" + "-   **M**esurable : +25 % de ventes.\\n" + "-   **A**tteignable : croissance réaliste sur la base des performances actuelles.\\n" + "-   **R**elevant : lié à l’objectif global d’augmentation du chiffre d’affaires digital.\\n" + "-   **T**emporel : échéance fixée à la fin du trimestre.\n" + "\n" + "## Les KPI dans la recherche académique [@menendezIdentifyingKeyPerformance2020] {style=\"font-size:0.8em\"}\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "-   Revue systématique de **1 088 articles**, dont **58 études** retenues.\\n" + "-   Objectif : identifier les **KPI clés** pour mesurer la performance marketing des applications mobiles.\\n" + "-   Méthodologie : revue PRISMA sur Scopus, Web of Science, ScienceDirect, PsyINFO et PubMed.\n" + "\n" + "**Deux grandes catégories de KPI :**\n" + "\n" + "-   **Quantitatifs** : volume d’installations, trafic, taux de conversion, durée d’utilisation, utilisateurs actifs.\\n" + "-   **Qualitatifs** : notes, avis, éléments visuels, processus d’inscription, expérience utilisateur.\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "> Les KPI ne servent pas uniquement à mesurer la performance.\\n" + "> Ils traduisent aussi la **stratégie marketing** et la **valeur perçue par l’utilisateur**.\n" + ">\n" + "> Cette étude montre comment la recherche académique\\n" + "> contribue à distinguer les **indicateurs pertinents** des simples *vanity metrics*.\n" + ":::\n" + ":::::\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Le piège des \"Vanity Metrics\" {style=\"font-size:0.9em\"}\n" + "\n" + "-   **Définition** : des métriques séduisantes mais peu informatives,\\n" + "    qui ne permettent pas de **décision ou d’action stratégique**.\\n" + "    Elles mesurent la visibilité plutôt que la valeur.\n" + "\n" + "-   **Exemples** : nombre de téléchargements, vues ou abonnés sans analyse d’usage.\n" + "\n" + "-   Selon [@menendezIdentifyingKeyPerformance2020], la recherche distingue les **indicateurs réellement explicatifs** (engagement, rétention, conversion)\\n" + "    des mesures purement descriptives.\n" + "\n" + "-   Un KPI doit refléter **un comportement ou un résultat utile à la stratégie marketing**.\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Exemple : \"Vanity Metrics\" vs. \"Actionable Metrics\"\n" + "\n" + "| Vanity Metric (L'Ego)           | Actionable Metric (La Stratégie)         |\n" + "|:-----------------------------------|:-----------------------------------|\n" + "| Nombre total d'inscrits         | Nombre d'utilisateurs *actifs* (MAU/WAU) |\n" + "| Nombre de vues de la page       | Taux de conversion (Vue -\> Achat)       |\n" + "| Nombre de \"J'aime\" sur un post  | Taux d'engagement (Clics / Partages)     |\n" + "| Temps passé sur le site         | Taux de rebond (Bounce Rate)             |\n" + "| Nombre de téléchargements d'app | Taux de rétention (J1, J7, J30)          |\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## KPIs Essentiels en Marketing Digital (1/3)\n" + "\n" + "### 1. Acquisition\n" + "\n" + "*Comment les clients nous trouvent-ils ?*\n" + "\n" + "-   **CPC (Coût Par Clic)** : `Coût de la campagne / Nombre de clics`\n" + "-   **CPM (Coût Pour Mille)** : `(Coût / Impressions) * 1000`\n" + "-   **CTR (Click-Through Rate)** : `(Clics / Impressions) * 100` (Taux de Clic)\n" + "-   **CAC (Coût d'Acquisition Client)** : `Coûts Marketing & Vente / Nouveaux Clients`\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## KPIs Essentiels en Marketing Digital (2/3)\n" + "\n" + "### 2. Conversion\n" + "\n" + "*Les clients font-ils ce qu'on attend d'eux ?*\n" + "\n" + "-   **Taux de Conversion (CVR)** : `(Conversions / Visiteurs) * 100`\n" + "    -   *La conversion peut être un achat, une inscription, un téléchargement...*\n" + "-   **Panier Moyen (AOV - Average Order Value)** : `Revenu Total / Nombre de Commandes`\n" + "-   **Taux d'Abandon de Panier** : `(Paniers créés - Achats) / Paniers créés`\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## KPIs Essentiels en Marketing Digital (3/3)\n" + "\n" + "### 3. Rétention & Fidélisation\n" + "\n" + "*Les clients reviennent-ils ?*\n" + "\n" + "-   **Taux de Rétention** : `% de clients de la période N qui reviennent en N+1`.\n" + "-   **Taux de Churn (Attrition)** : `(Clients perdus / Clients début de période) * 100`\n" + "    -   *L'inverse de la rétention.*\n" + "-   **CLV (Customer Lifetime Value)** : `(Panier Moyen * Fréquence d'achat) * Durée de vie client`\n" + "    -   Le KPI le plus important ? Permet de savoir combien on peut dépenser pour acquérir un client (CAC \< CLV).\n" + "\n" + "## KPIs Essentiels du Marketing Digital : Synthèse {style=\"font-size:0.55em\"}\n" + "\n" + "| **KPI** | **Formule / Source** | **Objectif** | **Interprétation / Usage** |\n" + "|:-----------------|:-----------------|:-----------------|:-----------------|\n" + "| **CTR (Click-Through Rate)** | `(Clics / Impressions) × 100` | Mesurer l’efficacité d’une campagne à générer du trafic. | Un CTR élevé indique que le message et le ciblage fonctionnent bien. |\n" + "| **CPC (Cost Per Click)** | `Dépenses publicitaires / Nombre de clics` | Évaluer le coût d’acquisition de visiteurs. | Plus il est bas pour un même trafic qualifié, mieux c’est. |\n" + "| **CAC (Customer Acquisition Cost)** | `Coûts Marketing & Vente / Nouveaux Clients` | Mesurer le coût d’obtention d’un nouveau client. | À comparer avec le CLV pour juger la rentabilité. |\n" + "| **ROAS (Return On Ad Spend)** | `Revenus générés / Dépenses publicitaires` | Mesurer la rentabilité d’une campagne. | ROAS \> 1 → campagne rentable. |\n" + "| **Conversion Rate (CVR)** | `(Conversions / Visiteurs) × 100` | Mesurer la capacité du site à transformer. | Indique la performance du tunnel de conversion. |\n" + "| **AOV (Average Order Value)** | `Revenu total / Nombre de commandes` | Calculer la valeur moyenne d’un achat. | Sert à optimiser les ventes additionnelles ou cross-selling. |\n" + "| **Retention Rate** | `(Clients revenant en N+1 / Clients en N) × 100` | Mesurer la fidélité client. | Évalue la satisfaction et la valeur de long terme. |\n" + "| **Churn Rate (Attrition)** | `(Clients perdus / Clients au début de la période) × 100` | Suivre les pertes clients. | L’inverse de la rétention, indicateur de risque. |\n" + "| **CLV (Customer Lifetime Value)** | `(Panier moyen × Fréquence d’achat) × Durée de vie client` | Mesurer la valeur totale d’un client. | CLV \> CAC = business model sain. |\n" + "| **Engagement Rate (Social Media)** | `(Interactions totales / Impressions) × 100` | Mesurer la qualité des interactions sur les réseaux. | Indique la pertinence du contenu et la force de la communauté. |\n" + "\n" + "##  {background-color=\"#4A708B\"}\n" + "\n" + "<br> <br>\n" + "\n" + "<h1 style=\"color: white; text-align: center;\">\n" + "\n" + "Partie 3 : Trouver des données (démo)\n" + "\n" + "</h1>\n" + "\n" + "## Pourquoi apprendre le SQL ?\n" + "\n" + "-   Le **SQL (Structured Query Language)** est le **langage universel des données**.\\n" + "-   Il permet d’**interroger**, **filtrer**, **croiser** et **agréger** les informations stockées dans des bases de données.\\n" + "-   Tous les outils marketing et analytiques (CRM, e-commerce, web-tracking, data warehouses) s’appuient sur des **bases relationnelles** accessibles en SQL.\n" + "\n" + "### En marketing digital, le SQL sert à : \n" + " \n" + " - Extraire des segments clients ciblés (ex. “clients actifs sur 3 mois”) \n" + " - Mesurer la performance de campagnes (CTR, conversions, ROAS…) \n" + " - Alimenter des tableaux de bord BI ou des modèles prédictifs\n" + "\n" + "## Une base relationnelle, c’est quoi ?\n" + "\n" + "-   Un ensemble de **tables** reliées entre elles par des **clés** :\n" + "    -   **Clé primaire (PK)** : identifie chaque ligne (ex. `client_id`, `movie_id`)\n" + "    -   **Clé étrangère (FK)** : fait le lien vers une autre table (ex. `director_id`)\n" + "-   Chaque table contient :\n" + "    -   des **colonnes** → variables (nom, budget, date, etc.)\n" + "    -   des **lignes** → observations (un client, un film, une commande…)\n" + "\n" + "L’intérêt : éviter la redondance, garantir la cohérence, faciliter les jointures.\n" + "\n" + "## Image de base de données\n" + "\n" + "![](images/clipboard-152706542.png)\n" + "\n" + "::: {.notes}\n" + "\n" + "**Idée principale :**  \n" + "Une base de données relationnelle n’est pas un grand tableau unique, mais un ensemble de **tables reliées entre elles**.\n" + "\n" + "Ici, on distingue quatre tables : **Customer**, **Order**, **Delivery** et **Products**.  \n" + "Chaque table contient des **colonnes** (variables) et des **lignes** (observations).\n" + "\n" + "\n" + "**PK (Primary Key)**  \n" + "- La clé primaire identifie chaque ligne de façon unique.  \n" + "- Exemples : `Customer_ID`, `Order_ID`, `Product_ID`.  \n" + "- Elle fonctionne comme une “carte d’identité” de chaque élément.\n" + "\n" + "**FK (Foreign Key)**  \n" + "- La clé étrangère relie une table à une autre.  \n" + "- Exemples :  \n" + "  - `Customer_ID` dans la table **Order** fait le lien vers le client concerné.  \n" + "  - `Delivery_ID` relie chaque commande à son mode de livraison.  \n" + "  - `Product_ID` relie une commande au produit commandé.\n" + "\n" + "\n" + "**Pourquoi modéliser ainsi ?**\n" + "\n" + "- Pour **éviter les doublons** (le nom du client n’est pas recopié à chaque commande).  \n" + "- Pour **faciliter les analyses** grâce aux jointures.  \n" + "- Pour **organiser les données** selon des thématiques claires : clients, produits, commandes, livraisons.\n" + "\n" + ":::\n" + "\n" + "## Les 4 grandes opérations SQL (CRUD) {style=\"font-size:0.9em\"}\n" + "\n" + "| Action     | Commande | Exemple marketing                  | Objectif             |\n" + "|:-----------------|:-----------------|:-----------------|:-----------------|\n" + "| **C**reate | `INSERT` | Ajouter un nouveau client          | Enrichir la base     |\n" + "| **R**ead   | `SELECT` | Extraire les commandes de novembre | Analyser             |\n" + "| **U**pdate | `UPDATE` | Corriger un email client           | Maintenir la qualité |\n" + "| **D**elete | `DELETE` | Supprimer les doublons             | Nettoyer les données |\n" + "\n" + "> En pratique, les analystes utilisent surtout **SELECT**, les opérations d’écriture étant réservées aux data engineers ou aux scripts ETL.\n" + "\n" + "\n" + "\n" + "## Le raisonnement d’une requête SQL {style=\"font-size:0.8em\"}\n" + "\n" + "Une requête suit toujours la même logique séquentielle :\n" + "\n" + "1.  **FROM** – Quelle(s) table(s) ?\\n" + "2.  **JOIN** – Comment les relier ?\\n" + "3.  **WHERE** – Quelles conditions ?\\n" + "4.  **GROUP BY** – Sur quoi agréger ?\\n" + "5.  **HAVING** – Quels groupes garder ?\\n" + "6.  **SELECT** – Quelles colonnes afficher ?\\n" + "7.  **ORDER BY** – Dans quel ordre ?\\n" + "8.  **LIMIT** – Combien de lignes ?\n" + "\n" + "Exemple :\n" + "\n" + "> “Dans la table *campagnes*, sélectionne les campagnes Facebook de 2024, calcule le CTR moyen par pays, trie du plus fort au plus faible.”\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Typologie des requêtes marketing\n" + "\n" + "| Type de requête | Objectif | Exemples |\n" + "|:-----------------------|:-----------------------|:-----------------------|\n" + "| **Descriptive** | Observer ce qui s’est passé | “Combien de clics par canal ?” |\n" + "| **Diagnostique** | Comprendre pourquoi | “Pourquoi la conversion baisse ?” |\n" + "| **Prédictive** | Anticiper | “Quels clients vont racheter ?” |\n" + "| **Prescriptive** | Agir | “Quels segments relancer ?” |\n" + "\n" + "Le SQL couvre **les deux premières étapes** ; les suivantes s’appuient sur les données qu’il extrait.\n" + "\n" + "## SQL dans le quotidien (marketing)\n" + "\n" + "-   Extraction d’audiences depuis un **CRM** ou un **data warehouse**\n" + "-   Analyse de performance multi-canal (ex. Facebook / Google Ads)\n" + "-   Suivi des parcours utilisateurs (logs, événements web)\n" + "-   Calculs de KPIs (CAC, CLV, ROAS, taux de churn)\n" + "-   Alimentation d’outils BI (Tableau, Power BI, Metabase)\n" + "\n" + "**Moralité :** savoir écrire une requête SQL, c’est savoir **poser une bonne question aux données**.\n" + "\n" + "## À retenir avant la démo\n" + "\n" + "-   Le SQL est **déclaratif** : on décrit *ce qu’on veut*, pas *comment le faire*.\\n" + "-   La logique est **tabulaire et relationnelle**.\\n" + "-   En entreprise, les données sont souvent dans un **entrepôt (data warehouse)** accessible en SQL.\\n" + "-   L’analyste marketing utilise SQL pour :\n" + "    -   comprendre le comportement client,\n" + "    -   mesurer la performance des campagnes,\n" + "    -   créer les indicateurs de pilotage.\n" + "\n" + "Prochaine étape : **démo SQL en R** sur la base *IMDB* (films & réalisateurs).\n" + "\n" + "## Références\n" + ""</script>
+<script> window._input_filename = 'C:\Users\Olivier\Documents\GitHub\web_data_mining_web_intelligence\cours_1\cours_1.qmd'</script>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-blumenstockPredictingPovertyWealth2015" class="csl-entry" role="listitem">
+Blumenstock, Joshua, Gabriel Cadamuro, and Robert On. 2015. <span>“Predicting Poverty and Wealth from Mobile Phone Metadata.”</span> <em>Science</em> 350 (6264): 1073–76. <a href="https://doi.org/10.1126/science.aac4420">https://doi.org/10.1126/science.aac4420</a>.
+</div>
+<div id="ref-boegershausenFieldsGoldScraping2022" class="csl-entry" role="listitem">
+Boegershausen, Johannes, Hannes Datta, Abhishek Borah, and Andrew T. Stephen. 2022. <span>“Fields of <span>Gold</span>: <span>Scraping Web Data</span> for <span>Marketing Insights</span>.”</span> <em>Journal of Marketing</em> 86 (5): 1–20. <a href="https://doi.org/10.1177/00222429221100750">https://doi.org/10.1177/00222429221100750</a>.
+</div>
+<div id="ref-goodchildCitizensSensorsWorld2007" class="csl-entry" role="listitem">
+Goodchild, Michael F. 2007. <span>“Citizens as Sensors: The World of Volunteered Geography.”</span> <em>GeoJournal</em> 69 (4): 211–21. <a href="https://doi.org/10.1007/s10708-007-9111-y">https://doi.org/10.1007/s10708-007-9111-y</a>.
+</div>
+<div id="ref-menendezIdentifyingKeyPerformance2020" class="csl-entry" role="listitem">
+Menendez, Ana Reyes, Jose Ramon Saura, and Pedro Palos Sanchez. 2020. <span>“Identifying Key Performance Indicators for Marketing Strategies in Mobile Applications: A Systematic Literature Review.”</span> <em>International Journal of Electronic Marketing and Retailing</em> 11 (3): 259. <a href="https://doi.org/10.1504/IJEMR.2020.108126">https://doi.org/10.1504/IJEMR.2020.108126</a>.
+</div>
+<div id="ref-salganikBitBitSocial2019" class="csl-entry" role="listitem">
+Salganik, Matthew J. 2019. <em>Bit by Bit: Social Research in the Digital Age</em>. First paperback printing. Princeton Oxford: Princeton University Press.
+</div>
+</div>
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="cours_1_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="cours_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="cours_1_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="cours_1_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="cours_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="cours_1_files/libs/revealjs/plugin/reveal-chalkboard/plugin.js"></script>
+  <script src="cours_1_files/libs/revealjs/plugin/revealeditable/editable.js"></script>
+  <script src="cours_1_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="cours_1_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="cours_1_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="cours_1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="cours_1_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': true,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleChalkboard(event)\"><kbd>b</kbd> Toggle Chalkboard</a></li>\n<li class=\"slide-tool-item\" data-item=\"6\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleNotesCanvas(event)\"><kbd>c</kbd> Toggle Notes Canvas</a></li>\n<li class=\"slide-tool-item\" data-item=\"7\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.downloadDrawings(event)\"><kbd>d</kbd> Download Drawings</a></li>\n<li class=\"slide-tool-item\" data-item=\"8\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'chalkboard': {"buttons":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'fade',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1250,
+
+        height: 760,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, RevealChalkboard, Revealeditable, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
+    <script id="quarto-html-after-body" type="application/javascript">
+    window.document.addEventListener("DOMContentLoaded", function (event) {
+      const toggleBodyColorMode = (bsSheetEl) => {
+        const mode = bsSheetEl.getAttribute("data-mode");
+        const bodyEl = window.document.querySelector("body");
+        if (mode === "dark") {
+          bodyEl.classList.add("quarto-dark");
+          bodyEl.classList.remove("quarto-light");
+        } else {
+          bodyEl.classList.add("quarto-light");
+          bodyEl.classList.remove("quarto-dark");
+        }
+      }
+      const toggleBodyColorPrimary = () => {
+        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+        if (bsSheetEl) {
+          toggleBodyColorMode(bsSheetEl);
+        }
+      }
+      toggleBodyColorPrimary();  
+      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+      tabsets.forEach(function(tabset) {
+        const tabby = new Tabby('#' + tabset.id);
+      });
+      const isCodeAnnotation = (el) => {
+        for (const clz of el.classList) {
+          if (clz.startsWith('code-annotation-')) {                     
+            return true;
+          }
+        }
+        return false;
+      }
+      const onCopySuccess = function(e) {
+        // button target
+        const button = e.trigger;
+        // don't keep focus
+        button.blur();
+        // flash "checked"
+        button.classList.add('code-copy-button-checked');
+        var currentTitle = button.getAttribute("title");
+        button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
+        setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
+          button.setAttribute("title", currentTitle);
+          button.classList.remove('code-copy-button-checked');
+        }, 1000);
+        // clear code selection
+        e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
+      });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+        const config = {
+          allowHTML: true,
+          maxWidth: 500,
+          delay: 100,
+          arrow: false,
+          appendTo: function(el) {
+              return el.closest('section.slide') || el.parentElement;
+          },
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start',
+        };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
+          config['offset'] = [0,0];
+          config['maxWidth'] = 700;
+        window.tippy(el, config); 
+      }
+      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+      for (var i=0; i<noterefs.length; i++) {
+        const ref = noterefs[i];
+        tippyHover(ref, function() {
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          try { href = new URL(href).hash; } catch {}
+          const id = href.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
+        });
+      }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
+      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+      for (var i=0; i<bibliorefs.length; i++) {
+        const ref = bibliorefs[i];
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
+          });
+        }
+      }
+    });
+    </script>
+    <script type="text/javascript">
+      Reveal.on('ready', event => {
+        if (event.indexh === 0) {
+          document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+        }
+      });
+      Reveal.addEventListener('slidechanged', (event) => {
+        if (event.indexh === 0) {
+          Reveal.configure({ slideNumber: null });
+          document.querySelector("div.has-logo > img.slide-logo").style.display = "none";
+        }
+        if (event.indexh === 1) { 
+          Reveal.configure({ slideNumber: 'c/t' });
+          document.querySelector("div.has-logo > img.slide-logo").style.display = null;
+        }
+      });
+    </script>
+    
+
+</body></html>

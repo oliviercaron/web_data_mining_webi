@@ -1,0 +1,838 @@
+---
+title: "Web Data Mining & Business Intelligence"
+subtitle: "Introduction Data Mining et Web Intelligence"
+author:
+  - name: "Olivier Caron"
+    affiliations: "Paris Dauphine - PSL"
+format:
+  ubd-revealjs:
+    self-contained: false
+    chalkboard: true
+    transition: fade
+    auto-stretch: false
+    width: 1250
+    height: 760
+    toc: true
+    toc-depth: 1
+    code-block-height: 700px
+execute:
+  echo: true
+bibliography: refs.bib
+revealjs-plugins:
+  - editable
+filters:
+  - editable
+---
+
+## Objectif général du cours
+
+**Web Data Mining & Business Intelligence (M2 Marketing Digital, 18h, 3 ECTS)**
+
+**Objectif global :**
+
+-   Donner une connaissance solide des méthodes et outils du **Web Data Mining**.
+-   Acquérir un savoir-faire pratique : **collecte** (API, scraping), **transformation** et **visualisation**.
+-   Apprendre à passer des données brutes à des insights visuels (cartes, graphes, dashboards).
+-   Comprendre la structure des **communautés en ligne**.
+-   Intégrer l'**IA générative** (LLMs) comme outil d'assistance au code et à l'analyse.
+
+## Compétences visées
+
+1.  **Comprendre** les enjeux de la collecte et de la veille digitale.
+2.  **Maîtriser** les formats et outils fondamentaux pour extraire et transformer des données web.
+3.  **Savoir appliquer** les bases du datamining, de la dataviz, du SIG et de l’analyse de réseaux.
+4.  **Communiquer** des indicateurs clés via un tableau de bord opérationnel
+
+------------------------------------------------------------------------
+
+## Planning du cours (18h) {style="font-size:0.8em"}
+
+| Date | Horaire | Durée | Séance | Thème (proposition) |
+|:-------------|:-------------|:-------------|:-------------|:---------------|
+| Lundi 10/11/2025 | 13h – 17h | 4h | Séance 1 | Intro Web Data Mining & BI |
+| Mercredi 19/11/2025 | 13h – 17h | 4h | Séance 2 | Visualisation de données & storytelling |
+| Lundi 24/11/2025 | 13h – 17h | 4h | Séance 3 | Réductions, régressions, classifications... |
+| Lundi 01/12/2025 | 9h – 12h | 3h | Séance 4 | Comprendre et utiliser les données géographiques |
+| Vendredi 05/12/2025 | 9h – 12h | 3h | Séance 5 | Analyses de réseaux |
+
+------------------------------------------------------------------------
+
+## Évaluation & projet final
+
+::: {.callout-important title="Projet final"}
+-   Travail en **groupes de 2–3 étudiants**
+-   Projet : (création d'un **rapport de collectes de données**) OU/ET **analyse des données**
+:::
+
+::::: columns
+::: {.column width="50%"}
+**À faire**
+
+-   Collecte & analyse d’un corpus web
+-   Production d’**insights** & de **recommandations**
+:::
+
+::: {.column width="50%"}
+**Livrable**
+
+-   Rapport **Quarto HTML** (reproductible)
+:::
+:::::
+
+##  {background-color="#4A708B"}
+
+<br> <br>
+
+<h1 style="color: white; text-align: center;">
+
+Partie 1 : Introduction
+
+</h1>
+
+------------------------------------------------------------------------
+
+## Le monde a changé
+
+-   Nous sommes passés d'un monde "pauvre en données" (analogique) à un monde "riche en données" (numérique).
+-   Chaque minute en 2022 : **5.7M** de recherches Google, **65k** photos Instagram, **\$6M** de transactions en ligne [@boegershausenFieldsGoldScraping2022].
+-   Cette transition change fondamentalement la recherche sociale et marketing.
+
+::: {.callout-note title="L'analogie de Salganik"}
+"Les chercheurs en sciences sociales sont en train de vivre une transition similaire à celle de la photographie vers la cinématographie." [@salganikBitBitSocial2019, p. 5]
+:::
+
+## Qu'est-ce que le Data Mining ?
+
+-   **"La Fouille de Données"** (ou *forage*/*exploration* de données).
+-   Un processus **non trivial** pour extraire des informations **implicites**, **inconnues** et **potentiellement utiles** à partir de grandes bases de données.
+-   La métaphore : chercher des **pépites** (insights) dans une **montagne de données** (logs, transactions, textes).
+
+## Le Data Mining : un carrefour
+
+Le Data Mining n'est pas un domaine isolé, il se situe à l'intersection de plusieurs disciplines :
+
+-   **Statistique** (Analyse exploratoire, modèles prédictifs)
+-   **Intelligence Artificielle** (Apprentissage machine / Machine Learning)
+-   **Gestion de Bases de Données** (Data Warehouse, SQL)
+-   **Visualisation** (Dataviz)
+
+::: {.callout-note title="Pour le Marketing"}
+Le développement du **CRM (Gestion de la Relation Client)** a été un moteur majeur : on est passé d'un marketing "produit" à un marketing "client" (fidélisation, attrition, scoring).
+:::
+
+------------------------------------------------------------------------
+
+## Les grandes tâches du Data Mining
+
+On peut classer les méthodes en deux grandes familles :
+
+::::: columns
+::: {.column width="50%"}
+### 1. Descriptif (Non-Supervisé)
+
+*Décrire ce qui s'est passé (sans a priori).*
+
+-   **Clustering (Segmentation)**
+    -   Regrouper les clients qui se ressemblent.
+    -   *Ex: Segmenter la base client.*
+-   **Règles d'Association**
+    -   Trouver les produits souvent achetés ensemble.
+    -   *Ex: Le "panier de la ménagère".*
+:::
+
+::: {.column width="50%"}
+### 2. Prédictif (Supervisé)
+
+*Prédire ce qui va se passer (en apprenant du passé).*
+
+-   **Classification (Scoring)**
+    -   Prédire une *catégorie*.
+    -   *Ex: Ce client va-t-il "churner" (partir) ? (Oui/Non)*
+-   **Régression**
+    -   Prédire une *valeur numérique*.
+    -   *Ex: Combien ce client va-t-il dépenser ?*
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## "Big bang Data"
+
+![](images/clipboard-1942119366.png){width="55%" fig-align="center"}
+
+## Nombre d'utilisateurs actifs en 2025 (en millions)
+
+```{r}
+#| eval: false
+#| echo: false
+# install.packages(c("tidyverse", "scales")) # à décommenter si besoin
+
+library(tidyverse)
+library(scales)
+
+# --- Données Statista (janvier 2025) ---
+# Unités : millions d'utilisateurs actifs
+reseaux <- tribble(
+  ~reseau,            ~utilisateurs_millions,
+  "Facebook",         3070,
+  "YouTube",          2530,
+  "Instagram",        2000,
+  "WhatsApp",         2000,
+  "TikTok",           1590,
+  "WeChat",           1380,
+  "Telegram",         950,
+  "Messenger",        947,
+  "Snapchat",         850,
+  "Douyin",           766,
+  "Kuaishou",         714,
+  "Reddit",           606,
+  "Weibo",            599,
+  "X (ex Twitter)",   586,
+  "QQ",               562,
+  "Pinterest",        537
+) %>%
+  mutate(reseau = fct_reorder(reseau, utilisateurs_millions))
+
+# Palette douce (bleus/gris)
+pal <- c("#DCE6F2", "#C8D9EE", "#B3CDEA", "#9EC0E6", "#8AB4E2",
+         "#76A8DE", "#629CD9", "#4E90D5", "#3A84D1", "#2F78C3",
+         "#2A6CAE", "#265F99", "#225384", "#1D466F", "#183A5A", "#132E45")
+
+# Format des labels : séparateur fin insécable pour les milliers, virgule décimale
+fmt_nb <- label_number(accuracy = 1,
+                       big.mark = "\u202f",
+                       decimal.mark = ",")
+
+# --- Graphique ---
+p <- ggplot(reseaux, aes(x = reseau, y = utilisateurs_millions, fill = reseau)) +
+  geom_col(width = 0.7, show.legend = FALSE) +
+  scale_fill_manual(values = pal) +
+  coord_flip(clip = "off") +
+  geom_text(aes(label = fmt_nb(utilisateurs_millions)),
+            hjust = -0.1, size = 3.7) +
+  scale_y_continuous(expand = expansion(mult = c(0, 0.08)),
+                     labels = fmt_nb) +
+  labs(
+    title = "Réseaux sociaux les plus populaires dans le monde (janvier 2025)",
+    subtitle = "Classement par nombre d’utilisateurs actifs (en millions)",
+    x = NULL, y = "Utilisateurs actifs (millions)",
+    caption = "Source : Statista"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    plot.title = element_text(face = "bold", size = 15),
+    plot.subtitle = element_text(margin = margin(b = 8)),
+    axis.text.y = element_text(margin = margin(r = 5)),
+    axis.text.x = element_text(color = "grey30"),
+    panel.grid.major.y = element_blank(),
+    panel.grid.minor = element_blank(),
+    plot.caption = element_text(color = "grey40", size = 9, margin = margin(t = 8))
+  )
+
+ggsave(
+  filename = "images/statista_reseaux_sociaux_2025.png",
+  plot = p,
+  width = 13,
+  height = 7,
+  dpi = 600,
+  units = "in"
+)
+
+
+```
+
+![](images/statista_reseaux_sociaux_2025.png){width="95%" fig-align="center"}
+
+## Nous produisons tous des données, tout le temps {style="font-size:0.7em"}
+
+-   **Données actives** : celles que nous créons consciemment (posts, emails, avis).
+-   **Données passives (traces numériques)** : celles que nous laissons sans y penser (logs de connexion, historique de navigation, données de géolocalisation).
+-   L'idée que les **citoyens** sont des **capteurs"** [@goodchildCitizensSensorsWorld2007] : chaque individu équipé d'un smartphone devient un capteur mobile, générant un flux constant de données géolocalisées.
+
+![](images/clipboard-1697869989.png){width="60%" fig-align="center"}
+
+## OpenStreetMap : information géographique bénévole (IGB)
+
+![](images/clipboard-2148876383.png){fig-align="center" width="85%"}
+
+## Fontaine à boire à Paris
+
+![](images/clipboard-3041618446.png){fig-align="center" width="60%"}
+
+------------------------------------------------------------------------
+
+## Les données "Test de Rorschach"
+
+Matthew Salganik décrit une étude sur la pauvreté au Rwanda utilisant des logs mobiles comme un **test de Rorschach** [@salganikBitBitSocial2019] :
+
+-   Un **scientifique spécialiste en sciences sociales** y voit un nouvel outil de mesure.
+-   Un **data scientist** y voit un problème de machine learning.
+-   Une **entreprise** y voit une opportunité de valorisation.
+-   Un **défenseur de la vie privée** y voit une surveillance de masse.
+-   Un **décideur politique** y voit un outil pour créer un monde meilleur.
+
+**Ils ont tous raison.** Ce cours vise à vous donner toutes ces perspectives.
+
+------------------------------------------------------------------------
+
+## Étude de cas - Prédire la pauvreté avec les métadonnées mobiles [@blumenstockPredictingPovertyWealth2015] {style="font-size:0.8em"}
+
+-   Étude menée au **Rwanda** sur **1,5 million** d’utilisateurs de téléphones mobiles.\
+-   Les chercheurs ont combiné :
+    -   les **logs d’appels/SMS** (données passives, anonymisées),\
+    -   et une **enquête auprès de 856 individus** sur leurs actifs et conditions de vie.\
+-   Un **modèle de machine learning (Elastic Net)** prédit la richesse individuelle avec une **corrélation r = 0,68**.\
+-   Les **cartes de richesse** agrégées par district atteignent **r ≈ 0,9** avec les données officielles (DHS).\
+-   **Coût** : 12 000 \$ et 4 semaines, contre plus d’1 M \$ et 18 mois pour une enquête nationale classique.
+
+::: {.callout-tip title="Message clé"}
+Les **traces numériques** peuvent servir à estimer la **pauvreté et la richesse** d’une population à grande échelle, en temps quasi réel, à partir de données déjà existantes.
+:::
+
+## Prédire à partir des métadonnées
+
+![](images/clipboard-334154282.png){fig-align="center" width="80%"}
+
+## Le Marketing à l'ère du "Bit by Bit"
+
+-   Le marketing traditionnel reposait sur des données "Custommade" (**faites sur mesure**) :
+    -   Sondages, focus groups.
+    -   Coûteuses, lentes, à petite échelle.
+-   Le marketing moderne utilise des données "Readymade" (**prêtes à l'emploi**) :
+    -   Traces numériques, logs de serveurs, données de réseaux sociaux.
+    -   Disponibles en temps réel, à grande échelle, mais pas conçues pour la recherche.
+
+## L'importance des données : le nouvel Or noir ?
+
+-   Les données web sont une "mine d'or" potentielle pour les insights marketing [@boegershausenFieldsGoldScraping2022].
+-   Elles permettent d'observer des comportements réels, à grande échelle, et non des intentions déclarées.
+-   C'est le carburant de l'économie numérique.
+
+------------------------------------------------------------------------
+
+## L'importance des données : l'ère des LLMs
+
+-   Les "Grands Modèles de Langage" (LLM) comme GPT, Claude, Mistral, sont entièrement dépendants des données.
+-   Leur performance vient de l'ingestion de **l'intégralité du web** (ou presque).
+-   Le "Web Data" n'est plus seulement un sujet d'analyse ; c'est devenu la **matière première de l'IA**.
+-   Comprendre comment ces données sont structurées, biaisées et collectées est essentiel pour comprendre l'IA.
+
+## Les LLMs ont besoin de plus de données
+
+![](images/clipboard-14807539.png){fig-align="center" width="80%"}
+
+------------------------------------------------------------------------
+
+## La croissance des données web en recherche
+
+-   L'utilisation des données web dans les journaux de marketing a plus que triplé en 10 ans.
+-   Principalement via le **Web Scraping** (59%) et les **APIs** (12%).
+-   Sources les plus fréquentes : Amazon, Twitter, IMDb, Facebook.
+
+![](images/boegershausen_fig1.PNG){fig-align="center" width="60%"}
+
+------------------------------------------------------------------------
+
+## Typologie : 4 voies de création de connaissance à partir des données web [@boegershausenFieldsGoldScraping2022] {style="font-size:0.7em"}
+
+| **Voie** | **Objectif principal** | **Exemples d’études** |
+|:-------------------|:-------------------------|:-------------------------|
+| **1. Étudier de nouveaux phénomènes** | Explorer de nouveaux comportements ou marchés. | Toubia & Stephen (2013) : motivations de contribution ; Chevalier & Mayzlin (2006) : impact des avis en ligne. |
+| **2. Accroître la validité écologique** | Observer des comportements réels hors labo. | Sridhar & Srinivasan (2012) ; Wu & Cosguner (2020) : effets “decoy”. |
+| **3. Favoriser l’avancée méthodologique** | Développer de nouvelles méthodes d’analyse. | Netzer et al. (2012) ; Tirunillai & Tellis (2012) : données UGC pour prédire performances boursières. |
+| **4. Améliorer la mesure** | Construire de nouvelles métriques ou instruments. | Huang et al. (2016) ; Datta et al. (2022) : saisonnalité à partir de 14 pays × 11 ans. |
+
+::: {.callout-tip title="Résumé"}
+Les données web ne servent pas qu’à mesurer : elles **ouvrent de nouveaux objets**, **augmentent la validité**, **font progresser la méthode** et **raffinent la mesure**.
+:::
+
+## Les 10 caractéristiques des "Big Data"
+
+Les sources de **Big Data** présentent **dix caractéristiques majeures** [@salganikBitBitSocial2019].
+
+Elles ne sont **PAS** conçues pour la recherche.
+
+## Trois caractéristiques favorables
+
+### 1. Grandes (*Big*)
+
+-   Volumes d’observations **très élevés** → analyses fines, sous-groupes, phénomènes rares.\
+-   ➜ Plus de **puissance statistique** et possibilité d’étudier des **événements peu fréquents**.\
+-   *Exemple :* étude de la **mobilité sociale** aux États-Unis par **code postal**\
+-   *Attention :* « Big » ≠ « meilleur » — une base gigantesque peut être **systématiquement biaisée**.\
+-   *Enjeu :* vérifier la **qualité et la structure** des données avant de conclure.
+
+## Trois caractéristiques favorables
+
+### 2. Toujours actives (*Always-on*)
+
+-   Données **collectées en continu**, souvent en **temps réel**.\
+-   ➜ Permettent d’analyser des **événements imprévus** (crise, manifestation, catastrophe, épidémie).\
+-   ➜ Favorisent l’étude de **dynamiques temporelles** (évolution des opinions, mobilisations, contagion sociale).\
+-   *Exemple :* **Google Flu Trends** – estimation de la grippe à partir des recherches Google (Salganik 2019, p. 21).\
+-   *Limite :* les plateformes évoluent → **dérive temporelle**.
+-   *Enjeu :* tirer parti du temps réel **sans confondre variation comportementale et changement de mesure**.
+
+## Trois caractéristiques favorables
+
+### 3. Non réactives (*Non-reactive*)
+
+-   Les comportements observés ne sont **pas influencés par la présence du chercheur**.\
+-   Contrairement aux enquêtes ou expériences, les individus **ignorent être observés**.\
+-   ➜ Réduction des biais de **désirabilité sociale** et des **effets d’observation**.\
+-   Très utile pour étudier des **sujets sensibles** (santé, politique, racisme, sexualité).\
+-   *Exemple :* analyses des **requêtes Google** révélant des attitudes racistes (Stephens-Davidowitz, 2014 ; Salganik 2019, p. 23).\
+-   *Limite éthique :* absence de **consentement informé** et possible atteinte à la **vie privée**.
+
+## Sept caractéristiques problématiques
+
+### 4. Incomplètes (*Incomplete*)
+
+-   Données riches en **traces comportementales**, mais pauvres en **informations contextuelles**.\
+-   Manquent souvent : âge, genre, revenu, motivations, opinions, contexte hors-ligne.\
+-   ➜ Difficulté à relier ces variables à des **construits théoriques** (ex. : *intelligence*, *confiance*, *capital social*).\
+-   Risque de **fausse interprétation** : les comportements observés ne traduisent pas nécessairement les concepts visés.\
+-   *Problème de validité de construit* : “mesurer sans comprendre”.\
+-   *Exemple :* les “likes” ne mesurent pas directement la **popularité** ou la **satisfaction**, mais seulement une action visible.
+
+## Sept caractéristiques problématiques
+
+### 5. Inaccessibles (*Inaccessible*)
+
+-   Une grande partie des données les plus riches (Facebook, Google, télécoms, plateformes e-commerce) sont **privées et fermées** à la recherche.\
+-   Les entreprises invoquent :
+    -   des **risques juridiques** (protection des données, RGPD, propriété intellectuelle),\
+    -   des **risques éthiques** (confidentialité, consentement),\
+    -   des **risques commerciaux** (secret industriel, réputation).\
+-   ➜ **Asymétrie d’accès** : les chercheurs publics n’ont souvent qu’un accès partiel, voire aucun.\
+-   **Conséquence :** faible **reproductibilité**, dépendance à des **partenariats d’entreprise**.\
+-   *Exemple :* peu de chercheurs externes ont accès à la base complète de Facebook, Twitter/X ou TikTok pour évaluer leurs effets sociaux.
+
+## Sept caractéristiques problématiques
+
+### 6. Non représentatives (*Non-representative*)
+
+-   Les utilisateurs d’une plateforme ne reflètent pas la **population générale**.\
+-   Exemple typique : **Twitter/X** → public jeune, urbain, politisé.\
+-   ➜ **Biais de couverture** : seules les personnes connectées ou actives sont observables.\
+-   **Conséquence :** généraliser ces données à la société entière est risqué.\
+-   *Exemple historique :* le **sondage du Literary Digest** (1936) — des millions de réponses, mais un échantillon biaisé (classes aisées, abonnés au téléphone) → prédiction totalement fausse.
+-   **Leçon :** “beaucoup de données” ne garantit pas la **représentativité**.
+
+## Sept caractéristiques problématiques
+
+### 7. Instables (*Drifting*)
+
+-   Les plateformes, les utilisateurs et les usages évoluent en permanence (Salganik, 2019, p. 33).\
+-   Trois types de dérive :
+    -   **Population** : qui utilise la plateforme change (ex. : public de Twitter au fil du temps).\
+    -   **Comportement** : les pratiques se transforment (ex. : signification du “like”).\
+    -   **Système** : l’algorithme ou l’interface sont modifiés.\
+-   ➜ Les comparaisons dans le temps sont **incertaines** ; les séries peuvent être faussées.\
+-   *Exemple :* un changement d’API ou de recommandation altère la structure des données collectées.
+
+## Sept caractéristiques problématiques
+
+### 8. Influencées par les algorithmes (*Algorithmically confounded*)
+
+-   Les comportements observés sont **façonnés par les algorithmes** de la plateforme.\
+-   Exemples :
+    -   **Fil d’actualité Facebook** → visibilité biaisée selon l’engagement.\
+    -   **Recommandations** (“Personnes que vous pourriez connaître”, “Vidéos similaires”) → créent les liens qu’elles semblent mesurer.\
+-   Les données ne reflètent pas un monde “naturel”, mais un **monde co-construit par la plateforme**.\
+-   Risque de **circularité** : les algorithmes produisent les tendances qu’ils détectent.
+
+## Sept caractéristiques problématiques
+
+### 9. Brouillonnes ou « sales » (*Dirty*)
+
+-   Contiennent du **bruit** : bots, spams, faux comptes, erreurs, doublons.\
+-   ➜ Risque de conclusions biaisées si le nettoyage est insuffisant.\
+-   *Exemple :* une étude des émotions le 11/09 faussée par un seul **bot** (Salganik, 2019, p. 37–38).\
+-   *Enjeu :* privilégier la **qualité** et la **traçabilité** du nettoyage plutôt que la taille brute.
+
+## Sept caractéristiques problématiques
+
+### 10. Sensibles (*Sensitive*)
+
+-   Contiennent des **informations personnelles** (santé, politique, sexualité, géolocalisation).\
+-   Même “anonymisées”, elles sont souvent **ré-identifiables** par croisement.\
+-   *Exemple :* jeu de données **Netflix Prize** → ré-identification via IMDb (Salganik, 2019, p. 39).\
+-   Enjeux : **vie privée, consentement, éthique de la recherche, conformité RGPD**.\
+-   *Règle d’or :* toujours traiter les Big Data comme si elles étaient **potentiellement identifiantes**.
+
+## Conclusion
+
+-   Les Big Data offrent **des opportunités inédites** pour la recherche sociale : ampleur, continuité, naturalité des comportements.\
+-   Mais elles présentent **de fortes limites méthodologiques et éthiques** : biais de sélection, dérive temporelle, manque de contexte, risques pour la vie privée.\
+-   ➜ L’enjeu est de **tirer parti de leurs atouts** (taille, “always-on”, non-réactivité)\
+    tout en **maîtrisant leurs limites** (incomplétude, non-représentativité, dérive, sensibilité).\
+-   *Conclusion :* plus que des données “nouvelles”, les Big Data exigent **de nouvelles pratiques de recherche**.
+
+## Cadre méthodologique de la collecte de données web
+
+![](images/method_framework_collecting_web_data.PNG){fig-align="center" width="80%"}
+
+## Rappel : récupérer des données en ligne
+
+[Cours 3 Scraping : Etudes qualitatives sur le web](https://oliviercaron.github.io/etudes_qualitatives_web/cours_3/cours_3.html#/title-slide)
+
+##  {background-color="#4A708B"}
+
+<br> <br>
+
+<h1 style="color: white; text-align: center;">
+
+Partie 2 : Business (Web) Intelligence (BI)
+
+</h1>
+
+## Web Mining vs. Business Intelligence
+
+::::: columns
+::: {.column width="50%"}
+### Web Data Mining (L'exploration)
+
+-   **Objectif** : Découvrir des *patterns* cachés, nouveaux, inattendus.
+-   **Méthodes** : Machine learning, NLP (qu'on ne voit pas ici), analyse de réseau.
+-   **Question type** : "Que disent les clients que nous n'avions pas anticipé ?"
+-   **Orientation** : Passé / Futur (prédiction).
+-   *Basé sur les données "Readymade" & "Sales".*
+:::
+
+::: {.column width="50%"}
+### Business Intelligence (Le pilotage)
+
+-   **Objectif** : Mesurer des *métriques* définies, suivre la performance.
+-   **Méthodes** : Dashboards, KPIs, requêtes SQL, Dataviz.
+-   **Question type** : "Quel est notre taux de conversion ce mois-ci par rapport au mois dernier ?"
+-   **Orientation** : Passé / Présent (monitoring).
+-   *Basé sur des données internes, structurées, propres.*
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Web Intelligence : un terme flou et daté ? {style="font-size:0.8em"}
+
+> Malgré son usage historique, **le terme “Web Intelligence” n’est plus vraiment dominant** dans les publications récentes ni dans les intitulés de poste.\
+> On lui préfère aujourd’hui des notions plus précises comme **Data Science**, **Analytics**, ou **Social Media Intelligence** voire **Computational Social Science**
+
+-   **Problème de définition**
+    -   Mélange souvent entre *Business Intelligence*, *Web Analytics*, *Data Mining* et *AI appliquée au Web*.\
+    -   Selon les contextes, il désigne soit une approche technique, soit une démarche de veille stratégique.
+-   **Évolution terminologique**
+    -   Les travaux récents parlent plutôt de *Data Science for the Web* ou *Web Analytics* (plus opérationnels).\
+    -   Dans les discussions professionnelles (ex. Reddit, LinkedIn), “Web Intelligence” apparaît rarement comme domaine autonome.
+
+## Une terminologie façonnée par l'industrie ? {style="font-size:0.9em"}
+
+-   **L’industrie impose les mots-clés** : les grandes plateformes (Google, Meta, Adobe, SAP, etc.) diffusent leur vocabulaire via leurs outils et certifications.\
+    → Ex. *Google Analytics*, *Adobe Digital Intelligence*, *SAP Web Intelligence*.
+
+-   Le terme **“Web Intelligence”** persiste surtout dans le monde académique ou lié à SAP,\
+    mais **n’est presque plus utilisé comme intitulé de poste**.
+
+-   Les appellations actuelles parlent plutôt de :\
+    → *Data / Business Analytics*, *Data Science*, *Digital Marketing Analytics*,\
+    → *Product Analytics*, *Marketing Intelligence*, *Consumer Insights*,\
+    → ou encore *Digital Intelligence* dans les grands groupes.
+
+> En bref : la **terminologie suit les outils et les besoins métiers**,\
+> et “Web Intelligence” a été largement remplacée par un langage centré sur **l’analyse de données au service de la décision et de la performance**.
+
+## Le processus de BI
+
+La BI n'est pas juste un outil, c'est un processus :
+
+1.  **Collecte (ETL)** : **E**xtract (des sources), **T**ransform (nettoyer, joindre), **L**oad (charger dans un entrepôt).
+2.  **Stockage (Data Warehouse)** : une base de données optimisée pour l'analyse (ex: Snowflake, BigQuery).
+3.  **Analyse (Olap/Requêtes)** : calculer les agrégats, les KPIs.
+4.  **Visualisation (Reporting)** : présenter les résultats aux décideurs (Dashboards).
+
+## Le cycle de la Business Intelligence
+
+![](images/clipboard-2225984287.png)
+
+------------------------------------------------------------------------
+
+## Le Pilotage de la Performance
+
+-   On ne peut pas améliorer ce qu'on ne mesure pas.
+-   Le pilotage consiste à définir des objectifs et à suivre les métriques qui s'y rapportent.
+-   L'outil principal : Le **KPI** (Key Performance Indicator).
+
+------------------------------------------------------------------------
+
+## Qu'est-ce qu'un bon KPI ? {style="font-size:0.9em"}
+
+::::: columns
+::: {.column width="50%"}
+### Un bon KPI doit être **S.M.A.R.T.**
+
+-   **S**pécifique → Clair, précis, non ambigu.\
+-   **M**esurable → Quantifiable.\
+-   **A**tteignable → Réaliste mais ambitieux.\
+-   **R**elevant (Pertinent) → Lié à un objectif stratégique.\
+-   **T**emporellement défini → Avec une échéance (ex : *d’ici Q4*).
+:::
+
+::: {.column width="50%"}
+![](images/clipboard-454828140.png)
+:::
+:::::
+
+## Exemple {style="font-size:0.9em"}
+
+### Objectif stratégique
+
+Augmenter les **revenus issus du canal social** du site web.
+
+### KPI S.M.A.R.T.
+
+> **“Augmenter de 25 % les ventes en ligne provenant des réseaux sociaux d’ici la fin du trimestre.”**
+
+-   **S**pécifique : cible un canal précis (réseaux sociaux).\
+-   **M**esurable : +25 % de ventes.\
+-   **A**tteignable : croissance réaliste sur la base des performances actuelles.\
+-   **R**elevant : lié à l’objectif global d’augmentation du chiffre d’affaires digital.\
+-   **T**emporel : échéance fixée à la fin du trimestre.
+
+## Les KPI dans la recherche académique [@menendezIdentifyingKeyPerformance2020] {style="font-size:0.8em"}
+
+::::: columns
+::: {.column width="50%"}
+-   Revue systématique de **1 088 articles**, dont **58 études** retenues.\
+-   Objectif : identifier les **KPI clés** pour mesurer la performance marketing des applications mobiles.\
+-   Méthodologie : revue PRISMA sur Scopus, Web of Science, ScienceDirect, PsyINFO et PubMed.
+
+**Deux grandes catégories de KPI :**
+
+-   **Quantitatifs** : volume d’installations, trafic, taux de conversion, durée d’utilisation, utilisateurs actifs.\
+-   **Qualitatifs** : notes, avis, éléments visuels, processus d’inscription, expérience utilisateur.
+:::
+
+::: {.column width="50%"}
+> Les KPI ne servent pas uniquement à mesurer la performance.\
+> Ils traduisent aussi la **stratégie marketing** et la **valeur perçue par l’utilisateur**.
+>
+> Cette étude montre comment la recherche académique\
+> contribue à distinguer les **indicateurs pertinents** des simples *vanity metrics*.
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Le piège des "Vanity Metrics" {style="font-size:0.9em"}
+
+-   **Définition** : des métriques séduisantes mais peu informatives,\
+    qui ne permettent pas de **décision ou d’action stratégique**.\
+    Elles mesurent la visibilité plutôt que la valeur.
+
+-   **Exemples** : nombre de téléchargements, vues ou abonnés sans analyse d’usage.
+
+-   Selon [@menendezIdentifyingKeyPerformance2020], la recherche distingue les **indicateurs réellement explicatifs** (engagement, rétention, conversion)\
+    des mesures purement descriptives.
+
+-   Un KPI doit refléter **un comportement ou un résultat utile à la stratégie marketing**.
+
+------------------------------------------------------------------------
+
+## Exemple : "Vanity Metrics" vs. "Actionable Metrics"
+
+| Vanity Metric (L'Ego)           | Actionable Metric (La Stratégie)         |
+|:-----------------------------------|:-----------------------------------|
+| Nombre total d'inscrits         | Nombre d'utilisateurs *actifs* (MAU/WAU) |
+| Nombre de vues de la page       | Taux de conversion (Vue -\> Achat)       |
+| Nombre de "J'aime" sur un post  | Taux d'engagement (Clics / Partages)     |
+| Temps passé sur le site         | Taux de rebond (Bounce Rate)             |
+| Nombre de téléchargements d'app | Taux de rétention (J1, J7, J30)          |
+
+------------------------------------------------------------------------
+
+## KPIs Essentiels en Marketing Digital (1/3)
+
+### 1. Acquisition
+
+*Comment les clients nous trouvent-ils ?*
+
+-   **CPC (Coût Par Clic)** : `Coût de la campagne / Nombre de clics`
+-   **CPM (Coût Pour Mille)** : `(Coût / Impressions) * 1000`
+-   **CTR (Click-Through Rate)** : `(Clics / Impressions) * 100` (Taux de Clic)
+-   **CAC (Coût d'Acquisition Client)** : `Coûts Marketing & Vente / Nouveaux Clients`
+
+------------------------------------------------------------------------
+
+## KPIs Essentiels en Marketing Digital (2/3)
+
+### 2. Conversion
+
+*Les clients font-ils ce qu'on attend d'eux ?*
+
+-   **Taux de Conversion (CVR)** : `(Conversions / Visiteurs) * 100`
+    -   *La conversion peut être un achat, une inscription, un téléchargement...*
+-   **Panier Moyen (AOV - Average Order Value)** : `Revenu Total / Nombre de Commandes`
+-   **Taux d'Abandon de Panier** : `(Paniers créés - Achats) / Paniers créés`
+
+------------------------------------------------------------------------
+
+## KPIs Essentiels en Marketing Digital (3/3)
+
+### 3. Rétention & Fidélisation
+
+*Les clients reviennent-ils ?*
+
+-   **Taux de Rétention** : `% de clients de la période N qui reviennent en N+1`.
+-   **Taux de Churn (Attrition)** : `(Clients perdus / Clients début de période) * 100`
+    -   *L'inverse de la rétention.*
+-   **CLV (Customer Lifetime Value)** : `(Panier Moyen * Fréquence d'achat) * Durée de vie client`
+    -   Le KPI le plus important ? Permet de savoir combien on peut dépenser pour acquérir un client (CAC \< CLV).
+
+## KPIs Essentiels du Marketing Digital : Synthèse {style="font-size:0.55em"}
+
+| **KPI** | **Formule / Source** | **Objectif** | **Interprétation / Usage** |
+|:-----------------|:-----------------|:-----------------|:-----------------|
+| **CTR (Click-Through Rate)** | `(Clics / Impressions) × 100` | Mesurer l’efficacité d’une campagne à générer du trafic. | Un CTR élevé indique que le message et le ciblage fonctionnent bien. |
+| **CPC (Cost Per Click)** | `Dépenses publicitaires / Nombre de clics` | Évaluer le coût d’acquisition de visiteurs. | Plus il est bas pour un même trafic qualifié, mieux c’est. |
+| **CAC (Customer Acquisition Cost)** | `Coûts Marketing & Vente / Nouveaux Clients` | Mesurer le coût d’obtention d’un nouveau client. | À comparer avec le CLV pour juger la rentabilité. |
+| **ROAS (Return On Ad Spend)** | `Revenus générés / Dépenses publicitaires` | Mesurer la rentabilité d’une campagne. | ROAS \> 1 → campagne rentable. |
+| **Conversion Rate (CVR)** | `(Conversions / Visiteurs) × 100` | Mesurer la capacité du site à transformer. | Indique la performance du tunnel de conversion. |
+| **AOV (Average Order Value)** | `Revenu total / Nombre de commandes` | Calculer la valeur moyenne d’un achat. | Sert à optimiser les ventes additionnelles ou cross-selling. |
+| **Retention Rate** | `(Clients revenant en N+1 / Clients en N) × 100` | Mesurer la fidélité client. | Évalue la satisfaction et la valeur de long terme. |
+| **Churn Rate (Attrition)** | `(Clients perdus / Clients au début de la période) × 100` | Suivre les pertes clients. | L’inverse de la rétention, indicateur de risque. |
+| **CLV (Customer Lifetime Value)** | `(Panier moyen × Fréquence d’achat) × Durée de vie client` | Mesurer la valeur totale d’un client. | CLV \> CAC = business model sain. |
+| **Engagement Rate (Social Media)** | `(Interactions totales / Impressions) × 100` | Mesurer la qualité des interactions sur les réseaux. | Indique la pertinence du contenu et la force de la communauté. |
+
+##  {background-color="#4A708B"}
+
+<br> <br>
+
+<h1 style="color: white; text-align: center;">
+
+Partie 3 : Trouver des données (démo)
+
+</h1>
+
+## Pourquoi apprendre le SQL ?
+
+-   Le **SQL (Structured Query Language)** est le **langage universel des données**.\
+-   Il permet d’**interroger**, **filtrer**, **croiser** et **agréger** les informations stockées dans des bases de données.\
+-   Tous les outils marketing et analytiques (CRM, e-commerce, web-tracking, data warehouses) s’appuient sur des **bases relationnelles** accessibles en SQL.
+
+### En marketing digital, le SQL sert à : 
+ 
+ - Extraire des segments clients ciblés (ex. “clients actifs sur 3 mois”) 
+ - Mesurer la performance de campagnes (CTR, conversions, ROAS…) 
+ - Alimenter des tableaux de bord BI ou des modèles prédictifs
+
+## Une base relationnelle, c’est quoi ?
+
+-   Un ensemble de **tables** reliées entre elles par des **clés** :
+    -   **Clé primaire (PK)** : identifie chaque ligne (ex. `client_id`, `movie_id`)
+    -   **Clé étrangère (FK)** : fait le lien vers une autre table (ex. `director_id`)
+-   Chaque table contient :
+    -   des **colonnes** → variables (nom, budget, date, etc.)
+    -   des **lignes** → observations (un client, un film, une commande…)
+
+L’intérêt : éviter la redondance, garantir la cohérence, faciliter les jointures.
+
+## Image de base de données
+
+![](images/clipboard-152706542.png)
+
+::: {.notes}
+
+**Idée principale :**  
+Une base de données relationnelle n’est pas un grand tableau unique, mais un ensemble de **tables reliées entre elles**.
+
+Ici, on distingue quatre tables : **Customer**, **Order**, **Delivery** et **Products**.  
+Chaque table contient des **colonnes** (variables) et des **lignes** (observations).
+
+
+**PK (Primary Key)**  
+- La clé primaire identifie chaque ligne de façon unique.  
+- Exemples : `Customer_ID`, `Order_ID`, `Product_ID`.  
+- Elle fonctionne comme une “carte d’identité” de chaque élément.
+
+**FK (Foreign Key)**  
+- La clé étrangère relie une table à une autre.  
+- Exemples :  
+  - `Customer_ID` dans la table **Order** fait le lien vers le client concerné.  
+  - `Delivery_ID` relie chaque commande à son mode de livraison.  
+  - `Product_ID` relie une commande au produit commandé.
+
+
+**Pourquoi modéliser ainsi ?**
+
+- Pour **éviter les doublons** (le nom du client n’est pas recopié à chaque commande).  
+- Pour **faciliter les analyses** grâce aux jointures.  
+- Pour **organiser les données** selon des thématiques claires : clients, produits, commandes, livraisons.
+
+:::
+
+## Les 4 grandes opérations SQL (CRUD) {style="font-size:0.9em"}
+
+| Action     | Commande | Exemple marketing                  | Objectif             |
+|:-----------------|:-----------------|:-----------------|:-----------------|
+| **C**reate | `INSERT` | Ajouter un nouveau client          | Enrichir la base     |
+| **R**ead   | `SELECT` | Extraire les commandes de novembre | Analyser             |
+| **U**pdate | `UPDATE` | Corriger un email client           | Maintenir la qualité |
+| **D**elete | `DELETE` | Supprimer les doublons             | Nettoyer les données |
+
+> En pratique, les analystes utilisent surtout **SELECT**, les opérations d’écriture étant réservées aux data engineers ou aux scripts ETL.
+
+
+
+## Le raisonnement d’une requête SQL {style="font-size:0.8em"}
+
+Une requête suit toujours la même logique séquentielle :
+
+1.  **FROM** – Quelle(s) table(s) ?\
+2.  **JOIN** – Comment les relier ?\
+3.  **WHERE** – Quelles conditions ?\
+4.  **GROUP BY** – Sur quoi agréger ?\
+5.  **HAVING** – Quels groupes garder ?\
+6.  **SELECT** – Quelles colonnes afficher ?\
+7.  **ORDER BY** – Dans quel ordre ?\
+8.  **LIMIT** – Combien de lignes ?
+
+Exemple :
+
+> “Dans la table *campagnes*, sélectionne les campagnes Facebook de 2024, calcule le CTR moyen par pays, trie du plus fort au plus faible.”
+
+------------------------------------------------------------------------
+
+## Typologie des requêtes marketing
+
+| Type de requête | Objectif | Exemples |
+|:-----------------------|:-----------------------|:-----------------------|
+| **Descriptive** | Observer ce qui s’est passé | “Combien de clics par canal ?” |
+| **Diagnostique** | Comprendre pourquoi | “Pourquoi la conversion baisse ?” |
+| **Prédictive** | Anticiper | “Quels clients vont racheter ?” |
+| **Prescriptive** | Agir | “Quels segments relancer ?” |
+
+Le SQL couvre **les deux premières étapes** ; les suivantes s’appuient sur les données qu’il extrait.
+
+## SQL dans le quotidien (marketing)
+
+-   Extraction d’audiences depuis un **CRM** ou un **data warehouse**
+-   Analyse de performance multi-canal (ex. Facebook / Google Ads)
+-   Suivi des parcours utilisateurs (logs, événements web)
+-   Calculs de KPIs (CAC, CLV, ROAS, taux de churn)
+-   Alimentation d’outils BI (Tableau, Power BI, Metabase)
+
+**Moralité :** savoir écrire une requête SQL, c’est savoir **poser une bonne question aux données**.
+
+## À retenir avant la démo
+
+-   Le SQL est **déclaratif** : on décrit *ce qu’on veut*, pas *comment le faire*.\
+-   La logique est **tabulaire et relationnelle**.\
+-   En entreprise, les données sont souvent dans un **entrepôt (data warehouse)** accessible en SQL.\
+-   L’analyste marketing utilise SQL pour :
+    -   comprendre le comportement client,
+    -   mesurer la performance des campagnes,
+    -   créer les indicateurs de pilotage.
+
+Prochaine étape : **démo SQL en R** sur la base *IMDB* (films & réalisateurs).
+
+## Références

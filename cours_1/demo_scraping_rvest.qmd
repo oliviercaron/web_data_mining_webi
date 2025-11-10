@@ -1,0 +1,276 @@
+---
+title: "Scraper 101 avec rvest"
+subtitle: "Démo ultra-simple (marketing digital)"
+author:
+  - name: "Prénom Nom"
+    affiliations: "Institution"
+toc: true
+number-sections: true
+number-depth: 10
+format:
+  html:
+    theme:
+      light: litera
+      #dark: darkly
+    code-fold: true
+    code-summary: "Display code"
+    code-tools: true #enables to display/hide all blocks of code
+    code-copy: true #enables to copy code
+    grid:
+      body-width: 1000px
+      margin-width: 100px
+    toc: true
+    toc-location: left
+    code-link: true
+execute:
+  echo: true
+  warning: false
+  message: false
+editor: visual
+fig-align: "center"
+highlight-style: ayu
+---
+
+## Objectif de la démo
+
+- Comprendre **comment repérer** une structure HTML simple (cartes produit).
+- **Extraire** quelques champs clés (nom, prix, note, stock, lien).
+- **Assembler** dans un tibble propre et **exporter** en CSV.
+- Faire une **mini dataviz** utile pour le marketing.
+- Bonus : **pagination** (2 pages) pour montrer l’extension naturelle.
+
+> Site utilisé : **Books to Scrape** — un site bac à sable conçu pour s’exercer au scraping (pas de login, pas d’anti-bot agressif).
+
+---
+
+## Rappels éthiques (toujours !)
+
+- Vérifier la **finalité** (usage pédagogique ici).
+- Respecter la **charge** serveur (petits volumes, `Sys.sleep()` entre requêtes).
+- Ne pas récolter de **données personnelles** (ici : produits fictifs).
+- Consulter `robots.txt` quand c'est pertinent (ici, site bac à sable).
+
+---
+
+## Pré-requis (packages)
+
+Avant de commencer, on charge les packages dont on aura besoin.
+
+```{r}
+# install.packages(c("tidyverse", "rvest")) # à décommenter si besoin
+
+library(tidyverse)  # charge ggplot2, dplyr, purrr, stringr, readr, etc.
+library(rvest)      # pour le web scraping
+```
+
+
+## Définir la page à analyser
+
+On commence petit : la **page d’accueil** (liste de 20 livres, structure stable).
+
+```{r}
+url_home <- "https://books.toscrape.com/"
+url_home
+```
+
+## Télécharger le HTML (une seule action)
+
+On récupère le **document HTML** de la page.
+
+```{r}
+html_home <- read_html(url_home)
+html_home
+```
+
+## Repérer les cartes produit avec un sélecteur CSS
+
+Chaque produit est dans un bloc `.product_pod`. On les cible tous.
+
+```{r}
+cards <- html_home |> html_elements(".product_pod")
+length(cards)  # on s'attend à ~20
+```
+
+
+## Extraire **le titre** (texte) de chaque carte
+
+Dans chaque carte, le titre est porté par la balise `h3 > a` (attribut `title`).
+
+```{r}
+titles <- cards |> html_element("h3 a") |> html_attr("title")
+titles
+```
+
+
+## Extraire **le prix** (texte), puis **le nettoyer** (numérique)
+
+Le prix est dans `.price_color`. On enlève la devise et on transforme en numérique.
+
+```{r}
+prices_raw <- cards |> html_element(".price_color") |> html_text2()
+prices <- readr::parse_number(prices_raw)  # garde les chiffres (ex: 51.77)
+head(prices, 3)
+```
+
+
+## Extraire **la note** (rating) encodée dans une classe CSS
+
+La note apparaît sous forme de classe : `star-rating Three|Four|...`. On la convertit en entier.
+
+```{r}
+rating_words <- cards |> html_element(".star-rating") |> html_attr("class")
+rating_words <- str_replace(rating_words, "star-rating\\s+", "")
+rating_map <- c(One=1, Two=2, Three=3, Four=4, Five=5)
+ratings <- unname(rating_map[rating_words])
+head(ratings, 3)
+```
+
+
+## Extraire **la dispo** (In stock / Out of stock)
+
+Disponible dans `.availability` (petit nettoyage d’espaces).
+
+```{r}
+availability <- cards |> html_element(".availability") |> html_text2() |> str_squish()
+table(availability)
+```
+
+
+## Récupérer **le lien produit** absolu
+
+On lit l’attribut `href`, puis on le transforme en **URL absolue**.
+
+```{r}
+links_rel <- cards |> html_element("h3 a") |> html_attr("href")
+links_abs <- rvest::url_absolute(links_rel, base = url_home)
+head(links_abs, 3)
+```
+
+
+## Assembler en **tibble** propre
+
+On réunit nos vecteurs dans un seul tableau.
+
+```{r}
+books_p1 <- tibble::tibble(
+  title = titles,
+  price = prices,
+  rating = ratings,
+  availability = availability,
+  url = links_abs
+)
+
+books_p1 |> dplyr::glimpse()
+```
+
+
+## **Export** CSV (traçabilité)
+
+On écrit un fichier plat pour le partager / versionner.
+
+```{r}
+readr::write_csv(books_p1, "data/books_page1.csv")
+"Fichier écrit : data/books_page1.csv"
+```
+
+
+## Mini dataviz marketing : **distribution des notes**
+
+Question marketing : les produits sont-ils plutôt bien notés ?
+
+```{r}
+ggplot(books_p1, aes(x = factor(rating))) +
+  geom_bar() +
+  labs(x = "Note (1–5 étoiles)", y = "Nombre de livres",
+       title = "Distribution des notes – Page 1 (Books to Scrape)")
+```
+
+---
+
+## (Bonus) **Pagination** : récupérer **2 pages**
+
+Même logique : on prépare une **liste de 2 URLs** (page 1 et page 2), on boucle.
+
+```{r}
+urls <- c(
+  "https://books.toscrape.com/",
+  "https://books.toscrape.com/catalogue/page-2.html"
+)
+urls
+```
+
+---
+
+## (Bonus) Une fonction simple d’extraction **par page**
+
+> Principe : encapsuler les 5–6 lignes d’extraction dans une **fonction** réutilisable.
+
+```{r}
+scrape_books_page <- function(page_url) {
+  Sys.sleep(1)  # politesse minimale
+  doc <- read_html(page_url)
+  items <- doc |> html_elements(".product_pod")
+
+  tibble::tibble(
+    title = items |> html_element("h3 a") |> html_attr("title"),
+    price = items |> html_element(".price_color") |> html_text2() |> readr::parse_number(),
+    rating = {
+      words <- items |> html_element(".star-rating") |> html_attr("class") |> str_replace("star-rating\\s+", "")
+      unname(c(One=1, Two=2, Three=3, Four=4, Five=5)[words])
+    },
+    availability = items |> html_element(".availability") |> html_text2() |> str_squish(),
+    url = items |> html_element("h3 a") |> html_attr("href") |> rvest::url_absolute(base = page_url),
+    source_page = page_url
+  )
+}
+```
+
+---
+
+## (Bonus) Boucler sur 2 pages et **empiler**
+
+On applique la fonction à chaque URL et on **concatène** les résultats.
+
+```{r}
+books_2p <- urls |> map_dfr(scrape_books_page)
+books_2p |> dplyr::count(source_page)
+```
+
+---
+
+## 15) Export global + top produits par **prix**
+
+Exemple d’usage marketing : repérer les produits les plus chers (pricing / veille).
+
+```{r}
+readr::write_csv(books_2p, "data/books_2pages.csv")
+
+books_2p |>
+  arrange(desc(price)) |>
+  select(title, price, rating, availability, url) |>
+  head(10)
+```
+
+---
+
+## 16) Dataviz simple : **prix par note**
+
+Boîte à moustaches pour visualiser l’effet des **étoiles** sur les **prix** (indicatif).
+
+```{r}
+ggplot(books_2p, aes(x = factor(rating), y = price)) +
+  geom_boxplot() +
+  labs(x = "Note (1–5 étoiles)", y = "Prix (£)",
+       title = "Prix par niveau de note – 2 pages (Books to Scrape)")
+```
+
+---
+
+## Que retenir ?
+
+- **Sélecteurs CSS** : la clé pour cibler proprement.
+- **rvest** fournit un enchaînement logique : `read_html()` → `html_elements()` → `html_text2()` / `html_attr()`.
+- **Nettoyage léger** : `parse_number()`, `str_squish()`.
+- **Tibbles** et **CSV** pour la traçabilité.
+- **Pagination** = même recette, appliquée à une liste d’URL.
+- Toujours garder en tête **finalité, sobriété, éthique**.

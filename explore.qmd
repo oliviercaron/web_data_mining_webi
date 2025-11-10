@@ -1,0 +1,36 @@
+```{r}
+library(tidyverse)
+```
+
+```{r}
+data <- read_csv("data_full/ifood/ifood_df.csv")
+```
+
+```{r}
+data_yt <- read_csv("data_full/youtube_viral/FRvideos.csv")
+```
+
+```{r}
+data_real_estate <- read_csv("data_full/fr_real_estate/france_total_real_estate_sales_2022.csv")
+```
+```{r}
+library(sf)
+# Lire le shapefile complet (dans ton dossier)
+bdcom <- st_read("data_full/bbdcom2023/BDCOM_2023.shp")
+
+# Aperçu
+head(bdcom)
+st_geometry_type(bdcom)    # type (POINT, POLYGON, etc.)
+st_crs(bdcom)              # projection
+
+
+bdcom %>%
+  count(codact, sort = TRUE)
+
+bdcom %>%
+  filter(!is.na(ens)) %>%
+  count(ens, sort = TRUE) %>%
+  slice_head(n = 10)
+
+```
+
