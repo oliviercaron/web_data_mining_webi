@@ -1,0 +1,1095 @@
+---
+title: "Web Data Mining & Business Intelligence"
+subtitle: "Visualisation des données, storytelling, dashboards"
+author:
+  - name: "Olivier Caron"
+    affiliations: "Paris Dauphine - PSL"
+format:
+  ubd-revealjs:
+    self-contained: false
+    chalkboard: true
+    transition: fade
+    auto-stretch: false
+    width: 1250
+    height: 760
+    toc: false
+    code-block-height: 700px
+execute:
+  echo: true
+bibliography: refs.bib
+revealjs-plugins:
+  - editable
+filters:
+  - editable
+editor: 
+  markdown: 
+    wrap: sentence
+---
+
+## Objectifs de la séance {#accueil}
+
+-   Maîtriser les principes de conception de graphiques clairs.
+-   Apprendre à transformer les données en récits visuels.
+-   Comprendre les fondements de la création de dashboards efficaces pour la prise de décision.
+
+------------------------------------------------------------------------
+
+## Plusieurs parties et plusieurs références {style="font-size:0.85em"}
+
+:::::: columns
+::: {.column width="33%"}
+### 1. L'artisanat (technique)
+
+Avec **Tufte**, le "bruit graphique" (*chartjunk*) est traqué pour ne garder que l'essentiel [@costigan-eavesEdwardTufteVisual1986].
+
+\
+
+**Wilke** et **Healy** fournissent les clés d'une "grammaire des graphiques" pour construire des visuels justes et efficaces avec `ggplot2` [@GrammarGraphics2005; @healy2024data].
+:::
+
+::: {.column width="33%"}
+### 2. La narration (communication)
+
+L'art du *storytelling* selon **Cole Nussbaumer Knaflic** permet de transformer les graphiques en récits clairs et convaincants qui guident l'audience vers l'action [@knaflicStorytellingDataData2015; @knaflicStorytellingDataLets2019].
+:::
+
+::: {.column width="34%"}
+### 3. La synthèse (décision)
+
+Selon **Stephen Few**, les dashboards sont conçus pour respecter la perception humaine et éviter la surcharge cognitive [@few2006information].
+
+\
+
+**Koen Pauwels** montre comment les transformer en véritables outils de pilotage liant marketing et performance financière [@pauwelsModernMarketingDashboard2023].
+:::
+::::::
+
+# Partie 1 : l'artisanat du graphique {.transition-slide-ubdblue}
+
+## L'objectif : la clarté
+
+**Laisser les données briller, sans distraction.**
+
+> "L'excellence graphique, c'est ce qui donne au spectateur le plus grand nombre d'idées dans le temps le plus court avec le moins d'encre possible dans le plus petit espace."
+>
+> --- Edward Tufte
+
+## Avant tout : regardez vos données ! {style="font-size:0.70em"}
+
+::::: columns
+::: {.column width="50%"}
+Les statistiques descriptives (moyenne, variance, corrélation...) sont indispensables mais peuvent être terriblement trompeuses si elles sont utilisées seules.
+
+\
+
+Le **Quartet d'Anscombe** (1973) en est la preuve : données identiques mais apparences différentes une fois tracées : toujours visualiser les données avant de modéliser (EDA pour Exploratory Data Analysis).
+
+\
+\
+
+| Propriété                                               | Valeur        |
+|---------------------------------------------------------|---------------|
+| Moyenne des x                                           | 9,0           |
+| Variance des x                                          | 10,0          |
+| Moyenne des y                                           | 7,5           |
+| Variance des y                                          | 3,75          |
+| Coefficient de corrélation entre x et y                 | 0,816         |
+| Équation de la droite de régression linéaire            | y = 3 + 0,5 x |
+| Somme des carrés des erreurs (par rapport à la moyenne) | 110,0         |
+:::
+
+::: {.column width="50%"}
+![](images/Anscombe.svg){width="100%"}
+:::
+:::::
+
+## L'ennemi public n°1 : le "chartjunk"
+
+Le *chartjunk* (ou "bruit graphique") désigne tout élément visuel qui n'est pas essentiel à la compréhension des données.
+C'est du désordre qui distrait l'oeil et peut même fausser l'interprétation.
+
+::: incremental
+-   **Effets 3D inutiles :** ils tordent la perspective et rendent la lecture des valeurs impossible.
+-   **Motifs et textures lourds :** ils créent des vibrations visuelles (effet de moiré).
+-   **Couleurs criardes :** l'utilisation de la couleur doit être fonctionnelle, pas décorative.
+-   **Redondance :** écrire la valeur sur la barre ET avoir un axe Y est souvent inutile.
+:::
+
+::: callout-important
+### Se focaliser sur l'essentiel
+
+**Éliminer** chaque pixel qui n'est pas indispensable pour augmenter le "ratio encre-données" (Tufte).
+:::
+
+## Exemple de chartjunk à éviter
+
+![](images/clipboard-3368095089.png){fig-align="center" width="70%"}
+
+## Exemple de chartjunk 2 à éviter
+
+![](images/clipboard-2307685335.png){fig-align="center"}
+
+## Exemple de graphique peu clair (sans être un "chartjunk")
+
+![](images/clipboard-3785406703.png){fig-align="center"}
+
+## Les principes de la Gestalt (perception visuelle)
+
+La psychologie de la Gestalt explique comment notre cerveau organise les éléments visuels en groupes.
+Comprendre ces principes permet de créer de l'ordre dans vos graphiques sans ajouter de « chartjunk » [@knaflicStorytellingDataLets2019].
+
+::::: columns
+::: {.column width="50%"}
+-   **Proximité :** nous percevons les objets proches les uns des autres comme appartenant au même groupe.
+-   **Similitude :** les objets partageant une couleur, une forme ou une taille similaire sont perçus comme liés.
+-   **Enclosure (encadrement) :** les objets entourés par une limite visuelle sont perçus comme un groupe.
+:::
+
+::: {.column width="50%"}
+-   **Clôture :** notre cerveau « complète » les formes incomplètes (ex. : pas besoin d'un cadre complet autour d'un graphique).
+-   **Continuité :** nous suivons naturellement les lignes les plus fluides.
+-   **Connexion :** des éléments reliés par une ligne sont perçus comme plus liés que par la simple couleur ou forme.
+:::
+:::::
+
+## Gestalt - illustration
+
+![](images/clipboard-2373548771.png){fig-align="center" width="50%"}
+
+## Les attributs pré-attentifs (attirer l'attention)
+
+Ce sont des signaux visuels que notre cerveau traite en quelques millisecondes, avant même que nous ne prêtions une attention consciente.
+Utilisez-les pour guider l'œil de votre audience [@knaflicStorytellingDataLets2019].
+
+::::: columns
+::: {.column width="40%"}
+**Les plus puissants :**
+
+1.  **La couleur :** l'outil le plus fort, à utiliser avec parcimonie pour mettre en valeur un point précis.
+2.  **La taille :** les éléments plus grands signalent une importance supérieure.
+3.  **La position :** ce qui est en haut à gauche est vu en premier.
+:::
+
+::: {.column width="60%"}
+![](images/clipboard-578437428.png)
+:::
+:::::
+
+# Théorie : la grammaire visuelle {.transition-slide-ubdteal}
+
+## La grammaire fondamentale
+
+Un graphique n'est pas un dessin artistique, c'est une conversion systématique.
+
+**Le principe clé (C. Wilke) :** toutes les visualisations de données mappent des valeurs de données (chiffres, catégories) vers des caractéristiques visuelles quantifiables du graphique.
+
+Nous appelons ces caractéristiques des **esthétiques** (*aesthetics*).
+
+## Les types d'esthétiques {style="font-size:0.85em"}
+
+::::: columns
+::: {.column width="40%"}
+Une esthétique décrit un aspect d'un élément graphique.
+
+-   **Position (x, y) :** où se trouve l'élément.
+-   **Forme (shape) :** rond, carré, triangle...
+-   **Taille (size) :** rayon, aire.
+-   **Couleur (color) :** teinte ou saturation.
+-   **Ligne (type/width) :** plein, pointillé, épaisseur.
+:::
+
+::: {.column width="60%"}
+![](images/clipboard-185596907.png)
+:::
+:::::
+
+::: callout-note
+### Attention au type de données
+
+Certaines esthétiques (position, taille, couleur) peuvent représenter des données **continues**, tandis que d'autres (forme, type de ligne) ne peuvent représenter que des données **discrètes**.
+:::
+
+## Comprendre vos données {style="font-size:0.8em"}
+
+Avant de choisir une esthétique, il faut identifier le type de vos variables.
+
+| Type de variable | Description | Exemples | Échelle appropriée |
+|:-----------------|:-----------------|:-----------------|:-----------------|
+| **Quantitative continue** | Nombres arbitraires (réels) | 1.3, 5.7, Température | Continue |
+| **Quantitative discrète** | Unités distinctes (entiers) | 1, 2, Nombre d'enfants | Discrète |
+| **Qualitative non-ordonnée** | Catégories sans hiérarchie | Chien, Chat, Pays | Discrète (Facteur) |
+| **Qualitative ordonnée** | Catégories avec hiérarchie | Bon, Moyen, Mauvais | Discrète (Facteur ordonné) |
+| **Date / Temps** | Moments spécifiques | 14 Juillet, 12:00 | Continue ou Discrète |
+
+## Les échelles (scales) : le pont
+
+Pour passer de la donnée à l'esthétique, nous avons besoin d'une **échelle** (*scale*).
+
+C'est une fonction mathématique qui définit un mapping unique (*one-to-one*).
+Si l'échelle n'est pas unique, le graphique est ambigu.
+
+![](images/clipboard-3396471075.png){fig-align="center"}
+
+## Cas d'école : même données, visualisations différentes
+
+Imaginons des données météo (4 villes, températures journalières).
+Selon le mapping choisi, l'histoire change.
+
+::::: columns
+::: {.column .fragment width="50%"}
+**Mapping 1 : évolution temporelle**
+
+-   X : jour (Temps)
+-   Y : température (Continu)
+-   Couleur : ville (Discret)
+
+![](images/clipboard-1505836256.png){fig-align="center" width="75%"}
+:::
+
+::: {.column .fragment width="50%"}
+**Mapping 2 : intensité et comparaison**
+
+-   X : mois (Discret ordonné)
+-   Y : ville (Discret)
+-   Couleur : température (Continu)
+
+![](images/clipboard-1354990438.png){fig-align="center" width="100%"}
+:::
+:::::
+
+## La multidimensionnalité
+
+::::: columns
+::: {.column width="40%"}
+On peut mapper plus de 3 variables.
+Exemple ici avec **5 variables** :
+
+1.  Cylindrée $\rightarrow$ X
+2.  Efficacité $\rightarrow$ Y
+3.  Puissance $\rightarrow$ Couleur
+4.  Poids $\rightarrow$ Taille
+5.  Cylindres $\rightarrow$ Forme
+:::
+
+::: {.column width="60%"}
+![](images/clipboard-3231098592.png){fig-align="center" width="100%"}
+:::
+:::::
+
+## Exemple concret avec le jeu de données `ifood`
+
+Ce graphique illustre parfaitement le concept.
+Chaque point est un client, et nous visualisons 4 dimensions d'information simultanément via `ggplot2`.
+
+```{r ifood-mapping-example}
+#| echo: false
+#| eval: true
+#| message: false
+#| warning: false
+library(ggplot2)
+library(dplyr)
+
+# Chargement des données
+ifood <- read.csv("../data_full/ifood/ifood_df.csv")
+
+# Correction : R remplace souvent les espaces par des points dans les noms de colonnes
+# On utilise donc education_2n.Cycle au lieu de "education_2n Cycle"
+
+ifood_clean <- ifood %>% 
+  filter(Income < 200000) %>% 
+  mutate(Education = case_when(
+    education_Graduation == 1 ~ "Graduation",
+    education_PhD == 1 ~ "PhD",
+    education_Master == 1 ~ "Master",
+    education_Basic == 1 ~ "Basic",
+    education_2n.Cycle == 1 ~ "2n Cycle", # <-- Note le point ici !
+    TRUE ~ "Other"
+  ))
+
+# Le graphique
+ggplot(ifood_clean, 
+       aes(x = Income, 
+           y = MntWines, 
+           color = Education, 
+           size = NumWebPurchases)) +
+  geom_point(alpha = 0.6) +
+  labs(title = "Dépenses en vin selon le revenu et l'éducation",
+       x = "Revenu Annuel",
+       y = "Dépenses annuelles en vin",
+       color = "Niveau d'étude",
+       size = "Nb. d'achats web",
+       caption = "Source : ces données sont disponibles dans le dossier data_full sous ifood/ifood_df.csv") +
+  theme_minimal()
+```
+
+# Atelier pratique : construire pas à pas {.transition-slide-ubdteal}
+
+## Méthodologie
+
+Nous allons suivre la méthode de **Kieran Healy** pour construire un graphique complexe, couche par couche, en appliquant rigoureusement la grammaire des graphiques.
+
+**Source :** *Data Visualization: A Practical Introduction*, Chapter 3.
+
+L'objectif est de comprendre comment `ggplot2` empile les couches :
+
+Données -\> mapping -\> géométrie -\> statistiques -\> échelles -\> thème
+
+## Préparation et "Tidy Data"
+
+Nous utilisons le jeu de données `gapminder` (Espérance de vie, PIB, Population par pays et par an) déjà inclus dans R de base.
+
+::: panel-tabset
+### Le code de préparation
+
+```{r setup-gapminder}
+#| message: false
+#| warning: false
+#| echo: true
+library(tidyverse) # Charge ggplot2, dplyr, tidyr...
+library(gapminder) # Le jeu de données
+library(scales)    # Pour le formatage des axes ($, %, etc.)
+library(gt)        # Pour les beaux tableaux
+
+```
+
+### Aperçu des données
+
+```{r}
+#| echo: false
+#| eval: true
+gapminder %>%
+  slice_sample(n = 10) %>%
+  gt() %>%
+  fmt_number(
+    columns = c(pop, gdpPercap),
+    decimals = 0,
+    use_seps = TRUE
+  ) %>%
+  fmt_number(
+    columns = lifeExp,
+    decimals = 1
+  ) %>%
+  tab_header(
+    title = md("**Sélection aléatoire de 10 lignes du jeu de données gapminder**")
+  ) %>%
+  cols_label(
+    country    = md("**Country**"),
+    continent  = md("**Continent**"),
+    year       = md("**Year**"),
+    lifeExp    = md("**Life exp**"),
+    pop        = md("**Population**"),
+    gdpPercap  = md("**GDP per capita**")
+  ) %>%
+  tab_style(
+    style = list(
+      cell_fill(color = "#f0f2f5"),
+      cell_text(weight = "bold")
+    ),
+    locations = cells_column_labels(everything())
+  ) %>%
+  opt_table_outline() %>%
+  opt_row_striping() %>%
+  tab_options(
+    table.font.size = px(14),
+    heading.align = "center"
+  )
+```
+:::
+
+## Rappel du concept de Tidy Data
+
+Pour que `ggplot2` fonctionne, vos données doivent être **ordonnées** (*tidy*).
+C'est une structure spécifique :
+
+1.  **Une variable** = une colonne.
+2.  **Une observation** = une ligne.
+3.  **Une valeur** = une cellule.
+
+::: callout-tip
+### Le piège du format "Large"
+
+Si vos données sont en format "Large" (ex: une colonne par année : `1990`, `1991`, `1992`...), vous ne pourrez pas mapper l'année sur l'axe X.
+Vous devez d'abord les pivoter en format "Long" (une colonne "Année", une colonne "Valeur") avec `pivot_longer()`.
+:::
+
+## Exemple Tidy Data
+
+![](images/clipboard-1041945270.png){fig-align="center" width="90%"}
+
+## Étape 1 : la toile vierge {style="font-size:0.75em"}
+
+On commence par déclarer l'objet graphique en lui fournissant les données.
+
+```{r gap-step1}
+#| echo: true
+#| eval: true
+#| output-location: column
+#| fig-width: 6
+#| fig-height: 5
+
+
+p <- ggplot(data = gapminder)
+p
+```
+
+**Résultat :** rien ne s'affiche !
+C'est normal, nous avons défini la source des données, mais nous n'avons pas encore expliqué à R comment les représenter.
+
+## Étape 2 : le mapping (aes) {style="font-size:0.7em"}
+
+On définit les axes dans l'esthétique (`aes`).
+On dit à R : "Prends la colonne PIB pour l'axe X et l'Espérance de vie pour l'axe Y".
+
+```{r gap-step2}
+#| echo: true
+#| eval: true
+#| output-location: column
+#| fig-width: 6
+#| fig-height: 5
+
+p <- ggplot(data = gapminder,
+            mapping = aes(x = gdpPercap,
+                          y = lifeExp))
+p
+```
+
+**Résultat :** `ggplot` a préparé la grille.
+Il a scanné les données pour trouver les minimums et maximums et a dessiné les axes correspondants.
+Mais il ne sait toujours pas *quelle forme* dessiner.
+
+## Étape 3 : ajouter un "Geom" {style="font-size:0.7em"}
+
+On ajoute une couche géométrique (**geom**) pour représenter les données concrètement.
+Ici, des points (`geom_point`) pour faire un nuage de points.
+
+```{r gap-step3}
+#| echo: true
+#| eval: true
+#| output-location: column
+#| fig-width: 6
+#| fig-height: 5
+
+p + geom_point()
+```
+
+**Observation :** nous avons un problème de lisibilité.
+Les points se chevauchent massivement (overplotting) et la relation n'est pas linéaire, elle semble suivre une courbe.
+
+## Étape 4 : ajouter une tendance {style="font-size:0.7em"}
+
+La grammaire fonctionne par **couches** (`layers`).
+Ajoutons une couche de lissage statistique (`geom_smooth`) au-dessus des points pour visualiser la tendance générale.
+
+```{r gap-step4}
+#| echo: true
+#| eval: true
+#| output-location: column
+#| fig-width: 6
+#| fig-height: 5
+
+p + geom_point() + geom_smooth()
+```
+
+*Par défaut, `geom_smooth()` utilise une méthode GAM (Generalized Additive Model) pour les grands jeux de données, ce qui donne cette courbe flexible.*
+
+## Étape 5 : ajuster l'échelle (scales) {style="font-size:0.7em"}
+
+Le PIB n'est pas distribué normalement.
+La plupart des pays sont pauvres (à gauche), et quelques-uns très riches (à droite).
+Cela "écrase" le graphique.
+Utilisons une **échelle logarithmique** sur l'axe X.
+
+```{r gap-step5}
+#| echo: true
+#| eval: true
+#| output-location: column
+#| fig-width: 6
+#| fig-height: 5
+
+p + geom_point() + 
+    geom_smooth(method = "gam") + 
+    scale_x_log10()
+```
+
+**Résultat :** la relation devient beaucoup plus claire et linéaire.
+L'échelle log est un outil puissant pour les données économiques.
+
+## Étape 6 : formater les étiquettes {style="font-size:0.7em"}
+
+Les chiffres scientifiques sur l'axe X (`1e+04`) sont incompréhensibles pour une audience métier.
+Utilisons le package `scales` pour formater cela en dollars.
+
+```{r gap-step6}
+#| echo: true
+#| eval: true
+#| output-location: column
+#| fig-width: 6
+#| fig-height: 5
+
+p + geom_point() + 
+    geom_smooth(method = "gam") + 
+    scale_x_log10(labels = scales::dollar)
+```
+
+## Piège classique : mapping vs setting {style="font-size:0.8em"}
+
+**Attention !** Il y a une différence fondamentale entre *mapper* une variable et *fixer* (setting) une valeur esthétique.
+
+::::: columns
+::: {.column width="50%"}
+### L'erreur (Mapping)
+
+Mettre "purple" dans `aes()`.
+
+```{r gap-error}
+#| echo: true
+#| eval: true
+#| fig-height: 4.5
+p + geom_point(aes(color = "purple")) +
+    scale_x_log10()
+```
+
+**Pourquoi ça rate ?** `aes()` s'attend à une variable (une colonne).
+Comme elle ne la trouve pas, elle crée une colonne fictive nommée "purple" et utilise la palette de couleur par défaut (rouge).
+:::
+
+::: {.column width="50%"}
+### La solution (Setting)
+
+Sortir l'argument de `aes()`.
+
+```{r gap-correct}
+#| echo: true
+#| eval: true
+#| fig-height: 4.5
+p + geom_point(color = "purple") + 
+    scale_x_log10()
+```
+
+**Pourquoi ça marche ?** Ici, nous disons explicitement au `geom` : "Peins tous les points en violet", sans passer par le mapping de données.
+:::
+:::::
+
+## Étape 7 : finitions (labels & alpha)
+
+Rendons le graphique présentable pour une publication :
+
+1.  Ajout de **transparence** (`alpha`) pour mieux voir la densité des points.
+2.  Ajout de **titres** clairs et sourcés (`labs`).
+
+```{r gap-step7}
+#| echo: true
+#| eval: true
+#| output-location: slide
+#| fig-width: 10
+#| fig-height: 6
+#| code-line-numbers: "3|6-10"
+#| code-line-steps: true
+#| fig-align: center
+#| fig-dpi: 300
+
+p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y=lifeExp))
+
+p + geom_point(alpha = 0.3) +
+    geom_smooth(method = "gam") +
+    scale_x_log10(labels = scales::dollar) +
+    labs(x = "PIB par habitant (échelle log)", 
+         y = "Espérance de vie (années)",
+         title = "Croissance économique et espérance de vie",
+         subtitle = "L'espérance de vie augmente avec le PIB, mais plafonne.",
+         caption = "Source: Gapminder. Adapté de K. Healy.")
+```
+
+## Étape 8 : ajouter de l'information
+
+Pouvons-nous ajouter une 3ème dimension sans surcharger ?
+Mappons le `continent` à la couleur.
+Cela permet de voir les disparités géographiques.
+
+```{r gap-step8}
+#| echo: true
+#| eval: true
+#| output-location: slide
+#| fig-width: 10
+#| fig-height: 6
+
+
+# Note : on ajoute color = continent dans le mapping global
+p <- ggplot(data = gapminder, 
+            mapping = aes(x = gdpPercap, y = lifeExp, color = continent, fill = continent))
+
+p + geom_point(alpha = 0.3) +
+    geom_smooth(method = "loess") +
+    scale_x_log10(labels = scales::dollar) +
+    labs(title = "Disparités économiques et sanitaires par continent",
+         x = "PIB par Habitant", y = "Espérance de vie")
+```
+
+## Sauvegarder son image
+
+Pour exporter votre image en haute qualité (vectoriel pour impression, PNG pour le web), utilisez la fonction `ggsave()`.
+
+```{r save-plot}
+#| eval: false
+#| echo: true
+#| code-line-numbers: "6|9"
+#| code-line-steps: true
+
+# 1. Créer l'objet final
+mon_graphique <- p + geom_point(alpha = 0.3) + scale_x_log10()
+
+# 2. Sauvegarder
+# Le format PDF est vectoriel : il ne pixelise pas au zoom.
+ggsave(filename = "graphique_final.pdf", plot = mon_graphique, width = 8, height = 6)
+
+# Le format PNG est matriciel : définir un haut DPI pour la qualité.
+ggsave(filename = "graphique_final.png", plot = mon_graphique, dpi = 300)
+```
+
+# Partie 2 : la narration (storytelling) {.transition-slide-ubdyellow}
+
+## Du graphique à l'histoire
+
+Avoir un graphique *propre* et techniquement juste constitue la première étape.
+La seconde consiste à l'utiliser pour convaincre une audience.
+
+**Le storytelling permet de passer de :**
+
+> « Voici les données sur les ventes du T3.
+> »
+
+**À :**
+
+> « Voici *pourquoi* nos ventes ont chuté au T3 et *ce que* nous devons faire pour inverser la tendance au T4.
+> »
+
+C'est l'art de transformer une observation froide en un **récit qui incite à l'action**.
+
+## Étape 1 : comprendre le contexte
+
+Avant même de créer un graphique, Knaflic suggère de fermer l'ordinateur pour définir le contexte.
+Il est nécessaire de répondre clairement à la question : « *So what ?* » (et alors ?) [@knaflicStorytellingDataLets2019].
+
+**Trois questions fondamentales à se poser :**
+
+1.  **Qui** est l'audience ? (Être spécifique).
+2.  **Que** doivent-ils savoir ou faire ?
+3.  **Comment** les données vont-elles aider à faire ce point ?
+
+## L'outil de synthèse : la « Big Idea »
+
+Il est impératif de pouvoir articuler le message en une seule phrase.
+Si cela est impossible, l'idée manque probablement de clarté [@knaflicStorytellingDataLets2019].
+
+::: {.callout-tip title="Les 3 composantes de la Big Idea"}
+1.  Articuler un **point de vue** unique ;
+2.  Exprimer ce qui est **en jeu** (les enjeux) ;
+3.  Former une phrase **complète** (sujet, verbe, complément).
+:::
+
+**Exemple :** « Le programme pilote d'été a réussi à améliorer la perception des sciences par les élèves ; il convient d'approuver le budget pour continuer ce programme important.
+»
+
+## L'histoire de 3 minutes
+
+Si le temps de présentation était réduit à 3 minutes (au lieu de 30), que faudrait-il dire ?
+
+Cet exercice est crucial pour :
+
+-   Aller à l'essentiel ;
+-   Supprimer les détails superflus ;
+-   Savoir exactement où emmener l'audience.
+
+> « Connaître son histoire de 3 minutes permet de rester concis et clair, même en disposant de davantage de temps.
+> »
+
+## Étape 2 : le storyboarding (low-tech)
+
+Éviter de commencer par le logiciel de présentation.
+L'outil force à penser en « slides » et en « titres », ce qui nuit à la créativité narrative.
+
+**Le processus en deux temps :**
+
+1.  **Brainstorming :** faire sortir les idées et les noter en vrac sur des post-it, sans filtre.
+2.  **Édition :** organiser, trier et éliminer le superflu pour créer une structure logique.
+
+**Pourquoi les post-it ?** Il est aisé de jeter un post-it, alors qu'il est difficile de supprimer une slide ayant nécessité du temps de conception.
+
+## Étape 3 : l'arc narratif (the narrative arc) {style="font-size:0.7em"}
+
+Une présentation business classique est souvent linéaire et ennuyeuse.
+Une histoire captivante suit une forme en arc spécifique [@knaflicStorytellingDataLets2019].
+
+::::: columns
+::: {.column width="50%"}
+1.  **Intrigue (plot) :** le contexte, le statu quo. Poser le décor.
+2.  **Montée de l'action (rising action) :** introduire la **tension**. Le problème, le déséquilibre, l'opportunité manquée.
+3.  **Climax :** le point de bascule. La révélation majeure des données. « Si rien n'est fait, voilà ce qui arrive ».
+4.  **Action descendante (falling action) :** l'analyse des solutions, les options possibles.
+5.  **Résolution (ending) :** l'appel à l'action clair et la nouvelle réalité future.
+:::
+
+::: {.column width="50%"}
+![](images/clipboard-1444889286.png)
+:::
+:::::
+
+## Le moteur de l'histoire : la tension
+
+Si l'histoire n'a pas de tension, l'audience ne l'écoutera pas.
+Dans la data, la tension provient souvent de l'écart entre :
+
+-   Ce que nous voulons vs ce que nous avons ;
+-   Les attentes vs la réalité ;
+-   Le risque de l'inaction vs le bénéfice de l'action.
+
+::: callout-important
+### Question clé
+
+Pour l'audience, **qu'est-ce qui est en jeu ?** (what is at stake ?) Si la réponse est « rien », la réunion et le graphique sont inutiles.
+:::
+
+## Distinction : présentation live vs « slideument »
+
+Knaflic insiste sur la différence de format selon le mode de consommation [@knaflicStorytellingDataLets2019].
+
+**Le « slideument » (slide + document)** est l'ennemi : trop dense pour être présenté, pas assez détaillé pour être lu seul.
+Il faut choisir.
+
+| Présentation live (en direct) | Document autonome (email / PDF) |
+|:-----------------------------------|:-----------------------------------|
+| **L'orateur est présent** pour expliquer. | **L'orateur est absent**. Le document doit parler seul. |
+| **Construction progressive** : afficher les éléments un par un pour contrôler l'attention. | **Slide dense et annotée** : utiliser du texte pour guider la lecture (titres actifs, annotations). |
+| Peu de texte à l'écran. | Plus de texte explicatif. |
+
+## Exemple d'application : le live vs statique
+
+*Source : exercice 6.6 de « Let's Practice! » - analyse des délais d'embauche.*
+
+::::: columns
+::: {.column width="50%"}
+### En live (séquencé)
+
+1.  Afficher les axes vides (contexte).
+2.  Afficher la ligne « objectif » (tension).
+3.  Afficher les données réelles qui dépassent l'objectif (climax).
+4.  Discuter des solutions (résolution).
+:::
+
+::: {.column width="50%"}
+### En statique (annoté)
+
+Une seule slide finale contenant :
+
+-   Un titre d'action (« Les délais d'embauche dépassent l'objectif ») ;
+-   Les graphiques complets ;
+-   Des annotations textuelles pointant directement vers les pics de données critiques pour expliquer le « pourquoi ».
+:::
+:::::
+
+## La phrase mémorable (pithy repeatable phrase)
+
+Pour que l'histoire marque les esprits, il est recommandé de créer une phrase courte, accrocheuse et répétable qui résume la « Big Idea » [@knaflicStorytellingDataLets2019].
+
+**Caractéristiques :**
+
+-   Courte ;
+-   Facile à dire ;
+-   Mémorable.
+
+**Utilisation :** La répéter au début, au milieu et à la fin de la présentation garantit que l'audience reparte avec le message clé.
+
+## Exemples historiques : John Snow (1854) {style="font-size:0.7em"}
+
+*Maintenant que la méthode est définie, observons ceux qui l'ont appliquée intuitivement.*
+
+::::: columns
+::: {.column width="40%"}
+En plaçant chaque décès sur une carte de Londres, le Dr Snow a révélé que les cas de choléra se concentraient autour d'une pompe à eau spécifique.
+
+\
+
+**L'arc narratif de Snow :**
+
+\
+
+1.  **Intrigue :** choléra à Londres, panique générale.
+2.  **Tension :** les gens meurent, la cause est inconnue (théorie des miasmes vs contagion).
+3.  **Climax :** la carte montre la concentration indéniable autour de Broad Street.
+4.  **Résolution :** retirer la poignée de la pompe à eau pour stopper l'épidémie.
+:::
+
+::: {.column width="60%"}
+![](images/Snow-cholera-map.jpg){fig-align="center" width="100%"}
+:::
+:::::
+
+## Exemples historiques : Florence Nightingale (1858) {style="font-size:0.70em"}
+
+Infirmière et statisticienne, elle utilise ce « diagramme de la rose » dans un but politique précis : prouver que les maladies infectieuses (en bleu) tuent bien plus que les combats (en rouge).
+
+**Big Idea :** « Nous perdons plus de soldats à cause de l'hygiène qu'à cause de l'ennemi ; il faut financer la réforme sanitaire.
+»
+
+![Le « Coxcomb » : la visualisation comme outil de persuasion politique](images/Nightingale-mortality.jpg){fig-align="center" width="75%"}
+
+## Exemples historiques : Minard (1869) {style="font-size:0.75em"}
+
+Considéré par Edward Tufte comme « probablement le meilleur graphique statistique jamais dessiné ».
+
+Ce graphique retrace la **campagne de Russie de Napoléon** en 1812 et illustre l'intégration de six variables dans un seul visuel :
+
+* **La taille de l'armée :** l'épaisseur de la ligne
+* **La position géographique :** les axes (x, y)
+* **La direction :** le sens de la ligne (aller en beige, retour en noir)
+* **Le temps :** le déroulé de l'histoire
+* **La température :** le graphique de températures en bas (pendant la retraite)
+
+![La campagne de Russie : 6 variables en 2D (Temps, Position, Température, Nombre d'hommes, Direction)](images/Minard.png)
+
+# Partie 3 : la synthèse/dashboard {.transition-slide-ubdteal}
+
+## Le dashboard
+
+Un dashboard n'est pas un cimetière de graphiques où l'on déverse toutes les données disponibles.
+C'est un **instrument de pilotage**.
+
+**Un bon dashboard :**
+
+-   Répond à des **questions précises** en un coup d'oeil.
+-   Est lisible en **5 secondes** (règle des 5 secondes).
+-   A une **hiérarchie visuelle claire** (du plus important au détail).
+-   Applique tous les principes de design vus précédemment.
+
+## Qu'est-ce un dashboard marketing ?
+
+C'est le **cockpit du pilote** : il ne montre pas toutes les données, seulement les instruments essentiels pour ne pas se crasher.
+
+::: {.callout-note title="Définition (Pauwels et al.)"}
+Un **petit ensemble d’indicateurs interconnectés**, couvrant le **court terme** (performance) et le **long terme** (marque), **partagé** dans l’organisation pour guider les décisions.
+:::
+
+Il agrège les sources (GA4, Meta, CRM, SEO) pour répondre à : *"Que se passe-t-il et que faire maintenant ?"*
+
+## Ce qu'un dashboard n'est pas
+
+:::::: columns
+::: {.column width="50%"}
+**Ce n'est pas :** 
+
+- Un rapport PDF de 40 pages que personne ne lit.
+- Une galerie de "jolis" graphiques sans lien logique.
+- Un export Excel brut affiché sur un écran.
+
+:::
+
+:::: {.column width="50%"}
+
+\
+
+::: callout-warning
+### Un dashboard n'est pas bon si...
+
+- Personne ne peut expliquer son utilité en une phrase.
+- Il n'aide à prendre aucune décision concrète (budget, ciblage...).
+- Les utilisateurs l'exportent systématiquement vers Excel pour "vraiment" travailler (mais ça reste utile)
+
+:::
+::::
+::::::
+
+## Les trois types de dashboards {style="font-size:0.8em"}
+
+Le design dépend de l'audience et de l'objectif temporel.
+
+| Type | Objectif | Audience | Caractéristiques |
+|:-----------------|:-----------------|:-----------------|:-----------------|
+| **Stratégique** | Santé globale (KPIs) | Direction (C-Level) | Vue d'hélicoptère, simple, peu d'interaction, mensuel/trimestriel. |
+| **Analytique** | Comprendre les tendances | Analystes, Managers | Interactif, filtres, drill-down, comparaisons complexes. |
+| **Opérationnel** | Temps réel, alertes | Terrain (Traffic Manager) | Mise à jour fréquente, très granulaire, focus sur l'immédiat. |
+
+# Cas pratique : analyse A/B {.transition-slide-ubdblue}
+
+## Contexte et objectif
+
+Nous allons analyser les résultats d'une campagne publicitaire menée en parallèle sur **Google AdWords** et **Facebook**.
+
+**L'objectif :** déterminer quelle plateforme offre le meilleur retour sur investissement (ROI) et où allouer le budget futur.
+
+Nous allons charger des données brutes, les nettoyer, et créer des visualisations impactantes.
+
+## Préparation des données {style="font-size:0.8em"}
+
+::: panel-tabset
+### 1. Chargement
+
+Nous chargeons les librairies et le fichier CSV.
+Notez que les données sont souvent dans un format "Large" (une colonne par plateforme et par métrique) qui n'est pas idéal pour l'analyse.
+
+```{r load-data}
+#| message: false
+#| warning: false
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(gt)
+
+# Note: Chemin relatif à adapter selon votre dossier
+data_wide <- read.csv("../data_full/facebook_vs_adword/A_B_testing_dataset.csv")
+
+# Affichons les noms des colonnes pour comprendre le problème
+names(data_wide)
+```
+
+### 2. Nettoyage (Pivot)
+
+Nous transformons les données de format "Large" vers "Long".
+C'est une étape cruciale : nous voulons une colonne `platform` pour pouvoir grouper nos analyses.
+
+```{r pivot-data}
+data_long <- data_wide %>%
+  pivot_longer(
+    cols = starts_with("facebook_") | starts_with("adword_"),
+    names_to = c("platform", ".value"),
+    names_pattern = "(facebook|adword)_(.*)"
+  ) %>%
+  rename(views = ad_views, clicks = ad_clicks, 
+         conversions = ad_conversions, cost = cost_per_ad)
+
+# Vérifions le résultat
+head(data_long)
+```
+
+### 3. Calcul des KPIs
+
+Nous agrégeons les données pour calculer les indicateurs de performance clés (KPI) globaux.
+
+```{r calc-kpis}
+summary_stats <- data_long %>%
+  group_by(platform) %>%
+  summarise(
+    total_cost = sum(cost),
+    total_conversions = sum(conversions),
+    total_clicks = sum(clicks),
+    .groups = 'drop'
+  ) %>%
+  mutate(
+    # CPA = Coût Total / Nombre de Conversions
+    cpa = total_cost / total_conversions,
+    # Taux de Conv = (Conversions / Clics) * 100
+    overall_conversion_rate = (total_conversions / total_clicks) * 100
+  ) %>%
+  # Esthétique : majuscules pour les graphiques
+  mutate(platform = toupper(platform))
+```
+:::
+
+## Aperçu des résultats
+
+Voici le tableau récapitulatif de nos indicateurs calculés.
+Le tableau est propre, mais il ne raconte pas encore une histoire immédiate.
+
+```{r show-table}
+#| echo: true
+#| eval: true
+summary_stats %>% 
+  gt() %>% 
+  fmt_currency(columns = c(total_cost, cpa), currency = "EUR") %>%
+  fmt_percent(columns = overall_conversion_rate, scale_values = FALSE, decimals = 2)
+```
+
+## Comparaison du CPA (coût par acquisition)
+
+**Question :** combien nous coûte, en moyenne, l'acquisition d'un client sur chaque plateforme ?
+*Interprétation : plus le CPA est bas, meilleure est la rentabilité.*
+
+```{r plot-cpa}
+#| output-location: slide
+#| fig-width: 10
+#| fig-height: 5.5
+
+ggplot(summary_stats, aes(x = platform, y = cpa, fill = platform)) +
+  geom_bar(stat = "identity", width = 0.6) +
+  geom_text(aes(label = paste0(round(cpa, 2), " €")), vjust = -0.5, size = 6, fontface = "bold") +
+  labs(
+    title = "Coût par acquisition (CPA) par plateforme",
+    subtitle = "Facebook est nettement plus rentable pour acquérir un client.",
+    x = NULL, # Pas besoin de label X car évident
+    y = "Cout par Acquisition (€)"
+  ) +
+  theme_minimal(base_size = 16) +
+  theme(
+    legend.position = "none",
+    panel.grid.major.x = element_blank()
+  ) +
+  scale_fill_manual(values = c("#325494", "#58DDB3")) # Couleurs UBD Theme
+```
+
+## Comparaison du taux de conversion
+
+**Question :** une fois que l'utilisateur a cliqué, quelle est la probabilité qu'il achète ?
+*Interprétation : un taux plus élevé indique un trafic plus qualifié ou une meilleure adéquation produit/audience.*
+
+```{r plot-conv}
+#| output-location: slide
+#| fig-width: 10
+#| fig-height: 5.5
+
+ggplot(summary_stats, aes(x = platform, y = overall_conversion_rate, fill = platform)) +
+  geom_bar(stat = "identity", width = 0.6) +
+  geom_text(aes(label = paste0(round(overall_conversion_rate, 2), " %")), vjust = -0.5, size = 6, fontface = "bold") +
+  labs(
+    title = "Taux de conversion global",
+    subtitle = "Le trafic Facebook transforme mieux que celui d'AdWords.",
+    x = NULL,
+    y = "Taux de Conversion (%)"
+  ) +
+  theme_minimal(base_size = 16) +
+  theme(
+    legend.position = "none",
+    panel.grid.major.x = element_blank()
+  ) +
+  scale_fill_manual(values = c("#325494", "#58DDB3"))
+```
+
+# Conclusion {.transition-slide-ubdyellow}
+
+## De l'artisan à l'architecte {style="font-size:0.85em"}
+
+Pour réussir dans la visualisation des données, il est essentiel d'adopter une approche structurée, de la conception initiale à la présentation finale. 
+
+### Adopter les étapes clés
+
+1.  **Commencer comme un artisan :**
+    * Maîtriser les outils de construction graphique (`ggplot2`, `tidyr`).
+    * Nettoyer les graphiques en éliminant le **« chartjunk »** (bruit graphique).
+    * Rechercher l'excellence graphique en maximisant le ratio « encre-données ». 
+
+2.  **Penser comme un conteur :**
+    * Définir clairement la **« big idea »** (l'idée principale) du message.
+    * Guider l'œil de l'audience vers une conclusion unique et un appel à l'action.
+    * Utiliser l'arc narratif pour structurer l'histoire et maximiser l'impact. 
+
+3.  **Agir comme un architecte :**
+    * Assembler les graphiques de manière logique et hiérarchisée dans un **dashboard**.
+    * Faciliter la prise de décision en garantissant la lisibilité et la pertinence des indicateurs.
+    * Concevoir le dashboard comme un **instrument de pilotage** plutôt que comme un simple rapport.
+
+---
+
+### Définir l'objectif final
+
+> Montrer les données à travers un bon graphique.
+> Permettre de prendre de meilleures décisions grâce à un bon dashboard.
+
+# Démo dashboard app Shiny {.transition-slide-ubdblue}
+
+
+## Références
+
+::: {#refs}
+:::
+
+## Revenir au début
+
+[[Accueil](#accueil)]{.button}
