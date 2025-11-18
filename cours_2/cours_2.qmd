@@ -801,8 +801,6 @@ Pour que l'histoire marque les esprits, il est recommandé de créer une phrase 
 
 ## Exemples historiques : John Snow (1854) {style="font-size:0.7em"}
 
-*Maintenant que la méthode est définie, observons ceux qui l'ont appliquée intuitivement.*
-
 ::::: columns
 ::: {.column width="40%"}
 En plaçant chaque décès sur une carte de Londres, le Dr Snow a révélé que les cas de choléra se concentraient autour d'une pompe à eau spécifique.
@@ -833,7 +831,7 @@ Infirmière et statisticienne, elle utilise ce « diagramme de la rose » dans u
 
 ![Le « Coxcomb » : la visualisation comme outil de persuasion politique](images/Nightingale-mortality.jpg){fig-align="center" width="75%"}
 
-## Exemples historiques : Minard (1869) {style="font-size:0.75em"}
+## Exemples historiques : Minard (1869) 
 
 Considéré par Edward Tufte comme « probablement le meilleur graphique statistique jamais dessiné ».
 
@@ -845,7 +843,9 @@ Ce graphique retrace la **campagne de Russie de Napoléon** en 1812 et illustre 
 * **Le temps :** le déroulé de l'histoire
 * **La température :** le graphique de températures en bas (pendant la retraite)
 
-![La campagne de Russie : 6 variables en 2D (Temps, Position, Température, Nombre d'hommes, Direction)](images/Minard.png)
+## Image Minard
+
+![La campagne de Russie : 6 variables en 2D (Temps, Position, Température, Nombre d'hommes, Direction)](images/Minard.png){fig-align="center" width="120%"}
 
 # Partie 3 : la synthèse/dashboard {.transition-slide-ubdteal}
 
