@@ -6,8 +6,8 @@
 <script src="cours_2_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="cours_2_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="cours_2_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="cours_2_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.6.42">
+<link href="cours_2_files/libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.24">
 
   <meta name="author" content="Olivier Caron">
   <title>Web Data Mining &amp; Business Intelligence</title>
@@ -29,8 +29,9 @@
       vertical-align: middle;
     }
     /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -41,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -114,7 +115,7 @@
     div.csl-indent {
       margin-left: 2em;
     }  </style>
-  <link rel="stylesheet" href="cours_2_files/libs/revealjs/dist/theme/quarto-7305b09eb733fa85903ef661c69bedac.css">
+  <link rel="stylesheet" href="cours_2_files/libs/revealjs/dist/theme/quarto-c7250776a58a4a50dd5180a1a3693d71.css">
   <link href="cours_2_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="cours_2_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="cours_2_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -330,14 +331,12 @@ Olivier Caron
 <section id="lennemi-public-n1-le-chartjunk" class="slide level2">
 <h2>L’ennemi public n°1 : le “chartjunk”</h2>
 <p>Le <em>chartjunk</em> (ou “bruit graphique”) désigne tout élément visuel qui n’est pas essentiel à la compréhension des données. C’est du désordre qui distrait l’oeil et peut même fausser l’interprétation.</p>
-<div>
 <ul>
 <li class="fragment"><strong>Effets 3D inutiles :</strong> ils tordent la perspective et rendent la lecture des valeurs impossible.</li>
 <li class="fragment"><strong>Motifs et textures lourds :</strong> ils créent des vibrations visuelles (effet de moiré).</li>
 <li class="fragment"><strong>Couleurs criardes :</strong> l’utilisation de la couleur doit être fonctionnelle, pas décorative.</li>
 <li class="fragment"><strong>Redondance :</strong> écrire la valeur sur la barre ET avoir un axe Y est souvent inutile.</li>
 </ul>
-</div>
 <div class="callout callout-important callout-titled callout-style-default">
 <div class="callout-body">
 <div class="callout-title">
@@ -602,32 +601,32 @@ Olivier Caron
 <div class="tab-content">
 <div id="tabset-1-1">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse) <span class="co"># Charge ggplot2, dplyr, tidyr...</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(tidyverse) <span class="co"># Charge ggplot2, dplyr, tidyr...</span></span>
 <span id="cb1-2"><a href=""></a><span class="fu">library</span>(gapminder) <span class="co"># Le jeu de données</span></span>
 <span id="cb1-3"><a href=""></a><span class="fu">library</span>(scales)    <span class="co"># Pour le formatage des axes ($, %, etc.)</span></span>
-<span id="cb1-4"><a href=""></a><span class="fu">library</span>(gt)        <span class="co"># Pour les beaux tableaux</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href=""></a><span class="fu">library</span>(gt)        <span class="co"># Pour les beaux tableaux</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div id="tabset-1-2">
 <div class="cell">
 <div class="cell-output-display">
-<div id="gqjpaghszf" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gqjpaghszf table {
+<div id="eubhvpaczh" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#eubhvpaczh table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gqjpaghszf thead, #gqjpaghszf tbody, #gqjpaghszf tfoot, #gqjpaghszf tr, #gqjpaghszf td, #gqjpaghszf th {
+#eubhvpaczh thead, #eubhvpaczh tbody, #eubhvpaczh tfoot, #eubhvpaczh tr, #eubhvpaczh td, #eubhvpaczh th {
   border-style: none;
 }
 
-#gqjpaghszf p {
+#eubhvpaczh p {
   margin: 0;
   padding: 0;
 }
 
-#gqjpaghszf .gt_table {
+#eubhvpaczh .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -653,12 +652,12 @@ Olivier Caron
   border-left-color: #D3D3D3;
 }
 
-#gqjpaghszf .gt_caption {
+#eubhvpaczh .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gqjpaghszf .gt_title {
+#eubhvpaczh .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -670,7 +669,7 @@ Olivier Caron
   border-bottom-width: 0;
 }
 
-#gqjpaghszf .gt_subtitle {
+#eubhvpaczh .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -682,7 +681,7 @@ Olivier Caron
   border-top-width: 0;
 }
 
-#gqjpaghszf .gt_heading {
+#eubhvpaczh .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -694,13 +693,13 @@ Olivier Caron
   border-right-color: #D3D3D3;
 }
 
-#gqjpaghszf .gt_bottom_border {
+#eubhvpaczh .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gqjpaghszf .gt_col_headings {
+#eubhvpaczh .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -715,7 +714,7 @@ Olivier Caron
   border-right-color: #D3D3D3;
 }
 
-#gqjpaghszf .gt_col_heading {
+#eubhvpaczh .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -735,7 +734,7 @@ Olivier Caron
   overflow-x: hidden;
 }
 
-#gqjpaghszf .gt_column_spanner_outer {
+#eubhvpaczh .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -747,15 +746,15 @@ Olivier Caron
   padding-right: 4px;
 }
 
-#gqjpaghszf .gt_column_spanner_outer:first-child {
+#eubhvpaczh .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gqjpaghszf .gt_column_spanner_outer:last-child {
+#eubhvpaczh .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gqjpaghszf .gt_column_spanner {
+#eubhvpaczh .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -767,11 +766,11 @@ Olivier Caron
   width: 100%;
 }
 
-#gqjpaghszf .gt_spanner_row {
+#eubhvpaczh .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gqjpaghszf .gt_group_heading {
+#eubhvpaczh .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -797,7 +796,7 @@ Olivier Caron
   text-align: left;
 }
 
-#gqjpaghszf .gt_empty_group_heading {
+#eubhvpaczh .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -812,15 +811,15 @@ Olivier Caron
   vertical-align: middle;
 }
 
-#gqjpaghszf .gt_from_md > :first-child {
+#eubhvpaczh .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gqjpaghszf .gt_from_md > :last-child {
+#eubhvpaczh .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gqjpaghszf .gt_row {
+#eubhvpaczh .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -839,7 +838,7 @@ Olivier Caron
   overflow-x: hidden;
 }
 
-#gqjpaghszf .gt_stub {
+#eubhvpaczh .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -852,7 +851,7 @@ Olivier Caron
   padding-right: 5px;
 }
 
-#gqjpaghszf .gt_stub_row_group {
+#eubhvpaczh .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -866,15 +865,15 @@ Olivier Caron
   vertical-align: top;
 }
 
-#gqjpaghszf .gt_row_group_first td {
+#eubhvpaczh .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gqjpaghszf .gt_row_group_first th {
+#eubhvpaczh .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gqjpaghszf .gt_summary_row {
+#eubhvpaczh .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -884,16 +883,16 @@ Olivier Caron
   padding-right: 5px;
 }
 
-#gqjpaghszf .gt_first_summary_row {
+#eubhvpaczh .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gqjpaghszf .gt_first_summary_row.thick {
+#eubhvpaczh .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gqjpaghszf .gt_last_summary_row {
+#eubhvpaczh .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -903,7 +902,7 @@ Olivier Caron
   border-bottom-color: #D3D3D3;
 }
 
-#gqjpaghszf .gt_grand_summary_row {
+#eubhvpaczh .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -913,7 +912,7 @@ Olivier Caron
   padding-right: 5px;
 }
 
-#gqjpaghszf .gt_first_grand_summary_row {
+#eubhvpaczh .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -923,7 +922,7 @@ Olivier Caron
   border-top-color: #D3D3D3;
 }
 
-#gqjpaghszf .gt_last_grand_summary_row_top {
+#eubhvpaczh .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -933,11 +932,11 @@ Olivier Caron
   border-bottom-color: #D3D3D3;
 }
 
-#gqjpaghszf .gt_striped {
+#eubhvpaczh .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gqjpaghszf .gt_table_body {
+#eubhvpaczh .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -946,7 +945,7 @@ Olivier Caron
   border-bottom-color: #D3D3D3;
 }
 
-#gqjpaghszf .gt_footnotes {
+#eubhvpaczh .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -960,7 +959,7 @@ Olivier Caron
   border-right-color: #D3D3D3;
 }
 
-#gqjpaghszf .gt_footnote {
+#eubhvpaczh .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -969,7 +968,7 @@ Olivier Caron
   padding-right: 5px;
 }
 
-#gqjpaghszf .gt_sourcenotes {
+#eubhvpaczh .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -983,7 +982,7 @@ Olivier Caron
   border-right-color: #D3D3D3;
 }
 
-#gqjpaghszf .gt_sourcenote {
+#eubhvpaczh .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -991,161 +990,170 @@ Olivier Caron
   padding-right: 5px;
 }
 
-#gqjpaghszf .gt_left {
+#eubhvpaczh .gt_left {
   text-align: left;
 }
 
-#gqjpaghszf .gt_center {
+#eubhvpaczh .gt_center {
   text-align: center;
 }
 
-#gqjpaghszf .gt_right {
+#eubhvpaczh .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gqjpaghszf .gt_font_normal {
+#eubhvpaczh .gt_font_normal {
   font-weight: normal;
 }
 
-#gqjpaghszf .gt_font_bold {
+#eubhvpaczh .gt_font_bold {
   font-weight: bold;
 }
 
-#gqjpaghszf .gt_font_italic {
+#eubhvpaczh .gt_font_italic {
   font-style: italic;
 }
 
-#gqjpaghszf .gt_super {
+#eubhvpaczh .gt_super {
   font-size: 65%;
 }
 
-#gqjpaghszf .gt_footnote_marks {
+#eubhvpaczh .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gqjpaghszf .gt_asterisk {
+#eubhvpaczh .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gqjpaghszf .gt_indent_1 {
+#eubhvpaczh .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gqjpaghszf .gt_indent_2 {
+#eubhvpaczh .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gqjpaghszf .gt_indent_3 {
+#eubhvpaczh .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gqjpaghszf .gt_indent_4 {
+#eubhvpaczh .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gqjpaghszf .gt_indent_5 {
+#eubhvpaczh .gt_indent_5 {
   text-indent: 25px;
+}
+
+#eubhvpaczh .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#eubhvpaczh div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_heading header">
-<th colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border"><strong>Sélection aléatoire de 10 lignes du jeu de données gapminder</strong></th>
+<td colspan="6" class="gt_heading gt_title gt_font_normal gt_bottom_border"><strong>Sélection aléatoire de 10 lignes du jeu de données gapminder</strong></td>
 </tr>
 <tr class="gt_col_headings even">
-<th id="<strong>Country</strong>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>Country</strong></th>
-<th id="<strong>Continent</strong>" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>Continent</strong></th>
-<th id="<strong>Year</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>Year</strong></th>
-<th id="<strong>Life exp</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>Life exp</strong></th>
-<th id="<strong>Population</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>Population</strong></th>
-<th id="<strong>GDP per capita</strong>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>GDP per capita</strong></th>
+<th id="country" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>Country</strong></th>
+<th id="continent" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>Continent</strong></th>
+<th id="year" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>Year</strong></th>
+<th id="lifeExp" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>Life exp</strong></th>
+<th id="pop" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>Population</strong></th>
+<th id="gdpPercap" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" style="background-color: #F0F2F5; font-weight: bold" scope="col"><strong>GDP per capita</strong></th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
-<td class="gt_row gt_center" headers="country">Sao Tome and Principe</td>
-<td class="gt_row gt_center" headers="continent">Africa</td>
-<td class="gt_row gt_right" headers="year">1972</td>
-<td class="gt_row gt_right" headers="lifeExp">56.5</td>
-<td class="gt_row gt_right" headers="pop">76,595</td>
-<td class="gt_row gt_right" headers="gdpPercap">1,533</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="country">Philippines</td>
-<td class="gt_row gt_center gt_striped" headers="continent">Asia</td>
-<td class="gt_row gt_right gt_striped" headers="year">1992</td>
-<td class="gt_row gt_right gt_striped" headers="lifeExp">66.5</td>
-<td class="gt_row gt_right gt_striped" headers="pop">67,185,766</td>
-<td class="gt_row gt_right gt_striped" headers="gdpPercap">2,279</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="country">Singapore</td>
+<td class="gt_row gt_center" headers="country">Syria</td>
 <td class="gt_row gt_center" headers="continent">Asia</td>
-<td class="gt_row gt_right" headers="year">1952</td>
-<td class="gt_row gt_right" headers="lifeExp">60.4</td>
-<td class="gt_row gt_right" headers="pop">1,127,000</td>
-<td class="gt_row gt_right" headers="gdpPercap">2,315</td>
+<td class="gt_row gt_right" headers="year">1962</td>
+<td class="gt_row gt_right" headers="lifeExp">50.3</td>
+<td class="gt_row gt_right" headers="pop">4,834,621</td>
+<td class="gt_row gt_right" headers="gdpPercap">2,193</td>
 </tr>
 <tr class="even">
-<td class="gt_row gt_center gt_striped" headers="country">Cote d'Ivoire</td>
-<td class="gt_row gt_center gt_striped" headers="continent">Africa</td>
-<td class="gt_row gt_right gt_striped" headers="year">1967</td>
-<td class="gt_row gt_right gt_striped" headers="lifeExp">47.4</td>
-<td class="gt_row gt_right gt_striped" headers="pop">4,744,870</td>
-<td class="gt_row gt_right gt_striped" headers="gdpPercap">2,052</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="country">New Zealand</td>
-<td class="gt_row gt_center" headers="continent">Oceania</td>
-<td class="gt_row gt_right" headers="year">1992</td>
-<td class="gt_row gt_right" headers="lifeExp">76.3</td>
-<td class="gt_row gt_right" headers="pop">3,437,674</td>
-<td class="gt_row gt_right" headers="gdpPercap">18,363</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="country">Burundi</td>
-<td class="gt_row gt_center gt_striped" headers="continent">Africa</td>
-<td class="gt_row gt_right gt_striped" headers="year">2007</td>
-<td class="gt_row gt_right gt_striped" headers="lifeExp">49.6</td>
-<td class="gt_row gt_right gt_striped" headers="pop">8,390,505</td>
-<td class="gt_row gt_right gt_striped" headers="gdpPercap">430</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="country">Central African Republic</td>
-<td class="gt_row gt_center" headers="continent">Africa</td>
-<td class="gt_row gt_right" headers="year">1952</td>
-<td class="gt_row gt_right" headers="lifeExp">35.5</td>
-<td class="gt_row gt_right" headers="pop">1,291,695</td>
-<td class="gt_row gt_right" headers="gdpPercap">1,071</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="country">Syria</td>
-<td class="gt_row gt_center gt_striped" headers="continent">Asia</td>
-<td class="gt_row gt_right gt_striped" headers="year">1987</td>
-<td class="gt_row gt_right gt_striped" headers="lifeExp">67.0</td>
-<td class="gt_row gt_right gt_striped" headers="pop">11,242,847</td>
-<td class="gt_row gt_right gt_striped" headers="gdpPercap">3,117</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_center" headers="country">Bulgaria</td>
-<td class="gt_row gt_center" headers="continent">Europe</td>
-<td class="gt_row gt_right" headers="year">1977</td>
-<td class="gt_row gt_right" headers="lifeExp">70.8</td>
-<td class="gt_row gt_right" headers="pop">8,797,022</td>
-<td class="gt_row gt_right" headers="gdpPercap">7,612</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_center gt_striped" headers="country">Ecuador</td>
+<td class="gt_row gt_center gt_striped" headers="country">Chile</td>
 <td class="gt_row gt_center gt_striped" headers="continent">Americas</td>
 <td class="gt_row gt_right gt_striped" headers="year">1992</td>
-<td class="gt_row gt_right gt_striped" headers="lifeExp">69.6</td>
-<td class="gt_row gt_right gt_striped" headers="pop">10,748,394</td>
-<td class="gt_row gt_right gt_striped" headers="gdpPercap">7,104</td>
+<td class="gt_row gt_right gt_striped" headers="lifeExp">74.1</td>
+<td class="gt_row gt_right gt_striped" headers="pop">13,572,994</td>
+<td class="gt_row gt_right gt_striped" headers="gdpPercap">7,596</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="country">Eritrea</td>
+<td class="gt_row gt_center" headers="continent">Africa</td>
+<td class="gt_row gt_right" headers="year">1982</td>
+<td class="gt_row gt_right" headers="lifeExp">43.9</td>
+<td class="gt_row gt_right" headers="pop">2,637,297</td>
+<td class="gt_row gt_right" headers="gdpPercap">525</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center gt_striped" headers="country">Somalia</td>
+<td class="gt_row gt_center gt_striped" headers="continent">Africa</td>
+<td class="gt_row gt_right gt_striped" headers="year">1962</td>
+<td class="gt_row gt_right gt_striped" headers="lifeExp">37.0</td>
+<td class="gt_row gt_right gt_striped" headers="pop">3,080,153</td>
+<td class="gt_row gt_right gt_striped" headers="gdpPercap">1,369</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="country">Austria</td>
+<td class="gt_row gt_center" headers="continent">Europe</td>
+<td class="gt_row gt_right" headers="year">1997</td>
+<td class="gt_row gt_right" headers="lifeExp">77.5</td>
+<td class="gt_row gt_right" headers="pop">8,069,876</td>
+<td class="gt_row gt_right" headers="gdpPercap">29,096</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center gt_striped" headers="country">Jamaica</td>
+<td class="gt_row gt_center gt_striped" headers="continent">Americas</td>
+<td class="gt_row gt_right gt_striped" headers="year">1992</td>
+<td class="gt_row gt_right gt_striped" headers="lifeExp">71.8</td>
+<td class="gt_row gt_right gt_striped" headers="pop">2,378,618</td>
+<td class="gt_row gt_right gt_striped" headers="gdpPercap">7,405</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="country">Oman</td>
+<td class="gt_row gt_center" headers="continent">Asia</td>
+<td class="gt_row gt_right" headers="year">1957</td>
+<td class="gt_row gt_right" headers="lifeExp">40.1</td>
+<td class="gt_row gt_right" headers="pop">561,977</td>
+<td class="gt_row gt_right" headers="gdpPercap">2,243</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center gt_striped" headers="country">Korea, Dem. Rep.</td>
+<td class="gt_row gt_center gt_striped" headers="continent">Asia</td>
+<td class="gt_row gt_right gt_striped" headers="year">1962</td>
+<td class="gt_row gt_right gt_striped" headers="lifeExp">56.7</td>
+<td class="gt_row gt_right gt_striped" headers="pop">10,917,494</td>
+<td class="gt_row gt_right gt_striped" headers="gdpPercap">1,622</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_center" headers="country">Philippines</td>
+<td class="gt_row gt_center" headers="continent">Asia</td>
+<td class="gt_row gt_right" headers="year">1992</td>
+<td class="gt_row gt_right" headers="lifeExp">66.5</td>
+<td class="gt_row gt_right" headers="pop">67,185,766</td>
+<td class="gt_row gt_right" headers="gdpPercap">2,279</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_center gt_striped" headers="country">Swaziland</td>
+<td class="gt_row gt_center gt_striped" headers="continent">Africa</td>
+<td class="gt_row gt_right gt_striped" headers="year">1962</td>
+<td class="gt_row gt_right gt_striped" headers="lifeExp">45.0</td>
+<td class="gt_row gt_right gt_striped" headers="pop">370,006</td>
+<td class="gt_row gt_right gt_striped" headers="gdpPercap">1,856</td>
 </tr>
 </tbody>
 </table>
@@ -1192,8 +1200,8 @@ Olivier Caron
 <p>On commence par déclarer l’objet graphique en lui fournissant les données.</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> gapminder)</span>
-<span id="cb2-2"><a href=""></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> gapminder)</span>
+<span id="cb2-2"><a href=""></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1210,10 +1218,10 @@ Olivier Caron
 <p>On définit les axes dans l’esthétique (<code>aes</code>). On dit à R : “Prends la colonne PIB pour l’axe X et l’Espérance de vie pour l’axe Y”.</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> gapminder,</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> gapminder,</span>
 <span id="cb3-2"><a href=""></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap,</span>
 <span id="cb3-3"><a href=""></a>                          <span class="at">y =</span> lifeExp))</span>
-<span id="cb3-4"><a href=""></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href=""></a>p</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1230,7 +1238,7 @@ Olivier Caron
 <p>On ajoute une couche géométrique (<strong>geom</strong>) pour représenter les données concrètement. Ici, des points (<code>geom_point</code>) pour faire un nuage de points.</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1247,7 +1255,7 @@ Olivier Caron
 <p>La grammaire fonctionne par <strong>couches</strong> (<code>layers</code>). Ajoutons une couche de lissage statistique (<code>geom_smooth</code>) au-dessus des points pour visualiser la tendance générale.</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1264,9 +1272,9 @@ Olivier Caron
 <p>Le PIB n’est pas distribué normalement. La plupart des pays sont pauvres (à gauche), et quelques-uns très riches (à droite). Cela “écrase” le graphique. Utilisons une <strong>échelle logarithmique</strong> sur l’axe X.</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb6-2"><a href=""></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"gam"</span>) <span class="sc">+</span> </span>
-<span id="cb6-3"><a href=""></a>    <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-3"><a href=""></a>    <span class="fu">scale_x_log10</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1283,9 +1291,9 @@ Olivier Caron
 <p>Les chiffres scientifiques sur l’axe X (<code>1e+04</code>) sont incompréhensibles pour une audience métier. Utilisons le package <code>scales</code> pour formater cela en dollars.</p>
 <div class="cell columns column-output-location">
 <div class="column">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
 <span id="cb7-2"><a href=""></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"gam"</span>) <span class="sc">+</span> </span>
-<span id="cb7-3"><a href=""></a>    <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href=""></a>    <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div><div class="column">
 <div class="cell-output-display">
 <div>
@@ -1304,8 +1312,8 @@ Olivier Caron
 <h3 id="lerreur-mapping">L’erreur (Mapping)</h3>
 <p>Mettre “purple” dans <code>aes()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"purple"</span>)) <span class="sc">+</span></span>
-<span id="cb8-2"><a href=""></a>    <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="st">"purple"</span>)) <span class="sc">+</span></span>
+<span id="cb8-2"><a href=""></a>    <span class="fu">scale_x_log10</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1319,8 +1327,8 @@ Olivier Caron
 <h3 id="la-solution-setting">La solution (Setting)</h3>
 <p>Sortir l’argument de <code>aes()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"purple"</span>) <span class="sc">+</span> </span>
-<span id="cb9-2"><a href=""></a>    <span class="fu">scale_x_log10</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">"purple"</span>) <span class="sc">+</span> </span>
+<span id="cb9-2"><a href=""></a>    <span class="fu">scale_x_log10</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
 <div>
 <figure>
@@ -1340,7 +1348,7 @@ Olivier Caron
 <li>Ajout de <strong>titres</strong> clairs et sourcés (<code>labs</code>).</li>
 </ol>
 <div class="cell" data-layout-align="center" data-code-line-steps="true">
-<div class="sourceCode cell-code" id="cb10" data-code-line-numbers="3|6-10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y=</span>lifeExp))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" data-code-line-numbers="3|6-10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y=</span>lifeExp))</span>
 <span id="cb10-2"><a href=""></a></span>
 <span id="cb10-3"><a href=""></a>p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
 <span id="cb10-4"><a href=""></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"gam"</span>) <span class="sc">+</span></span>
@@ -1349,7 +1357,7 @@ Olivier Caron
 <span id="cb10-7"><a href=""></a>         <span class="at">y =</span> <span class="st">"Espérance de vie (années)"</span>,</span>
 <span id="cb10-8"><a href=""></a>         <span class="at">title =</span> <span class="st">"Croissance économique et espérance de vie"</span>,</span>
 <span id="cb10-9"><a href=""></a>         <span class="at">subtitle =</span> <span class="st">"L'espérance de vie augmente avec le PIB, mais plafonne."</span>,</span>
-<span id="cb10-10"><a href=""></a>         <span class="at">caption =</span> <span class="st">"Source: Gapminder. Adapté de K. Healy."</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-10"><a href=""></a>         <span class="at">caption =</span> <span class="st">"Source: Gapminder. Adapté de K. Healy."</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -1365,7 +1373,7 @@ Olivier Caron
 <h2>Étape 8 : ajouter de l’information</h2>
 <p>Pouvons-nous ajouter une 3ème dimension sans surcharger ? Mappons le <code>continent</code> à la couleur. Cela permet de voir les disparités géographiques.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="co"># Note : on ajoute color = continent dans le mapping global</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="co"># Note : on ajoute color = continent dans le mapping global</span></span>
 <span id="cb11-2"><a href=""></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data =</span> gapminder, </span>
 <span id="cb11-3"><a href=""></a>            <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> gdpPercap, <span class="at">y =</span> lifeExp, <span class="at">color =</span> continent, <span class="at">fill =</span> continent))</span>
 <span id="cb11-4"><a href=""></a></span>
@@ -1373,7 +1381,7 @@ Olivier Caron
 <span id="cb11-6"><a href=""></a>    <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"loess"</span>) <span class="sc">+</span></span>
 <span id="cb11-7"><a href=""></a>    <span class="fu">scale_x_log10</span>(<span class="at">labels =</span> scales<span class="sc">::</span>dollar) <span class="sc">+</span></span>
 <span id="cb11-8"><a href=""></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Disparités économiques et sanitaires par continent"</span>,</span>
-<span id="cb11-9"><a href=""></a>         <span class="at">x =</span> <span class="st">"PIB par Habitant"</span>, <span class="at">y =</span> <span class="st">"Espérance de vie"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-9"><a href=""></a>         <span class="at">x =</span> <span class="st">"PIB par Habitant"</span>, <span class="at">y =</span> <span class="st">"Espérance de vie"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -1389,7 +1397,7 @@ Olivier Caron
 <h2>Sauvegarder son image</h2>
 <p>Pour exporter votre image en haute qualité (vectoriel pour impression, PNG pour le web), utilisez la fonction <code>ggsave()</code>.</p>
 <div class="cell" data-code-line-steps="true">
-<div class="sourceCode cell-code" id="cb12" data-code-line-numbers="6|9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co"># 1. Créer l'objet final</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" data-code-line-numbers="6|9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co"># 1. Créer l'objet final</span></span>
 <span id="cb12-2"><a href=""></a>mon_graphique <span class="ot">&lt;-</span> p <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span> <span class="fu">scale_x_log10</span>()</span>
 <span id="cb12-3"><a href=""></a></span>
 <span id="cb12-4"><a href=""></a><span class="co"># 2. Sauvegarder</span></span>
@@ -1397,7 +1405,7 @@ Olivier Caron
 <span id="cb12-6"><a href=""></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"graphique_final.pdf"</span>, <span class="at">plot =</span> mon_graphique, <span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>)</span>
 <span id="cb12-7"><a href=""></a></span>
 <span id="cb12-8"><a href=""></a><span class="co"># Le format PNG est matriciel : définir un haut DPI pour la qualité.</span></span>
-<span id="cb12-9"><a href=""></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"graphique_final.png"</span>, <span class="at">plot =</span> mon_graphique, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-9"><a href=""></a><span class="fu">ggsave</span>(<span class="at">filename =</span> <span class="st">"graphique_final.png"</span>, <span class="at">plot =</span> mon_graphique, <span class="at">dpi =</span> <span class="dv">300</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section></section>
 <section>
@@ -1740,6 +1748,91 @@ Olivier Caron
 </tr>
 </tbody>
 </table>
+</section>
+<section id="construire-un-dashboard-la-colonne-vertébrale" class="slide level2" style="font-size:0.85em">
+<h2>Construire un dashboard : la colonne vertébrale</h2>
+<div class="columns">
+<div class="column" style="width:40%;">
+<ol type="1">
+<li><strong>Sources</strong> : CRM, web analytics, campagnes média…</li>
+<li><strong>Préparation</strong> : scripts R/Python (nettoyage, agrégations, calculs KPI).</li>
+<li><strong>Modèle métier</strong> : définitions partagées (qu’est-ce qu’un lead, un CPA, une conversion ?).</li>
+<li><strong>App / BI</strong> : Shiny, Looker Studio, Tableau, Power BI, etc.</li>
+<li><strong>Diffusion</strong> : accès sécurisé, rafraîchissements, alertes, rituels d’usage.</li>
+</ol>
+</div><div class="column" style="width:60%;">
+<p><img data-src="images/clipboard-4071259443.png"></p>
+</div></div>
+</section>
+<section id="organisation-dune-app-exemple-shiny" class="slide level2" style="font-size:0.85em">
+<h2>Organisation d’une app (exemple Shiny)</h2>
+<ol type="1">
+<li><strong>Cadres de décision</strong> : regrouper les KPI par question (Que se passe-t-il ? Pourquoi ? Que faire ?).</li>
+<li><strong>UI</strong> : définir la structure (<code>fluidPage</code>, <code>tabsetPanel</code>, <code>valueBox</code>) pour guider l’œil.</li>
+<li><strong>Server</strong> : créer des blocs <em>reactive</em> qui transforment les inputs en KPI, graphiques, alertes.</li>
+<li><strong>Storyline</strong> : chaque onglet raconte un morceau de l’histoire (diagnostic → recommandation).</li>
+</ol>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>ui <span class="ot">&lt;-</span> <span class="fu">fluidPage</span>(</span>
+<span id="cb13-2"><a href=""></a>  <span class="fu">titlePanel</span>(<span class="st">"Pilotage acquisition"</span>),</span>
+<span id="cb13-3"><a href=""></a>  <span class="fu">fluidRow</span>(</span>
+<span id="cb13-4"><a href=""></a>    <span class="fu">valueBoxOutput</span>(<span class="st">"cpa"</span>),</span>
+<span id="cb13-5"><a href=""></a>    <span class="fu">valueBoxOutput</span>(<span class="st">"conv_rate"</span>),</span>
+<span id="cb13-6"><a href=""></a>    <span class="fu">valueBoxOutput</span>(<span class="st">"budget"</span>)</span>
+<span id="cb13-7"><a href=""></a>  ),</span>
+<span id="cb13-8"><a href=""></a>  <span class="fu">tabsetPanel</span>(</span>
+<span id="cb13-9"><a href=""></a>    <span class="fu">tabPanel</span>(<span class="st">"Vue globale"</span>, <span class="fu">plotOutput</span>(<span class="st">"cpa_plot"</span>)),</span>
+<span id="cb13-10"><a href=""></a>    <span class="fu">tabPanel</span>(<span class="st">"Segments"</span>, <span class="fu">plotOutput</span>(<span class="st">"segment_plot"</span>))</span>
+<span id="cb13-11"><a href=""></a>  )</span>
+<span id="cb13-12"><a href=""></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="panorama-express-des-outils" class="slide level2" style="font-size:0.85em">
+<h2>Panorama express des outils</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Outil</th>
+<th style="text-align: left;">Quand l’utiliser ?</th>
+<th style="text-align: left;">Points clés</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;"><strong>Shiny</strong></td>
+<td style="text-align: left;">Besoin de logique R, personnalisation fine</td>
+<td style="text-align: left;">Contrôle total, nécessite hébergement (Shiny Server/Posit Connect).</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Looker Studio</strong></td>
+<td style="text-align: left;">Partage rapide avec marketing/clients</td>
+<td style="text-align: left;">No-code, connecteurs GA4/BigQuery, gouvernance limitée.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><strong>Power BI / Tableau</strong></td>
+<td style="text-align: left;">Organisations équipées BI/IT</td>
+<td style="text-align: left;">Gestion des droits, rafraîchissements planifiés, collaboration.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><strong>Quarto / Notebooks</strong></td>
+<td style="text-align: left;">Livrables mixtes analyse + slides</td>
+<td style="text-align: left;">Reproductible, parfait pour documenter la méthodologie.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="plan-de-démo-pour-lapp-shiny" class="slide level2">
+<h2>Plan de démo pour l’app Shiny</h2>
+<ol type="1">
+<li><strong>Lancement</strong> : ouvrir <code>app_shiny.R</code>, montrer les <code>valueBox</code> et filtres en action.</li>
+<li><strong>Scénario utilisateur</strong> : filtrer sur Facebook vs AdWords, observer l’impact sur CPA/taux de conversion.</li>
+<li><strong>Bouclage avec la data</strong> : rappeler le pipeline (sources → <code>pivot_longer()</code> → KPI → dashboard) et les décisions possibles.</li>
+</ol>
 </section></section>
 <section>
 <section id="cas-pratique-analyse-ab" class="title-slide slide level1 transition-slide-ubdblue center">
@@ -1760,16 +1853,16 @@ Olivier Caron
 <div id="tabset-2-1">
 <p>Nous chargeons les librairies et le fichier CSV. Notez que les données sont souvent dans un format “Large” (une colonne par plateforme et par métrique) qui n’est pas idéal pour l’analyse.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb13-2"><a href=""></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb13-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb13-4"><a href=""></a><span class="fu">library</span>(gt)</span>
-<span id="cb13-5"><a href=""></a></span>
-<span id="cb13-6"><a href=""></a><span class="co"># Note: Chemin relatif à adapter selon votre dossier</span></span>
-<span id="cb13-7"><a href=""></a>data_wide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data_full/facebook_vs_adword/A_B_testing_dataset.csv"</span>)</span>
-<span id="cb13-8"><a href=""></a></span>
-<span id="cb13-9"><a href=""></a><span class="co"># Affichons les noms des colonnes pour comprendre le problème</span></span>
-<span id="cb13-10"><a href=""></a><span class="fu">names</span>(data_wide)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href=""></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb14-2"><a href=""></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb14-3"><a href=""></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb14-4"><a href=""></a><span class="fu">library</span>(gt)</span>
+<span id="cb14-5"><a href=""></a></span>
+<span id="cb14-6"><a href=""></a><span class="co"># Note: Chemin relatif à adapter selon votre dossier</span></span>
+<span id="cb14-7"><a href=""></a>data_wide <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data_full/facebook_vs_adword/A_B_testing_dataset.csv"</span>)</span>
+<span id="cb14-8"><a href=""></a></span>
+<span id="cb14-9"><a href=""></a><span class="co"># Affichons les noms des colonnes pour comprendre le problème</span></span>
+<span id="cb14-10"><a href=""></a><span class="fu">names</span>(data_wide)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "date_of_campaign"         "facebook_ad_campaign"    
  [3] "facebook_ad_views"        "facebook_ad_clicks"      
@@ -1786,17 +1879,17 @@ Olivier Caron
 <div id="tabset-2-2">
 <p>Nous transformons les données de format “Large” vers “Long”. C’est une étape cruciale : nous voulons une colonne <code>platform</code> pour pouvoir grouper nos analyses.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a>data_long <span class="ot">&lt;-</span> data_wide <span class="sc">%&gt;%</span></span>
-<span id="cb15-2"><a href=""></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb15-3"><a href=""></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"facebook_"</span>) <span class="sc">|</span> <span class="fu">starts_with</span>(<span class="st">"adword_"</span>),</span>
-<span id="cb15-4"><a href=""></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"platform"</span>, <span class="st">".value"</span>),</span>
-<span id="cb15-5"><a href=""></a>    <span class="at">names_pattern =</span> <span class="st">"(facebook|adword)_(.*)"</span></span>
-<span id="cb15-6"><a href=""></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb15-7"><a href=""></a>  <span class="fu">rename</span>(<span class="at">views =</span> ad_views, <span class="at">clicks =</span> ad_clicks, </span>
-<span id="cb15-8"><a href=""></a>         <span class="at">conversions =</span> ad_conversions, <span class="at">cost =</span> cost_per_ad)</span>
-<span id="cb15-9"><a href=""></a></span>
-<span id="cb15-10"><a href=""></a><span class="co"># Vérifions le résultat</span></span>
-<span id="cb15-11"><a href=""></a><span class="fu">head</span>(data_long)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href=""></a>data_long <span class="ot">&lt;-</span> data_wide <span class="sc">%&gt;%</span></span>
+<span id="cb16-2"><a href=""></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb16-3"><a href=""></a>    <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">"facebook_"</span>) <span class="sc">|</span> <span class="fu">starts_with</span>(<span class="st">"adword_"</span>),</span>
+<span id="cb16-4"><a href=""></a>    <span class="at">names_to =</span> <span class="fu">c</span>(<span class="st">"platform"</span>, <span class="st">".value"</span>),</span>
+<span id="cb16-5"><a href=""></a>    <span class="at">names_pattern =</span> <span class="st">"(facebook|adword)_(.*)"</span></span>
+<span id="cb16-6"><a href=""></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb16-7"><a href=""></a>  <span class="fu">rename</span>(<span class="at">views =</span> ad_views, <span class="at">clicks =</span> ad_clicks, </span>
+<span id="cb16-8"><a href=""></a>         <span class="at">conversions =</span> ad_conversions, <span class="at">cost =</span> cost_per_ad)</span>
+<span id="cb16-9"><a href=""></a></span>
+<span id="cb16-10"><a href=""></a><span class="co"># Vérifions le résultat</span></span>
+<span id="cb16-11"><a href=""></a><span class="fu">head</span>(data_long)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 10
   date_of_campaign platform ad_campaign views clicks conversions  cost   ctr
@@ -1814,22 +1907,22 @@ Olivier Caron
 <div id="tabset-2-3">
 <p>Nous agrégeons les données pour calculer les indicateurs de performance clés (KPI) globaux.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>summary_stats <span class="ot">&lt;-</span> data_long <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href=""></a>  <span class="fu">group_by</span>(platform) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href=""></a>  <span class="fu">summarise</span>(</span>
-<span id="cb17-4"><a href=""></a>    <span class="at">total_cost =</span> <span class="fu">sum</span>(cost),</span>
-<span id="cb17-5"><a href=""></a>    <span class="at">total_conversions =</span> <span class="fu">sum</span>(conversions),</span>
-<span id="cb17-6"><a href=""></a>    <span class="at">total_clicks =</span> <span class="fu">sum</span>(clicks),</span>
-<span id="cb17-7"><a href=""></a>    <span class="at">.groups =</span> <span class="st">'drop'</span></span>
-<span id="cb17-8"><a href=""></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb17-9"><a href=""></a>  <span class="fu">mutate</span>(</span>
-<span id="cb17-10"><a href=""></a>    <span class="co"># CPA = Coût Total / Nombre de Conversions</span></span>
-<span id="cb17-11"><a href=""></a>    <span class="at">cpa =</span> total_cost <span class="sc">/</span> total_conversions,</span>
-<span id="cb17-12"><a href=""></a>    <span class="co"># Taux de Conv = (Conversions / Clics) * 100</span></span>
-<span id="cb17-13"><a href=""></a>    <span class="at">overall_conversion_rate =</span> (total_conversions <span class="sc">/</span> total_clicks) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb17-14"><a href=""></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb17-15"><a href=""></a>  <span class="co"># Esthétique : majuscules pour les graphiques</span></span>
-<span id="cb17-16"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">platform =</span> <span class="fu">toupper</span>(platform))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>summary_stats <span class="ot">&lt;-</span> data_long <span class="sc">%&gt;%</span></span>
+<span id="cb18-2"><a href=""></a>  <span class="fu">group_by</span>(platform) <span class="sc">%&gt;%</span></span>
+<span id="cb18-3"><a href=""></a>  <span class="fu">summarise</span>(</span>
+<span id="cb18-4"><a href=""></a>    <span class="at">total_cost =</span> <span class="fu">sum</span>(cost),</span>
+<span id="cb18-5"><a href=""></a>    <span class="at">total_conversions =</span> <span class="fu">sum</span>(conversions),</span>
+<span id="cb18-6"><a href=""></a>    <span class="at">total_clicks =</span> <span class="fu">sum</span>(clicks),</span>
+<span id="cb18-7"><a href=""></a>    <span class="at">.groups =</span> <span class="st">'drop'</span></span>
+<span id="cb18-8"><a href=""></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-9"><a href=""></a>  <span class="fu">mutate</span>(</span>
+<span id="cb18-10"><a href=""></a>    <span class="co"># CPA = Coût Total / Nombre de Conversions</span></span>
+<span id="cb18-11"><a href=""></a>    <span class="at">cpa =</span> total_cost <span class="sc">/</span> total_conversions,</span>
+<span id="cb18-12"><a href=""></a>    <span class="co"># Taux de Conv = (Conversions / Clics) * 100</span></span>
+<span id="cb18-13"><a href=""></a>    <span class="at">overall_conversion_rate =</span> (total_conversions <span class="sc">/</span> total_clicks) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb18-14"><a href=""></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb18-15"><a href=""></a>  <span class="co"># Esthétique : majuscules pour les graphiques</span></span>
+<span id="cb18-16"><a href=""></a>  <span class="fu">mutate</span>(<span class="at">platform =</span> <span class="fu">toupper</span>(platform))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 </div>
@@ -1839,28 +1932,28 @@ Olivier Caron
 <h2>Aperçu des résultats</h2>
 <p>Voici le tableau récapitulatif de nos indicateurs calculés. Le tableau est propre, mais il ne raconte pas encore une histoire immédiate.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href=""></a>summary_stats <span class="sc">%&gt;%</span> </span>
-<span id="cb18-2"><a href=""></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb18-3"><a href=""></a>  <span class="fu">fmt_currency</span>(<span class="at">columns =</span> <span class="fu">c</span>(total_cost, cpa), <span class="at">currency =</span> <span class="st">"EUR"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb18-4"><a href=""></a>  <span class="fu">fmt_percent</span>(<span class="at">columns =</span> overall_conversion_rate, <span class="at">scale_values =</span> <span class="cn">FALSE</span>, <span class="at">decimals =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a>summary_stats <span class="sc">%&gt;%</span> </span>
+<span id="cb19-2"><a href=""></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb19-3"><a href=""></a>  <span class="fu">fmt_currency</span>(<span class="at">columns =</span> <span class="fu">c</span>(total_cost, cpa), <span class="at">currency =</span> <span class="st">"EUR"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb19-4"><a href=""></a>  <span class="fu">fmt_percent</span>(<span class="at">columns =</span> overall_conversion_rate, <span class="at">scale_values =</span> <span class="cn">FALSE</span>, <span class="at">decimals =</span> <span class="dv">2</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output-display">
-<div id="szpqyoehdk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#szpqyoehdk table {
+<div id="lkkwlcibca" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#lkkwlcibca table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#szpqyoehdk thead, #szpqyoehdk tbody, #szpqyoehdk tfoot, #szpqyoehdk tr, #szpqyoehdk td, #szpqyoehdk th {
+#lkkwlcibca thead, #lkkwlcibca tbody, #lkkwlcibca tfoot, #lkkwlcibca tr, #lkkwlcibca td, #lkkwlcibca th {
   border-style: none;
 }
 
-#szpqyoehdk p {
+#lkkwlcibca p {
   margin: 0;
   padding: 0;
 }
 
-#szpqyoehdk .gt_table {
+#lkkwlcibca .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1886,12 +1979,12 @@ Olivier Caron
   border-left-color: #D3D3D3;
 }
 
-#szpqyoehdk .gt_caption {
+#lkkwlcibca .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#szpqyoehdk .gt_title {
+#lkkwlcibca .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1903,7 +1996,7 @@ Olivier Caron
   border-bottom-width: 0;
 }
 
-#szpqyoehdk .gt_subtitle {
+#lkkwlcibca .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1915,7 +2008,7 @@ Olivier Caron
   border-top-width: 0;
 }
 
-#szpqyoehdk .gt_heading {
+#lkkwlcibca .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1927,13 +2020,13 @@ Olivier Caron
   border-right-color: #D3D3D3;
 }
 
-#szpqyoehdk .gt_bottom_border {
+#lkkwlcibca .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#szpqyoehdk .gt_col_headings {
+#lkkwlcibca .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1948,7 +2041,7 @@ Olivier Caron
   border-right-color: #D3D3D3;
 }
 
-#szpqyoehdk .gt_col_heading {
+#lkkwlcibca .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1968,7 +2061,7 @@ Olivier Caron
   overflow-x: hidden;
 }
 
-#szpqyoehdk .gt_column_spanner_outer {
+#lkkwlcibca .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1980,15 +2073,15 @@ Olivier Caron
   padding-right: 4px;
 }
 
-#szpqyoehdk .gt_column_spanner_outer:first-child {
+#lkkwlcibca .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#szpqyoehdk .gt_column_spanner_outer:last-child {
+#lkkwlcibca .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#szpqyoehdk .gt_column_spanner {
+#lkkwlcibca .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2000,11 +2093,11 @@ Olivier Caron
   width: 100%;
 }
 
-#szpqyoehdk .gt_spanner_row {
+#lkkwlcibca .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#szpqyoehdk .gt_group_heading {
+#lkkwlcibca .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2030,7 +2123,7 @@ Olivier Caron
   text-align: left;
 }
 
-#szpqyoehdk .gt_empty_group_heading {
+#lkkwlcibca .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2045,15 +2138,15 @@ Olivier Caron
   vertical-align: middle;
 }
 
-#szpqyoehdk .gt_from_md > :first-child {
+#lkkwlcibca .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#szpqyoehdk .gt_from_md > :last-child {
+#lkkwlcibca .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#szpqyoehdk .gt_row {
+#lkkwlcibca .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2072,7 +2165,7 @@ Olivier Caron
   overflow-x: hidden;
 }
 
-#szpqyoehdk .gt_stub {
+#lkkwlcibca .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2085,7 +2178,7 @@ Olivier Caron
   padding-right: 5px;
 }
 
-#szpqyoehdk .gt_stub_row_group {
+#lkkwlcibca .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2099,15 +2192,15 @@ Olivier Caron
   vertical-align: top;
 }
 
-#szpqyoehdk .gt_row_group_first td {
+#lkkwlcibca .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#szpqyoehdk .gt_row_group_first th {
+#lkkwlcibca .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#szpqyoehdk .gt_summary_row {
+#lkkwlcibca .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2117,16 +2210,16 @@ Olivier Caron
   padding-right: 5px;
 }
 
-#szpqyoehdk .gt_first_summary_row {
+#lkkwlcibca .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#szpqyoehdk .gt_first_summary_row.thick {
+#lkkwlcibca .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#szpqyoehdk .gt_last_summary_row {
+#lkkwlcibca .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2136,7 +2229,7 @@ Olivier Caron
   border-bottom-color: #D3D3D3;
 }
 
-#szpqyoehdk .gt_grand_summary_row {
+#lkkwlcibca .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2146,7 +2239,7 @@ Olivier Caron
   padding-right: 5px;
 }
 
-#szpqyoehdk .gt_first_grand_summary_row {
+#lkkwlcibca .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2156,7 +2249,7 @@ Olivier Caron
   border-top-color: #D3D3D3;
 }
 
-#szpqyoehdk .gt_last_grand_summary_row_top {
+#lkkwlcibca .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2166,11 +2259,11 @@ Olivier Caron
   border-bottom-color: #D3D3D3;
 }
 
-#szpqyoehdk .gt_striped {
+#lkkwlcibca .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#szpqyoehdk .gt_table_body {
+#lkkwlcibca .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2179,7 +2272,7 @@ Olivier Caron
   border-bottom-color: #D3D3D3;
 }
 
-#szpqyoehdk .gt_footnotes {
+#lkkwlcibca .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2193,7 +2286,7 @@ Olivier Caron
   border-right-color: #D3D3D3;
 }
 
-#szpqyoehdk .gt_footnote {
+#lkkwlcibca .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2202,7 +2295,7 @@ Olivier Caron
   padding-right: 5px;
 }
 
-#szpqyoehdk .gt_sourcenotes {
+#lkkwlcibca .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2216,7 +2309,7 @@ Olivier Caron
   border-right-color: #D3D3D3;
 }
 
-#szpqyoehdk .gt_sourcenote {
+#lkkwlcibca .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2224,68 +2317,77 @@ Olivier Caron
   padding-right: 5px;
 }
 
-#szpqyoehdk .gt_left {
+#lkkwlcibca .gt_left {
   text-align: left;
 }
 
-#szpqyoehdk .gt_center {
+#lkkwlcibca .gt_center {
   text-align: center;
 }
 
-#szpqyoehdk .gt_right {
+#lkkwlcibca .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#szpqyoehdk .gt_font_normal {
+#lkkwlcibca .gt_font_normal {
   font-weight: normal;
 }
 
-#szpqyoehdk .gt_font_bold {
+#lkkwlcibca .gt_font_bold {
   font-weight: bold;
 }
 
-#szpqyoehdk .gt_font_italic {
+#lkkwlcibca .gt_font_italic {
   font-style: italic;
 }
 
-#szpqyoehdk .gt_super {
+#lkkwlcibca .gt_super {
   font-size: 65%;
 }
 
-#szpqyoehdk .gt_footnote_marks {
+#lkkwlcibca .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#szpqyoehdk .gt_asterisk {
+#lkkwlcibca .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#szpqyoehdk .gt_indent_1 {
+#lkkwlcibca .gt_indent_1 {
   text-indent: 5px;
 }
 
-#szpqyoehdk .gt_indent_2 {
+#lkkwlcibca .gt_indent_2 {
   text-indent: 10px;
 }
 
-#szpqyoehdk .gt_indent_3 {
+#lkkwlcibca .gt_indent_3 {
   text-indent: 15px;
 }
 
-#szpqyoehdk .gt_indent_4 {
+#lkkwlcibca .gt_indent_4 {
   text-indent: 20px;
 }
 
-#szpqyoehdk .gt_indent_5 {
+#lkkwlcibca .gt_indent_5 {
   text-indent: 25px;
+}
+
+#lkkwlcibca .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#lkkwlcibca div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
 }
 </style>
 
-<table class="gt_table caption-top" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table caption-top" data-quarto-bootstrap="false">
 <thead>
 <tr class="gt_col_headings header">
 <th id="platform" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">platform</th>
@@ -2324,21 +2426,21 @@ Olivier Caron
 <h2>Comparaison du CPA (coût par acquisition)</h2>
 <p><strong>Question :</strong> combien nous coûte, en moyenne, l’acquisition d’un client sur chaque plateforme ? <em>Interprétation : plus le CPA est bas, meilleure est la rentabilité.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="fu">ggplot</span>(summary_stats, <span class="fu">aes</span>(<span class="at">x =</span> platform, <span class="at">y =</span> cpa, <span class="at">fill =</span> platform)) <span class="sc">+</span></span>
-<span id="cb19-2"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb19-3"><a href=""></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(cpa, <span class="dv">2</span>), <span class="st">" €"</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
-<span id="cb19-4"><a href=""></a>  <span class="fu">labs</span>(</span>
-<span id="cb19-5"><a href=""></a>    <span class="at">title =</span> <span class="st">"Coût par acquisition (CPA) par plateforme"</span>,</span>
-<span id="cb19-6"><a href=""></a>    <span class="at">subtitle =</span> <span class="st">"Facebook est nettement plus rentable pour acquérir un client."</span>,</span>
-<span id="cb19-7"><a href=""></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="co"># Pas besoin de label X car évident</span></span>
-<span id="cb19-8"><a href=""></a>    <span class="at">y =</span> <span class="st">"Cout par Acquisition (€)"</span></span>
-<span id="cb19-9"><a href=""></a>  ) <span class="sc">+</span></span>
-<span id="cb19-10"><a href=""></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>) <span class="sc">+</span></span>
-<span id="cb19-11"><a href=""></a>  <span class="fu">theme</span>(</span>
-<span id="cb19-12"><a href=""></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
-<span id="cb19-13"><a href=""></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb19-14"><a href=""></a>  ) <span class="sc">+</span></span>
-<span id="cb19-15"><a href=""></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#325494"</span>, <span class="st">"#58DDB3"</span>)) <span class="co"># Couleurs UBD Theme</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">ggplot</span>(summary_stats, <span class="fu">aes</span>(<span class="at">x =</span> platform, <span class="at">y =</span> cpa, <span class="at">fill =</span> platform)) <span class="sc">+</span></span>
+<span id="cb20-2"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb20-3"><a href=""></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(cpa, <span class="dv">2</span>), <span class="st">" €"</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb20-4"><a href=""></a>  <span class="fu">labs</span>(</span>
+<span id="cb20-5"><a href=""></a>    <span class="at">title =</span> <span class="st">"Coût par acquisition (CPA) par plateforme"</span>,</span>
+<span id="cb20-6"><a href=""></a>    <span class="at">subtitle =</span> <span class="st">"Facebook est nettement plus rentable pour acquérir un client."</span>,</span>
+<span id="cb20-7"><a href=""></a>    <span class="at">x =</span> <span class="cn">NULL</span>, <span class="co"># Pas besoin de label X car évident</span></span>
+<span id="cb20-8"><a href=""></a>    <span class="at">y =</span> <span class="st">"Cout par Acquisition (€)"</span></span>
+<span id="cb20-9"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb20-10"><a href=""></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>) <span class="sc">+</span></span>
+<span id="cb20-11"><a href=""></a>  <span class="fu">theme</span>(</span>
+<span id="cb20-12"><a href=""></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb20-13"><a href=""></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb20-14"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb20-15"><a href=""></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#325494"</span>, <span class="st">"#58DDB3"</span>)) <span class="co"># Couleurs UBD Theme</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section>
@@ -2354,21 +2456,21 @@ Olivier Caron
 <h2>Comparaison du taux de conversion</h2>
 <p><strong>Question :</strong> une fois que l’utilisateur a cliqué, quelle est la probabilité qu’il achète ? <em>Interprétation : un taux plus élevé indique un trafic plus qualifié ou une meilleure adéquation produit/audience.</em></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href=""></a><span class="fu">ggplot</span>(summary_stats, <span class="fu">aes</span>(<span class="at">x =</span> platform, <span class="at">y =</span> overall_conversion_rate, <span class="at">fill =</span> platform)) <span class="sc">+</span></span>
-<span id="cb20-2"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
-<span id="cb20-3"><a href=""></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(overall_conversion_rate, <span class="dv">2</span>), <span class="st">" %"</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
-<span id="cb20-4"><a href=""></a>  <span class="fu">labs</span>(</span>
-<span id="cb20-5"><a href=""></a>    <span class="at">title =</span> <span class="st">"Taux de conversion global"</span>,</span>
-<span id="cb20-6"><a href=""></a>    <span class="at">subtitle =</span> <span class="st">"Le trafic Facebook transforme mieux que celui d'AdWords."</span>,</span>
-<span id="cb20-7"><a href=""></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
-<span id="cb20-8"><a href=""></a>    <span class="at">y =</span> <span class="st">"Taux de Conversion (%)"</span></span>
-<span id="cb20-9"><a href=""></a>  ) <span class="sc">+</span></span>
-<span id="cb20-10"><a href=""></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>) <span class="sc">+</span></span>
-<span id="cb20-11"><a href=""></a>  <span class="fu">theme</span>(</span>
-<span id="cb20-12"><a href=""></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
-<span id="cb20-13"><a href=""></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
-<span id="cb20-14"><a href=""></a>  ) <span class="sc">+</span></span>
-<span id="cb20-15"><a href=""></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#325494"</span>, <span class="st">"#58DDB3"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="fu">ggplot</span>(summary_stats, <span class="fu">aes</span>(<span class="at">x =</span> platform, <span class="at">y =</span> overall_conversion_rate, <span class="at">fill =</span> platform)) <span class="sc">+</span></span>
+<span id="cb21-2"><a href=""></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">width =</span> <span class="fl">0.6</span>) <span class="sc">+</span></span>
+<span id="cb21-3"><a href=""></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> <span class="fu">paste0</span>(<span class="fu">round</span>(overall_conversion_rate, <span class="dv">2</span>), <span class="st">" %"</span>)), <span class="at">vjust =</span> <span class="sc">-</span><span class="fl">0.5</span>, <span class="at">size =</span> <span class="dv">6</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb21-4"><a href=""></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-5"><a href=""></a>    <span class="at">title =</span> <span class="st">"Taux de conversion global"</span>,</span>
+<span id="cb21-6"><a href=""></a>    <span class="at">subtitle =</span> <span class="st">"Le trafic Facebook transforme mieux que celui d'AdWords."</span>,</span>
+<span id="cb21-7"><a href=""></a>    <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb21-8"><a href=""></a>    <span class="at">y =</span> <span class="st">"Taux de Conversion (%)"</span></span>
+<span id="cb21-9"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb21-10"><a href=""></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>) <span class="sc">+</span></span>
+<span id="cb21-11"><a href=""></a>  <span class="fu">theme</span>(</span>
+<span id="cb21-12"><a href=""></a>    <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb21-13"><a href=""></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>()</span>
+<span id="cb21-14"><a href=""></a>  ) <span class="sc">+</span></span>
+<span id="cb21-15"><a href=""></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#325494"</span>, <span class="st">"#58DDB3"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 
 </section><section id="comparaison-du-taux-de-conversion-output" class="slide level2 output-location-slide"><h2>Comparaison du taux de conversion</h2><div class="cell output-location-slide">
@@ -2452,8 +2554,8 @@ Pauwels, Koen, and David J. Reibstein. 2023. <span>“The <span>Modern Marketing
 <h2>Revenir au début</h2>
 <p><span class="button"><a href="#/accueil">Accueil</a></span></p>
 
-<script> window._input_file = "---\n" + "title: \"Web Data Mining & Business Intelligence\"\n" + "subtitle: \"Visualisation des données, storytelling, dashboards\"\n" + "author:\n" + "  - name: \"Olivier Caron\"\n" + "    affiliations: \"Paris Dauphine - PSL\"\n" + "format:\n" + "  ubd-revealjs:\n" + "    self-contained: false\n" + "    chalkboard: true\n" + "    transition: fade\n" + "    auto-stretch: false\n" + "    width: 1250\n" + "    height: 760\n" + "    toc: false\n" + "    code-block-height: 700px\n" + "execute:\n" + "  echo: true\n" + "bibliography: refs.bib\n" + "revealjs-plugins:\n" + "  - editable\n" + "filters:\n" + "  - editable\n" + "editor: \n" + "  markdown: \n" + "    wrap: sentence\n" + "---\n" + "\n" + "## Objectifs de la séance {#accueil}\n" + "\n" + "-   Maîtriser les principes de conception de graphiques clairs.\n" + "-   Apprendre à transformer les données en récits visuels.\n" + "-   Comprendre les fondements de la création de dashboards efficaces pour la prise de décision.\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Plusieurs parties et plusieurs références {style=\"font-size:0.85em\"}\n" + "\n" + ":::::: columns\n" + "::: {.column width=\"33%\"}\n" + "### 1. L'artisanat (technique)\n" + "\n" + "Avec **Tufte**, le \"bruit graphique\" (*chartjunk*) est traqué pour ne garder que l'essentiel [@costigan-eavesEdwardTufteVisual1986].\n" + "\n" + "\\n" + "\n" + "**Wilke** et **Healy** fournissent les clés d'une \"grammaire des graphiques\" pour construire des visuels justes et efficaces avec `ggplot2` [@GrammarGraphics2005; @healy2024data].\n" + ":::\n" + "\n" + "::: {.column width=\"33%\"}\n" + "### 2. La narration (communication)\n" + "\n" + "L'art du *storytelling* selon **Cole Nussbaumer Knaflic** permet de transformer les graphiques en récits clairs et convaincants qui guident l'audience vers l'action [@knaflicStorytellingDataData2015; @knaflicStorytellingDataLets2019].\n" + ":::\n" + "\n" + "::: {.column width=\"34%\"}\n" + "### 3. La synthèse (décision)\n" + "\n" + "Selon **Stephen Few**, les dashboards sont conçus pour respecter la perception humaine et éviter la surcharge cognitive [@few2006information].\n" + "\n" + "\\n" + "\n" + "**Koen Pauwels** montre comment les transformer en véritables outils de pilotage liant marketing et performance financière [@pauwelsModernMarketingDashboard2023].\n" + ":::\n" + "::::::\n" + "\n" + "# Partie 1 : l'artisanat du graphique {.transition-slide-ubdblue}\n" + "\n" + "## L'objectif : la clarté\n" + "\n" + "**Laisser les données briller, sans distraction.**\n" + "\n" + "> \"L'excellence graphique, c'est ce qui donne au spectateur le plus grand nombre d'idées dans le temps le plus court avec le moins d'encre possible dans le plus petit espace.\"\n" + ">\n" + "> --- Edward Tufte\n" + "\n" + "## Avant tout : regardez vos données ! {style=\"font-size:0.70em\"}\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "Les statistiques descriptives (moyenne, variance, corrélation...) sont indispensables mais peuvent être terriblement trompeuses si elles sont utilisées seules.\n" + "\n" + "\\n" + "\n" + "Le **Quartet d'Anscombe** (1973) en est la preuve : données identiques mais apparences différentes une fois tracées : toujours visualiser les données avant de modéliser (EDA pour Exploratory Data Analysis).\n" + "\n" + "\\n" + "\\n" + "\n" + "| Propriété                                               | Valeur        |\n" + "|---------------------------------------------------------|---------------|\n" + "| Moyenne des x                                           | 9,0           |\n" + "| Variance des x                                          | 10,0          |\n" + "| Moyenne des y                                           | 7,5           |\n" + "| Variance des y                                          | 3,75          |\n" + "| Coefficient de corrélation entre x et y                 | 0,816         |\n" + "| Équation de la droite de régression linéaire            | y = 3 + 0,5 x |\n" + "| Somme des carrés des erreurs (par rapport à la moyenne) | 110,0         |\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "![](images/Anscombe.svg){width=\"100%\"}\n" + ":::\n" + ":::::\n" + "\n" + "## L'ennemi public n°1 : le \"chartjunk\"\n" + "\n" + "Le *chartjunk* (ou \"bruit graphique\") désigne tout élément visuel qui n'est pas essentiel à la compréhension des données.\n" + "C'est du désordre qui distrait l'oeil et peut même fausser l'interprétation.\n" + "\n" + "::: incremental\n" + "-   **Effets 3D inutiles :** ils tordent la perspective et rendent la lecture des valeurs impossible.\n" + "-   **Motifs et textures lourds :** ils créent des vibrations visuelles (effet de moiré).\n" + "-   **Couleurs criardes :** l'utilisation de la couleur doit être fonctionnelle, pas décorative.\n" + "-   **Redondance :** écrire la valeur sur la barre ET avoir un axe Y est souvent inutile.\n" + ":::\n" + "\n" + "::: callout-important\n" + "### Se focaliser sur l'essentiel\n" + "\n" + "**Éliminer** chaque pixel qui n'est pas indispensable pour augmenter le \"ratio encre-données\" (Tufte).\n" + ":::\n" + "\n" + "## Exemple de chartjunk à éviter\n" + "\n" + "![](images/clipboard-3368095089.png){fig-align=\"center\" width=\"70%\"}\n" + "\n" + "## Exemple de chartjunk 2 à éviter\n" + "\n" + "![](images/clipboard-2307685335.png){fig-align=\"center\"}\n" + "\n" + "## Exemple de graphique peu clair (sans être un \"chartjunk\")\n" + "\n" + "![](images/clipboard-3785406703.png){fig-align=\"center\"}\n" + "\n" + "## Les principes de la Gestalt (perception visuelle)\n" + "\n" + "La psychologie de la Gestalt explique comment notre cerveau organise les éléments visuels en groupes.\n" + "Comprendre ces principes permet de créer de l'ordre dans vos graphiques sans ajouter de « chartjunk » [@knaflicStorytellingDataLets2019].\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "-   **Proximité :** nous percevons les objets proches les uns des autres comme appartenant au même groupe.\n" + "-   **Similitude :** les objets partageant une couleur, une forme ou une taille similaire sont perçus comme liés.\n" + "-   **Enclosure (encadrement) :** les objets entourés par une limite visuelle sont perçus comme un groupe.\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "-   **Clôture :** notre cerveau « complète » les formes incomplètes (ex. : pas besoin d'un cadre complet autour d'un graphique).\n" + "-   **Continuité :** nous suivons naturellement les lignes les plus fluides.\n" + "-   **Connexion :** des éléments reliés par une ligne sont perçus comme plus liés que par la simple couleur ou forme.\n" + ":::\n" + ":::::\n" + "\n" + "## Gestalt - illustration\n" + "\n" + "![](images/clipboard-2373548771.png){fig-align=\"center\" width=\"50%\"}\n" + "\n" + "## Les attributs pré-attentifs (attirer l'attention)\n" + "\n" + "Ce sont des signaux visuels que notre cerveau traite en quelques millisecondes, avant même que nous ne prêtions une attention consciente.\n" + "Utilisez-les pour guider l'œil de votre audience [@knaflicStorytellingDataLets2019].\n" + "\n" + "::::: columns\n" + "::: {.column width=\"40%\"}\n" + "**Les plus puissants :**\n" + "\n" + "1.  **La couleur :** l'outil le plus fort, à utiliser avec parcimonie pour mettre en valeur un point précis.\n" + "2.  **La taille :** les éléments plus grands signalent une importance supérieure.\n" + "3.  **La position :** ce qui est en haut à gauche est vu en premier.\n" + ":::\n" + "\n" + "::: {.column width=\"60%\"}\n" + "![](images/clipboard-578437428.png)\n" + ":::\n" + ":::::\n" + "\n" + "# Théorie : la grammaire visuelle {.transition-slide-ubdteal}\n" + "\n" + "## La grammaire fondamentale\n" + "\n" + "Un graphique n'est pas un dessin artistique, c'est une conversion systématique.\n" + "\n" + "**Le principe clé (C. Wilke) :** toutes les visualisations de données mappent des valeurs de données (chiffres, catégories) vers des caractéristiques visuelles quantifiables du graphique.\n" + "\n" + "Nous appelons ces caractéristiques des **esthétiques** (*aesthetics*).\n" + "\n" + "## Les types d'esthétiques {style=\"font-size:0.85em\"}\n" + "\n" + "::::: columns\n" + "::: {.column width=\"40%\"}\n" + "Une esthétique décrit un aspect d'un élément graphique.\n" + "\n" + "-   **Position (x, y) :** où se trouve l'élément.\n" + "-   **Forme (shape) :** rond, carré, triangle...\n" + "-   **Taille (size) :** rayon, aire.\n" + "-   **Couleur (color) :** teinte ou saturation.\n" + "-   **Ligne (type/width) :** plein, pointillé, épaisseur.\n" + ":::\n" + "\n" + "::: {.column width=\"60%\"}\n" + "![](images/clipboard-185596907.png)\n" + ":::\n" + ":::::\n" + "\n" + "::: callout-note\n" + "### Attention au type de données\n" + "\n" + "Certaines esthétiques (position, taille, couleur) peuvent représenter des données **continues**, tandis que d'autres (forme, type de ligne) ne peuvent représenter que des données **discrètes**.\n" + ":::\n" + "\n" + "## Comprendre vos données {style=\"font-size:0.8em\"}\n" + "\n" + "Avant de choisir une esthétique, il faut identifier le type de vos variables.\n" + "\n" + "| Type de variable | Description | Exemples | Échelle appropriée |\n" + "|:-----------------|:-----------------|:-----------------|:-----------------|\n" + "| **Quantitative continue** | Nombres arbitraires (réels) | 1.3, 5.7, Température | Continue |\n" + "| **Quantitative discrète** | Unités distinctes (entiers) | 1, 2, Nombre d'enfants | Discrète |\n" + "| **Qualitative non-ordonnée** | Catégories sans hiérarchie | Chien, Chat, Pays | Discrète (Facteur) |\n" + "| **Qualitative ordonnée** | Catégories avec hiérarchie | Bon, Moyen, Mauvais | Discrète (Facteur ordonné) |\n" + "| **Date / Temps** | Moments spécifiques | 14 Juillet, 12:00 | Continue ou Discrète |\n" + "\n" + "## Les échelles (scales) : le pont\n" + "\n" + "Pour passer de la donnée à l'esthétique, nous avons besoin d'une **échelle** (*scale*).\n" + "\n" + "C'est une fonction mathématique qui définit un mapping unique (*one-to-one*).\n" + "Si l'échelle n'est pas unique, le graphique est ambigu.\n" + "\n" + "![](images/clipboard-3396471075.png){fig-align=\"center\"}\n" + "\n" + "## Cas d'école : même données, visualisations différentes\n" + "\n" + "Imaginons des données météo (4 villes, températures journalières).\n" + "Selon le mapping choisi, l'histoire change.\n" + "\n" + "::::: columns\n" + "::: {.column .fragment width=\"50%\"}\n" + "**Mapping 1 : évolution temporelle**\n" + "\n" + "-   X : jour (Temps)\n" + "-   Y : température (Continu)\n" + "-   Couleur : ville (Discret)\n" + "\n" + "![](images/clipboard-1505836256.png){fig-align=\"center\" width=\"75%\"}\n" + ":::\n" + "\n" + "::: {.column .fragment width=\"50%\"}\n" + "**Mapping 2 : intensité et comparaison**\n" + "\n" + "-   X : mois (Discret ordonné)\n" + "-   Y : ville (Discret)\n" + "-   Couleur : température (Continu)\n" + "\n" + "![](images/clipboard-1354990438.png){fig-align=\"center\" width=\"100%\"}\n" + ":::\n" + ":::::\n" + "\n" + "## La multidimensionnalité\n" + "\n" + "::::: columns\n" + "::: {.column width=\"40%\"}\n" + "On peut mapper plus de 3 variables.\n" + "Exemple ici avec **5 variables** :\n" + "\n" + "1.  Cylindrée $\rightarrow$ X\n" + "2.  Efficacité $\rightarrow$ Y\n" + "3.  Puissance $\rightarrow$ Couleur\n" + "4.  Poids $\rightarrow$ Taille\n" + "5.  Cylindres $\rightarrow$ Forme\n" + ":::\n" + "\n" + "::: {.column width=\"60%\"}\n" + "![](images/clipboard-3231098592.png){fig-align=\"center\" width=\"100%\"}\n" + ":::\n" + ":::::\n" + "\n" + "## Exemple concret avec le jeu de données `ifood`\n" + "\n" + "Ce graphique illustre parfaitement le concept.\n" + "Chaque point est un client, et nous visualisons 4 dimensions d'information simultanément via `ggplot2`.\n" + "\n" + "```{r ifood-mapping-example}\n" + "#| echo: false\n" + "#| eval: true\n" + "#| message: false\n" + "#| warning: false\n" + "library(ggplot2)\n" + "library(dplyr)\n" + "\n" + "# Chargement des données\n" + "ifood <- read.csv(\"../data_full/ifood/ifood_df.csv\")\n" + "\n" + "# Correction : R remplace souvent les espaces par des points dans les noms de colonnes\n" + "# On utilise donc education_2n.Cycle au lieu de \"education_2n Cycle\"\n" + "\n" + "ifood_clean <- ifood %>% \n" + "  filter(Income < 200000) %>% \n" + "  mutate(Education = case_when(\n" + "    education_Graduation == 1 ~ \"Graduation\",\n" + "    education_PhD == 1 ~ \"PhD\",\n" + "    education_Master == 1 ~ \"Master\",\n" + "    education_Basic == 1 ~ \"Basic\",\n" + "    education_2n.Cycle == 1 ~ \"2n Cycle\", # <-- Note le point ici !\n" + "    TRUE ~ \"Other\"\n" + "  ))\n" + "\n" + "# Le graphique\n" + "ggplot(ifood_clean, \n" + "       aes(x = Income, \n" + "           y = MntWines, \n" + "           color = Education, \n" + "           size = NumWebPurchases)) +\n" + "  geom_point(alpha = 0.6) +\n" + "  labs(title = \"Dépenses en vin selon le revenu et l'éducation\",\n" + "       x = \"Revenu Annuel\",\n" + "       y = \"Dépenses annuelles en vin\",\n" + "       color = \"Niveau d'étude\",\n" + "       size = \"Nb. d'achats web\",\n" + "       caption = \"Source : ces données sont disponibles dans le dossier data_full sous ifood/ifood_df.csv\") +\n" + "  theme_minimal()\n" + "```\n" + "\n" + "# Atelier pratique : construire pas à pas {.transition-slide-ubdteal}\n" + "\n" + "## Méthodologie\n" + "\n" + "Nous allons suivre la méthode de **Kieran Healy** pour construire un graphique complexe, couche par couche, en appliquant rigoureusement la grammaire des graphiques.\n" + "\n" + "**Source :** *Data Visualization: A Practical Introduction*, Chapter 3.\n" + "\n" + "L'objectif est de comprendre comment `ggplot2` empile les couches :\n" + "\n" + "Données -\> mapping -\> géométrie -\> statistiques -\> échelles -\> thème\n" + "\n" + "## Préparation et \"Tidy Data\"\n" + "\n" + "Nous utilisons le jeu de données `gapminder` (Espérance de vie, PIB, Population par pays et par an) déjà inclus dans R de base.\n" + "\n" + "::: panel-tabset\n" + "### Le code de préparation\n" + "\n" + "```{r setup-gapminder}\n" + "#| message: false\n" + "#| warning: false\n" + "#| echo: true\n" + "library(tidyverse) # Charge ggplot2, dplyr, tidyr...\n" + "library(gapminder) # Le jeu de données\n" + "library(scales)    # Pour le formatage des axes ($, %, etc.)\n" + "library(gt)        # Pour les beaux tableaux\n" + "\n" + "```\n" + "\n" + "### Aperçu des données\n" + "\n" + "```{r}\n" + "#| echo: false\n" + "#| eval: true\n" + "gapminder %>%\n" + "  slice_sample(n = 10) %>%\n" + "  gt() %>%\n" + "  fmt_number(\n" + "    columns = c(pop, gdpPercap),\n" + "    decimals = 0,\n" + "    use_seps = TRUE\n" + "  ) %>%\n" + "  fmt_number(\n" + "    columns = lifeExp,\n" + "    decimals = 1\n" + "  ) %>%\n" + "  tab_header(\n" + "    title = md(\"**Sélection aléatoire de 10 lignes du jeu de données gapminder**\")\n" + "  ) %>%\n" + "  cols_label(\n" + "    country    = md(\"**Country**\"),\n" + "    continent  = md(\"**Continent**\"),\n" + "    year       = md(\"**Year**\"),\n" + "    lifeExp    = md(\"**Life exp**\"),\n" + "    pop        = md(\"**Population**\"),\n" + "    gdpPercap  = md(\"**GDP per capita**\")\n" + "  ) %>%\n" + "  tab_style(\n" + "    style = list(\n" + "      cell_fill(color = \"#f0f2f5\"),\n" + "      cell_text(weight = \"bold\")\n" + "    ),\n" + "    locations = cells_column_labels(everything())\n" + "  ) %>%\n" + "  opt_table_outline() %>%\n" + "  opt_row_striping() %>%\n" + "  tab_options(\n" + "    table.font.size = px(14),\n" + "    heading.align = \"center\"\n" + "  )\n" + "```\n" + ":::\n" + "\n" + "## Rappel du concept de Tidy Data\n" + "\n" + "Pour que `ggplot2` fonctionne, vos données doivent être **ordonnées** (*tidy*).\n" + "C'est une structure spécifique :\n" + "\n" + "1.  **Une variable** = une colonne.\n" + "2.  **Une observation** = une ligne.\n" + "3.  **Une valeur** = une cellule.\n" + "\n" + "::: callout-tip\n" + "### Le piège du format \"Large\"\n" + "\n" + "Si vos données sont en format \"Large\" (ex: une colonne par année : `1990`, `1991`, `1992`...), vous ne pourrez pas mapper l'année sur l'axe X.\n" + "Vous devez d'abord les pivoter en format \"Long\" (une colonne \"Année\", une colonne \"Valeur\") avec `pivot_longer()`.\n" + ":::\n" + "\n" + "## Exemple Tidy Data\n" + "\n" + "![](images/clipboard-1041945270.png){fig-align=\"center\" width=\"90%\"}\n" + "\n" + "## Étape 1 : la toile vierge {style=\"font-size:0.75em\"}\n" + "\n" + "On commence par déclarer l'objet graphique en lui fournissant les données.\n" + "\n" + "```{r gap-step1}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "\n" + "p <- ggplot(data = gapminder)\n" + "p\n" + "```\n" + "\n" + "**Résultat :** rien ne s'affiche !\n" + "C'est normal, nous avons défini la source des données, mais nous n'avons pas encore expliqué à R comment les représenter.\n" + "\n" + "## Étape 2 : le mapping (aes) {style=\"font-size:0.7em\"}\n" + "\n" + "On définit les axes dans l'esthétique (`aes`).\n" + "On dit à R : \"Prends la colonne PIB pour l'axe X et l'Espérance de vie pour l'axe Y\".\n" + "\n" + "```{r gap-step2}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "p <- ggplot(data = gapminder,\n" + "            mapping = aes(x = gdpPercap,\n" + "                          y = lifeExp))\n" + "p\n" + "```\n" + "\n" + "**Résultat :** `ggplot` a préparé la grille.\n" + "Il a scanné les données pour trouver les minimums et maximums et a dessiné les axes correspondants.\n" + "Mais il ne sait toujours pas *quelle forme* dessiner.\n" + "\n" + "## Étape 3 : ajouter un \"Geom\" {style=\"font-size:0.7em\"}\n" + "\n" + "On ajoute une couche géométrique (**geom**) pour représenter les données concrètement.\n" + "Ici, des points (`geom_point`) pour faire un nuage de points.\n" + "\n" + "```{r gap-step3}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "p + geom_point()\n" + "```\n" + "\n" + "**Observation :** nous avons un problème de lisibilité.\n" + "Les points se chevauchent massivement (overplotting) et la relation n'est pas linéaire, elle semble suivre une courbe.\n" + "\n" + "## Étape 4 : ajouter une tendance {style=\"font-size:0.7em\"}\n" + "\n" + "La grammaire fonctionne par **couches** (`layers`).\n" + "Ajoutons une couche de lissage statistique (`geom_smooth`) au-dessus des points pour visualiser la tendance générale.\n" + "\n" + "```{r gap-step4}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "p + geom_point() + geom_smooth()\n" + "```\n" + "\n" + "*Par défaut, `geom_smooth()` utilise une méthode GAM (Generalized Additive Model) pour les grands jeux de données, ce qui donne cette courbe flexible.*\n" + "\n" + "## Étape 5 : ajuster l'échelle (scales) {style=\"font-size:0.7em\"}\n" + "\n" + "Le PIB n'est pas distribué normalement.\n" + "La plupart des pays sont pauvres (à gauche), et quelques-uns très riches (à droite).\n" + "Cela \"écrase\" le graphique.\n" + "Utilisons une **échelle logarithmique** sur l'axe X.\n" + "\n" + "```{r gap-step5}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "p + geom_point() + \n" + "    geom_smooth(method = \"gam\") + \n" + "    scale_x_log10()\n" + "```\n" + "\n" + "**Résultat :** la relation devient beaucoup plus claire et linéaire.\n" + "L'échelle log est un outil puissant pour les données économiques.\n" + "\n" + "## Étape 6 : formater les étiquettes {style=\"font-size:0.7em\"}\n" + "\n" + "Les chiffres scientifiques sur l'axe X (`1e+04`) sont incompréhensibles pour une audience métier.\n" + "Utilisons le package `scales` pour formater cela en dollars.\n" + "\n" + "```{r gap-step6}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "p + geom_point() + \n" + "    geom_smooth(method = \"gam\") + \n" + "    scale_x_log10(labels = scales::dollar)\n" + "```\n" + "\n" + "## Piège classique : mapping vs setting {style=\"font-size:0.8em\"}\n" + "\n" + "**Attention !** Il y a une différence fondamentale entre *mapper* une variable et *fixer* (setting) une valeur esthétique.\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "### L'erreur (Mapping)\n" + "\n" + "Mettre \"purple\" dans `aes()`.\n" + "\n" + "```{r gap-error}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| fig-height: 4.5\n" + "p + geom_point(aes(color = \"purple\")) +\n" + "    scale_x_log10()\n" + "```\n" + "\n" + "**Pourquoi ça rate ?** `aes()` s'attend à une variable (une colonne).\n" + "Comme elle ne la trouve pas, elle crée une colonne fictive nommée \"purple\" et utilise la palette de couleur par défaut (rouge).\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "### La solution (Setting)\n" + "\n" + "Sortir l'argument de `aes()`.\n" + "\n" + "```{r gap-correct}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| fig-height: 4.5\n" + "p + geom_point(color = \"purple\") + \n" + "    scale_x_log10()\n" + "```\n" + "\n" + "**Pourquoi ça marche ?** Ici, nous disons explicitement au `geom` : \"Peins tous les points en violet\", sans passer par le mapping de données.\n" + ":::\n" + ":::::\n" + "\n" + "## Étape 7 : finitions (labels & alpha)\n" + "\n" + "Rendons le graphique présentable pour une publication :\n" + "\n" + "1.  Ajout de **transparence** (`alpha`) pour mieux voir la densité des points.\n" + "2.  Ajout de **titres** clairs et sourcés (`labs`).\n" + "\n" + "```{r gap-step7}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: slide\n" + "#| fig-width: 10\n" + "#| fig-height: 6\n" + "#| code-line-numbers: \"3|6-10\"\n" + "#| code-line-steps: true\n" + "#| fig-align: center\n" + "#| fig-dpi: 300\n" + "\n" + "p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y=lifeExp))\n" + "\n" + "p + geom_point(alpha = 0.3) +\n" + "    geom_smooth(method = \"gam\") +\n" + "    scale_x_log10(labels = scales::dollar) +\n" + "    labs(x = \"PIB par habitant (échelle log)\", \n" + "         y = \"Espérance de vie (années)\",\n" + "         title = \"Croissance économique et espérance de vie\",\n" + "         subtitle = \"L'espérance de vie augmente avec le PIB, mais plafonne.\",\n" + "         caption = \"Source: Gapminder. Adapté de K. Healy.\")\n" + "```\n" + "\n" + "## Étape 8 : ajouter de l'information\n" + "\n" + "Pouvons-nous ajouter une 3ème dimension sans surcharger ?\n" + "Mappons le `continent` à la couleur.\n" + "Cela permet de voir les disparités géographiques.\n" + "\n" + "```{r gap-step8}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: slide\n" + "#| fig-width: 10\n" + "#| fig-height: 6\n" + "\n" + "\n" + "# Note : on ajoute color = continent dans le mapping global\n" + "p <- ggplot(data = gapminder, \n" + "            mapping = aes(x = gdpPercap, y = lifeExp, color = continent, fill = continent))\n" + "\n" + "p + geom_point(alpha = 0.3) +\n" + "    geom_smooth(method = \"loess\") +\n" + "    scale_x_log10(labels = scales::dollar) +\n" + "    labs(title = \"Disparités économiques et sanitaires par continent\",\n" + "         x = \"PIB par Habitant\", y = \"Espérance de vie\")\n" + "```\n" + "\n" + "## Sauvegarder son image\n" + "\n" + "Pour exporter votre image en haute qualité (vectoriel pour impression, PNG pour le web), utilisez la fonction `ggsave()`.\n" + "\n" + "```{r save-plot}\n" + "#| eval: false\n" + "#| echo: true\n" + "#| code-line-numbers: \"6|9\"\n" + "#| code-line-steps: true\n" + "\n" + "# 1. Créer l'objet final\n" + "mon_graphique <- p + geom_point(alpha = 0.3) + scale_x_log10()\n" + "\n" + "# 2. Sauvegarder\n" + "# Le format PDF est vectoriel : il ne pixelise pas au zoom.\n" + "ggsave(filename = \"graphique_final.pdf\", plot = mon_graphique, width = 8, height = 6)\n" + "\n" + "# Le format PNG est matriciel : définir un haut DPI pour la qualité.\n" + "ggsave(filename = \"graphique_final.png\", plot = mon_graphique, dpi = 300)\n" + "```\n" + "\n" + "# Partie 2 : la narration (storytelling) {.transition-slide-ubdyellow}\n" + "\n" + "## Du graphique à l'histoire\n" + "\n" + "Avoir un graphique *propre* et techniquement juste constitue la première étape.\n" + "La seconde consiste à l'utiliser pour convaincre une audience.\n" + "\n" + "**Le storytelling permet de passer de :**\n" + "\n" + "> « Voici les données sur les ventes du T3.\n" + "> »\n" + "\n" + "**À :**\n" + "\n" + "> « Voici *pourquoi* nos ventes ont chuté au T3 et *ce que* nous devons faire pour inverser la tendance au T4.\n" + "> »\n" + "\n" + "C'est l'art de transformer une observation froide en un **récit qui incite à l'action**.\n" + "\n" + "## Étape 1 : comprendre le contexte\n" + "\n" + "Avant même de créer un graphique, Knaflic suggère de fermer l'ordinateur pour définir le contexte.\n" + "Il est nécessaire de répondre clairement à la question : « *So what ?* » (et alors ?) [@knaflicStorytellingDataLets2019].\n" + "\n" + "**Trois questions fondamentales à se poser :**\n" + "\n" + "1.  **Qui** est l'audience ? (Être spécifique).\n" + "2.  **Que** doivent-ils savoir ou faire ?\n" + "3.  **Comment** les données vont-elles aider à faire ce point ?\n" + "\n" + "## L'outil de synthèse : la « Big Idea »\n" + "\n" + "Il est impératif de pouvoir articuler le message en une seule phrase.\n" + "Si cela est impossible, l'idée manque probablement de clarté [@knaflicStorytellingDataLets2019].\n" + "\n" + "::: {.callout-tip title=\"Les 3 composantes de la Big Idea\"}\n" + "1.  Articuler un **point de vue** unique ;\n" + "2.  Exprimer ce qui est **en jeu** (les enjeux) ;\n" + "3.  Former une phrase **complète** (sujet, verbe, complément).\n" + ":::\n" + "\n" + "**Exemple :** « Le programme pilote d'été a réussi à améliorer la perception des sciences par les élèves ; il convient d'approuver le budget pour continuer ce programme important.\n" + "»\n" + "\n" + "## L'histoire de 3 minutes\n" + "\n" + "Si le temps de présentation était réduit à 3 minutes (au lieu de 30), que faudrait-il dire ?\n" + "\n" + "Cet exercice est crucial pour :\n" + "\n" + "-   Aller à l'essentiel ;\n" + "-   Supprimer les détails superflus ;\n" + "-   Savoir exactement où emmener l'audience.\n" + "\n" + "> « Connaître son histoire de 3 minutes permet de rester concis et clair, même en disposant de davantage de temps.\n" + "> »\n" + "\n" + "## Étape 2 : le storyboarding (low-tech)\n" + "\n" + "Éviter de commencer par le logiciel de présentation.\n" + "L'outil force à penser en « slides » et en « titres », ce qui nuit à la créativité narrative.\n" + "\n" + "**Le processus en deux temps :**\n" + "\n" + "1.  **Brainstorming :** faire sortir les idées et les noter en vrac sur des post-it, sans filtre.\n" + "2.  **Édition :** organiser, trier et éliminer le superflu pour créer une structure logique.\n" + "\n" + "**Pourquoi les post-it ?** Il est aisé de jeter un post-it, alors qu'il est difficile de supprimer une slide ayant nécessité du temps de conception.\n" + "\n" + "## Étape 3 : l'arc narratif (the narrative arc) {style=\"font-size:0.7em\"}\n" + "\n" + "Une présentation business classique est souvent linéaire et ennuyeuse.\n" + "Une histoire captivante suit une forme en arc spécifique [@knaflicStorytellingDataLets2019].\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "1.  **Intrigue (plot) :** le contexte, le statu quo. Poser le décor.\n" + "2.  **Montée de l'action (rising action) :** introduire la **tension**. Le problème, le déséquilibre, l'opportunité manquée.\n" + "3.  **Climax :** le point de bascule. La révélation majeure des données. « Si rien n'est fait, voilà ce qui arrive ».\n" + "4.  **Action descendante (falling action) :** l'analyse des solutions, les options possibles.\n" + "5.  **Résolution (ending) :** l'appel à l'action clair et la nouvelle réalité future.\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "![](images/clipboard-1444889286.png)\n" + ":::\n" + ":::::\n" + "\n" + "## Le moteur de l'histoire : la tension\n" + "\n" + "Si l'histoire n'a pas de tension, l'audience ne l'écoutera pas.\n" + "Dans la data, la tension provient souvent de l'écart entre :\n" + "\n" + "-   Ce que nous voulons vs ce que nous avons ;\n" + "-   Les attentes vs la réalité ;\n" + "-   Le risque de l'inaction vs le bénéfice de l'action.\n" + "\n" + "::: callout-important\n" + "### Question clé\n" + "\n" + "Pour l'audience, **qu'est-ce qui est en jeu ?** (what is at stake ?) Si la réponse est « rien », la réunion et le graphique sont inutiles.\n" + ":::\n" + "\n" + "## Distinction : présentation live vs « slideument »\n" + "\n" + "Knaflic insiste sur la différence de format selon le mode de consommation [@knaflicStorytellingDataLets2019].\n" + "\n" + "**Le « slideument » (slide + document)** est l'ennemi : trop dense pour être présenté, pas assez détaillé pour être lu seul.\n" + "Il faut choisir.\n" + "\n" + "| Présentation live (en direct) | Document autonome (email / PDF) |\n" + "|:-----------------------------------|:-----------------------------------|\n" + "| **L'orateur est présent** pour expliquer. | **L'orateur est absent**. Le document doit parler seul. |\n" + "| **Construction progressive** : afficher les éléments un par un pour contrôler l'attention. | **Slide dense et annotée** : utiliser du texte pour guider la lecture (titres actifs, annotations). |\n" + "| Peu de texte à l'écran. | Plus de texte explicatif. |\n" + "\n" + "## Exemple d'application : le live vs statique\n" + "\n" + "*Source : exercice 6.6 de « Let's Practice! » - analyse des délais d'embauche.*\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "### En live (séquencé)\n" + "\n" + "1.  Afficher les axes vides (contexte).\n" + "2.  Afficher la ligne « objectif » (tension).\n" + "3.  Afficher les données réelles qui dépassent l'objectif (climax).\n" + "4.  Discuter des solutions (résolution).\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "### En statique (annoté)\n" + "\n" + "Une seule slide finale contenant :\n" + "\n" + "-   Un titre d'action (« Les délais d'embauche dépassent l'objectif ») ;\n" + "-   Les graphiques complets ;\n" + "-   Des annotations textuelles pointant directement vers les pics de données critiques pour expliquer le « pourquoi ».\n" + ":::\n" + ":::::\n" + "\n" + "## La phrase mémorable (pithy repeatable phrase)\n" + "\n" + "Pour que l'histoire marque les esprits, il est recommandé de créer une phrase courte, accrocheuse et répétable qui résume la « Big Idea » [@knaflicStorytellingDataLets2019].\n" + "\n" + "**Caractéristiques :**\n" + "\n" + "-   Courte ;\n" + "-   Facile à dire ;\n" + "-   Mémorable.\n" + "\n" + "**Utilisation :** La répéter au début, au milieu et à la fin de la présentation garantit que l'audience reparte avec le message clé.\n" + "\n" + "## Exemples historiques : John Snow (1854) {style=\"font-size:0.7em\"}\n" + "\n" + "::::: columns\n" + "::: {.column width=\"40%\"}\n" + "En plaçant chaque décès sur une carte de Londres, le Dr Snow a révélé que les cas de choléra se concentraient autour d'une pompe à eau spécifique.\n" + "\n" + "\\n" + "\n" + "**L'arc narratif de Snow :**\n" + "\n" + "\\n" + "\n" + "1.  **Intrigue :** choléra à Londres, panique générale.\n" + "2.  **Tension :** les gens meurent, la cause est inconnue (théorie des miasmes vs contagion).\n" + "3.  **Climax :** la carte montre la concentration indéniable autour de Broad Street.\n" + "4.  **Résolution :** retirer la poignée de la pompe à eau pour stopper l'épidémie.\n" + ":::\n" + "\n" + "::: {.column width=\"60%\"}\n" + "![](images/Snow-cholera-map.jpg){fig-align=\"center\" width=\"100%\"}\n" + ":::\n" + ":::::\n" + "\n" + "## Exemples historiques : Florence Nightingale (1858) {style=\"font-size:0.70em\"}\n" + "\n" + "Infirmière et statisticienne, elle utilise ce « diagramme de la rose » dans un but politique précis : prouver que les maladies infectieuses (en bleu) tuent bien plus que les combats (en rouge).\n" + "\n" + "**Big Idea :** « Nous perdons plus de soldats à cause de l'hygiène qu'à cause de l'ennemi ; il faut financer la réforme sanitaire.\n" + "»\n" + "\n" + "![Le « Coxcomb » : la visualisation comme outil de persuasion politique](images/Nightingale-mortality.jpg){fig-align=\"center\" width=\"75%\"}\n" + "\n" + "## Exemples historiques : Minard (1869) \n" + "\n" + "Considéré par Edward Tufte comme « probablement le meilleur graphique statistique jamais dessiné ».\n" + "\n" + "Ce graphique retrace la **campagne de Russie de Napoléon** en 1812 et illustre l'intégration de six variables dans un seul visuel :\n" + "\n" + "* **La taille de l'armée :** l'épaisseur de la ligne\n" + "* **La position géographique :** les axes (x, y)\n" + "* **La direction :** le sens de la ligne (aller en beige, retour en noir)\n" + "* **Le temps :** le déroulé de l'histoire\n" + "* **La température :** le graphique de températures en bas (pendant la retraite)\n" + "\n" + "## Image Minard\n" + "\n" + "![La campagne de Russie : 6 variables en 2D (Temps, Position, Température, Nombre d'hommes, Direction)](images/Minard.png){fig-align=\"center\" width=\"120%\"}\n" + "\n" + "# Partie 3 : la synthèse/dashboard {.transition-slide-ubdteal}\n" + "\n" + "## Le dashboard\n" + "\n" + "Un dashboard n'est pas un cimetière de graphiques où l'on déverse toutes les données disponibles.\n" + "C'est un **instrument de pilotage**.\n" + "\n" + "**Un bon dashboard :**\n" + "\n" + "-   Répond à des **questions précises** en un coup d'oeil.\n" + "-   Est lisible en **5 secondes** (règle des 5 secondes).\n" + "-   A une **hiérarchie visuelle claire** (du plus important au détail).\n" + "-   Applique tous les principes de design vus précédemment.\n" + "\n" + "## Qu'est-ce un dashboard marketing ?\n" + "\n" + "C'est le **cockpit du pilote** : il ne montre pas toutes les données, seulement les instruments essentiels pour ne pas se crasher.\n" + "\n" + "::: {.callout-note title=\"Définition (Pauwels et al.)\"}\n" + "Un **petit ensemble d’indicateurs interconnectés**, couvrant le **court terme** (performance) et le **long terme** (marque), **partagé** dans l’organisation pour guider les décisions.\n" + ":::\n" + "\n" + "Il agrège les sources (GA4, Meta, CRM, SEO) pour répondre à : *\"Que se passe-t-il et que faire maintenant ?\"*\n" + "\n" + "## Ce qu'un dashboard n'est pas\n" + "\n" + ":::::: columns\n" + "::: {.column width=\"50%\"}\n" + "**Ce n'est pas :** \n" + "\n" + "- Un rapport PDF de 40 pages que personne ne lit.\n" + "- Une galerie de \"jolis\" graphiques sans lien logique.\n" + "- Un export Excel brut affiché sur un écran.\n" + "\n" + ":::\n" + "\n" + ":::: {.column width=\"50%\"}\n" + "\n" + "\\n" + "\n" + "::: callout-warning\n" + "### Un dashboard n'est pas bon si...\n" + "\n" + "- Personne ne peut expliquer son utilité en une phrase.\n" + "- Il n'aide à prendre aucune décision concrète (budget, ciblage...).\n" + "- Les utilisateurs l'exportent systématiquement vers Excel pour \"vraiment\" travailler (mais ça reste utile)\n" + "\n" + ":::\n" + "::::\n" + "::::::\n" + "\n" + "## Les trois types de dashboards {style=\"font-size:0.8em\"}\n" + "\n" + "Le design dépend de l'audience et de l'objectif temporel.\n" + "\n" + "| Type | Objectif | Audience | Caractéristiques |\n" + "|:-----------------|:-----------------|:-----------------|:-----------------|\n" + "| **Stratégique** | Santé globale (KPIs) | Direction (C-Level) | Vue d'hélicoptère, simple, peu d'interaction, mensuel/trimestriel. |\n" + "| **Analytique** | Comprendre les tendances | Analystes, Managers | Interactif, filtres, drill-down, comparaisons complexes. |\n" + "| **Opérationnel** | Temps réel, alertes | Terrain (Traffic Manager) | Mise à jour fréquente, très granulaire, focus sur l'immédiat. |\n" + "\n" + "# Cas pratique : analyse A/B {.transition-slide-ubdblue}\n" + "\n" + "## Contexte et objectif\n" + "\n" + "Nous allons analyser les résultats d'une campagne publicitaire menée en parallèle sur **Google AdWords** et **Facebook**.\n" + "\n" + "**L'objectif :** déterminer quelle plateforme offre le meilleur retour sur investissement (ROI) et où allouer le budget futur.\n" + "\n" + "Nous allons charger des données brutes, les nettoyer, et créer des visualisations impactantes.\n" + "\n" + "## Préparation des données {style=\"font-size:0.8em\"}\n" + "\n" + "::: panel-tabset\n" + "### 1. Chargement\n" + "\n" + "Nous chargeons les librairies et le fichier CSV.\n" + "Notez que les données sont souvent dans un format \"Large\" (une colonne par plateforme et par métrique) qui n'est pas idéal pour l'analyse.\n" + "\n" + "```{r load-data}\n" + "#| message: false\n" + "#| warning: false\n" + "library(dplyr)\n" + "library(tidyr)\n" + "library(ggplot2)\n" + "library(gt)\n" + "\n" + "# Note: Chemin relatif à adapter selon votre dossier\n" + "data_wide <- read.csv(\"../data_full/facebook_vs_adword/A_B_testing_dataset.csv\")\n" + "\n" + "# Affichons les noms des colonnes pour comprendre le problème\n" + "names(data_wide)\n" + "```\n" + "\n" + "### 2. Nettoyage (Pivot)\n" + "\n" + "Nous transformons les données de format \"Large\" vers \"Long\".\n" + "C'est une étape cruciale : nous voulons une colonne `platform` pour pouvoir grouper nos analyses.\n" + "\n" + "```{r pivot-data}\n" + "data_long <- data_wide %>%\n" + "  pivot_longer(\n" + "    cols = starts_with(\"facebook_\") | starts_with(\"adword_\"),\n" + "    names_to = c(\"platform\", \".value\"),\n" + "    names_pattern = \"(facebook|adword)_(.*)\"\n" + "  ) %>%\n" + "  rename(views = ad_views, clicks = ad_clicks, \n" + "         conversions = ad_conversions, cost = cost_per_ad)\n" + "\n" + "# Vérifions le résultat\n" + "head(data_long)\n" + "```\n" + "\n" + "### 3. Calcul des KPIs\n" + "\n" + "Nous agrégeons les données pour calculer les indicateurs de performance clés (KPI) globaux.\n" + "\n" + "```{r calc-kpis}\n" + "summary_stats <- data_long %>%\n" + "  group_by(platform) %>%\n" + "  summarise(\n" + "    total_cost = sum(cost),\n" + "    total_conversions = sum(conversions),\n" + "    total_clicks = sum(clicks),\n" + "    .groups = 'drop'\n" + "  ) %>%\n" + "  mutate(\n" + "    # CPA = Coût Total / Nombre de Conversions\n" + "    cpa = total_cost / total_conversions,\n" + "    # Taux de Conv = (Conversions / Clics) * 100\n" + "    overall_conversion_rate = (total_conversions / total_clicks) * 100\n" + "  ) %>%\n" + "  # Esthétique : majuscules pour les graphiques\n" + "  mutate(platform = toupper(platform))\n" + "```\n" + ":::\n" + "\n" + "## Aperçu des résultats\n" + "\n" + "Voici le tableau récapitulatif de nos indicateurs calculés.\n" + "Le tableau est propre, mais il ne raconte pas encore une histoire immédiate.\n" + "\n" + "```{r show-table}\n" + "#| echo: true\n" + "#| eval: true\n" + "summary_stats %>% \n" + "  gt() %>% \n" + "  fmt_currency(columns = c(total_cost, cpa), currency = \"EUR\") %>%\n" + "  fmt_percent(columns = overall_conversion_rate, scale_values = FALSE, decimals = 2)\n" + "```\n" + "\n" + "## Comparaison du CPA (coût par acquisition)\n" + "\n" + "**Question :** combien nous coûte, en moyenne, l'acquisition d'un client sur chaque plateforme ?\n" + "*Interprétation : plus le CPA est bas, meilleure est la rentabilité.*\n" + "\n" + "```{r plot-cpa}\n" + "#| output-location: slide\n" + "#| fig-width: 10\n" + "#| fig-height: 5.5\n" + "\n" + "ggplot(summary_stats, aes(x = platform, y = cpa, fill = platform)) +\n" + "  geom_bar(stat = \"identity\", width = 0.6) +\n" + "  geom_text(aes(label = paste0(round(cpa, 2), \" €\")), vjust = -0.5, size = 6, fontface = \"bold\") +\n" + "  labs(\n" + "    title = \"Coût par acquisition (CPA) par plateforme\",\n" + "    subtitle = \"Facebook est nettement plus rentable pour acquérir un client.\",\n" + "    x = NULL, # Pas besoin de label X car évident\n" + "    y = \"Cout par Acquisition (€)\"\n" + "  ) +\n" + "  theme_minimal(base_size = 16) +\n" + "  theme(\n" + "    legend.position = \"none\",\n" + "    panel.grid.major.x = element_blank()\n" + "  ) +\n" + "  scale_fill_manual(values = c(\"#325494\", \"#58DDB3\")) # Couleurs UBD Theme\n" + "```\n" + "\n" + "## Comparaison du taux de conversion\n" + "\n" + "**Question :** une fois que l'utilisateur a cliqué, quelle est la probabilité qu'il achète ?\n" + "*Interprétation : un taux plus élevé indique un trafic plus qualifié ou une meilleure adéquation produit/audience.*\n" + "\n" + "```{r plot-conv}\n" + "#| output-location: slide\n" + "#| fig-width: 10\n" + "#| fig-height: 5.5\n" + "\n" + "ggplot(summary_stats, aes(x = platform, y = overall_conversion_rate, fill = platform)) +\n" + "  geom_bar(stat = \"identity\", width = 0.6) +\n" + "  geom_text(aes(label = paste0(round(overall_conversion_rate, 2), \" %\")), vjust = -0.5, size = 6, fontface = \"bold\") +\n" + "  labs(\n" + "    title = \"Taux de conversion global\",\n" + "    subtitle = \"Le trafic Facebook transforme mieux que celui d'AdWords.\",\n" + "    x = NULL,\n" + "    y = \"Taux de Conversion (%)\"\n" + "  ) +\n" + "  theme_minimal(base_size = 16) +\n" + "  theme(\n" + "    legend.position = \"none\",\n" + "    panel.grid.major.x = element_blank()\n" + "  ) +\n" + "  scale_fill_manual(values = c(\"#325494\", \"#58DDB3\"))\n" + "```\n" + "\n" + "# Conclusion {.transition-slide-ubdyellow}\n" + "\n" + "## De l'artisan à l'architecte {style=\"font-size:0.85em\"}\n" + "\n" + "Pour réussir dans la visualisation des données, il est essentiel d'adopter une approche structurée, de la conception initiale à la présentation finale. \n" + "\n" + "### Adopter les étapes clés\n" + "\n" + "1.  **Commencer comme un artisan :**\n" + "    * Maîtriser les outils de construction graphique (`ggplot2`, `tidyr`).\n" + "    * Nettoyer les graphiques en éliminant le **« chartjunk »** (bruit graphique).\n" + "    * Rechercher l'excellence graphique en maximisant le ratio « encre-données ». \n" + "\n" + "2.  **Penser comme un conteur :**\n" + "    * Définir clairement la **« big idea »** (l'idée principale) du message.\n" + "    * Guider l'œil de l'audience vers une conclusion unique et un appel à l'action.\n" + "    * Utiliser l'arc narratif pour structurer l'histoire et maximiser l'impact. \n" + "\n" + "3.  **Agir comme un architecte :**\n" + "    * Assembler les graphiques de manière logique et hiérarchisée dans un **dashboard**.\n" + "    * Faciliter la prise de décision en garantissant la lisibilité et la pertinence des indicateurs.\n" + "    * Concevoir le dashboard comme un **instrument de pilotage** plutôt que comme un simple rapport.\n" + "\n" + "---\n" + "\n" + "### Définir l'objectif final\n" + "\n" + "> Montrer les données à travers un bon graphique.\n" + "> Permettre de prendre de meilleures décisions grâce à un bon dashboard.\n" + "\n" + "# Démo dashboard app Shiny {.transition-slide-ubdblue}\n" + "\n" + "\n" + "## Références\n" + "\n" + "::: {#refs}\n" + ":::\n" + "\n" + "## Revenir au début\n" + "\n" + "[[Accueil](#accueil)]{.button}\n" + ""</script>
-<script> window._input_filename = 'C:\Users\Olivier\Documents\GitHub\web_data_mining_webi\cours_2\cours_2.qmd'</script>
+<script> window._input_file = "---\n" + "title: \"Web Data Mining & Business Intelligence\"\n" + "subtitle: \"Visualisation des données, storytelling, dashboards\"\n" + "author:\n" + "  - name: \"Olivier Caron\"\n" + "    affiliations: \"Paris Dauphine - PSL\"\n" + "format:\n" + "  ubd-revealjs:\n" + "    self-contained: false\n" + "    chalkboard: true\n" + "    transition: fade\n" + "    auto-stretch: false\n" + "    width: 1250\n" + "    height: 760\n" + "    toc: false\n" + "    code-block-height: 700px\n" + "execute:\n" + "  echo: true\n" + "bibliography: refs.bib\n" + "revealjs-plugins:\n" + "  - editable\n" + "filters:\n" + "  - editable\n" + "editor: \n" + "  markdown: \n" + "    wrap: sentence\n" + "---\n" + "\n" + "## Objectifs de la séance {#accueil}\n" + "\n" + "-   Maîtriser les principes de conception de graphiques clairs.\n" + "-   Apprendre à transformer les données en récits visuels.\n" + "-   Comprendre les fondements de la création de dashboards efficaces pour la prise de décision.\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "## Plusieurs parties et plusieurs références {style=\"font-size:0.85em\"}\n" + "\n" + ":::::: columns\n" + "::: {.column width=\"33%\"}\n" + "### 1. L'artisanat (technique)\n" + "\n" + "Avec **Tufte**, le \"bruit graphique\" (*chartjunk*) est traqué pour ne garder que l'essentiel [@costigan-eavesEdwardTufteVisual1986].\n" + "\n" + "\\n" + "\n" + "**Wilke** et **Healy** fournissent les clés d'une \"grammaire des graphiques\" pour construire des visuels justes et efficaces avec `ggplot2` [@GrammarGraphics2005; @healy2024data].\n" + ":::\n" + "\n" + "::: {.column width=\"33%\"}\n" + "### 2. La narration (communication)\n" + "\n" + "L'art du *storytelling* selon **Cole Nussbaumer Knaflic** permet de transformer les graphiques en récits clairs et convaincants qui guident l'audience vers l'action [@knaflicStorytellingDataData2015; @knaflicStorytellingDataLets2019].\n" + ":::\n" + "\n" + "::: {.column width=\"34%\"}\n" + "### 3. La synthèse (décision)\n" + "\n" + "Selon **Stephen Few**, les dashboards sont conçus pour respecter la perception humaine et éviter la surcharge cognitive [@few2006information].\n" + "\n" + "\\n" + "\n" + "**Koen Pauwels** montre comment les transformer en véritables outils de pilotage liant marketing et performance financière [@pauwelsModernMarketingDashboard2023].\n" + ":::\n" + "::::::\n" + "\n" + "# Partie 1 : l'artisanat du graphique {.transition-slide-ubdblue}\n" + "\n" + "## L'objectif : la clarté\n" + "\n" + "**Laisser les données briller, sans distraction.**\n" + "\n" + "> \"L'excellence graphique, c'est ce qui donne au spectateur le plus grand nombre d'idées dans le temps le plus court avec le moins d'encre possible dans le plus petit espace.\"\n" + ">\n" + "> --- Edward Tufte\n" + "\n" + "## Avant tout : regardez vos données ! {style=\"font-size:0.70em\"}\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "Les statistiques descriptives (moyenne, variance, corrélation...) sont indispensables mais peuvent être terriblement trompeuses si elles sont utilisées seules.\n" + "\n" + "\\n" + "\n" + "Le **Quartet d'Anscombe** (1973) en est la preuve : données identiques mais apparences différentes une fois tracées : toujours visualiser les données avant de modéliser (EDA pour Exploratory Data Analysis).\n" + "\n" + "\\n" + "\\n" + "\n" + "| Propriété                                               | Valeur        |\n" + "|---------------------------------------------------------|---------------|\n" + "| Moyenne des x                                           | 9,0           |\n" + "| Variance des x                                          | 10,0          |\n" + "| Moyenne des y                                           | 7,5           |\n" + "| Variance des y                                          | 3,75          |\n" + "| Coefficient de corrélation entre x et y                 | 0,816         |\n" + "| Équation de la droite de régression linéaire            | y = 3 + 0,5 x |\n" + "| Somme des carrés des erreurs (par rapport à la moyenne) | 110,0         |\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "![](images/Anscombe.svg){width=\"100%\"}\n" + ":::\n" + ":::::\n" + "\n" + "## L'ennemi public n°1 : le \"chartjunk\"\n" + "\n" + "Le *chartjunk* (ou \"bruit graphique\") désigne tout élément visuel qui n'est pas essentiel à la compréhension des données.\n" + "C'est du désordre qui distrait l'oeil et peut même fausser l'interprétation.\n" + "\n" + "::: incremental\n" + "-   **Effets 3D inutiles :** ils tordent la perspective et rendent la lecture des valeurs impossible.\n" + "-   **Motifs et textures lourds :** ils créent des vibrations visuelles (effet de moiré).\n" + "-   **Couleurs criardes :** l'utilisation de la couleur doit être fonctionnelle, pas décorative.\n" + "-   **Redondance :** écrire la valeur sur la barre ET avoir un axe Y est souvent inutile.\n" + ":::\n" + "\n" + "::: callout-important\n" + "### Se focaliser sur l'essentiel\n" + "\n" + "**Éliminer** chaque pixel qui n'est pas indispensable pour augmenter le \"ratio encre-données\" (Tufte).\n" + ":::\n" + "\n" + "## Exemple de chartjunk à éviter\n" + "\n" + "![](images/clipboard-3368095089.png){fig-align=\"center\" width=\"70%\"}\n" + "\n" + "## Exemple de chartjunk 2 à éviter\n" + "\n" + "![](images/clipboard-2307685335.png){fig-align=\"center\"}\n" + "\n" + "## Exemple de graphique peu clair (sans être un \"chartjunk\")\n" + "\n" + "![](images/clipboard-3785406703.png){fig-align=\"center\"}\n" + "\n" + "## Les principes de la Gestalt (perception visuelle)\n" + "\n" + "La psychologie de la Gestalt explique comment notre cerveau organise les éléments visuels en groupes.\n" + "Comprendre ces principes permet de créer de l'ordre dans vos graphiques sans ajouter de « chartjunk » [@knaflicStorytellingDataLets2019].\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "-   **Proximité :** nous percevons les objets proches les uns des autres comme appartenant au même groupe.\n" + "-   **Similitude :** les objets partageant une couleur, une forme ou une taille similaire sont perçus comme liés.\n" + "-   **Enclosure (encadrement) :** les objets entourés par une limite visuelle sont perçus comme un groupe.\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "-   **Clôture :** notre cerveau « complète » les formes incomplètes (ex. : pas besoin d'un cadre complet autour d'un graphique).\n" + "-   **Continuité :** nous suivons naturellement les lignes les plus fluides.\n" + "-   **Connexion :** des éléments reliés par une ligne sont perçus comme plus liés que par la simple couleur ou forme.\n" + ":::\n" + ":::::\n" + "\n" + "## Gestalt - illustration\n" + "\n" + "![](images/clipboard-2373548771.png){fig-align=\"center\" width=\"50%\"}\n" + "\n" + "## Les attributs pré-attentifs (attirer l'attention)\n" + "\n" + "Ce sont des signaux visuels que notre cerveau traite en quelques millisecondes, avant même que nous ne prêtions une attention consciente.\n" + "Utilisez-les pour guider l'œil de votre audience [@knaflicStorytellingDataLets2019].\n" + "\n" + "::::: columns\n" + "::: {.column width=\"40%\"}\n" + "**Les plus puissants :**\n" + "\n" + "1.  **La couleur :** l'outil le plus fort, à utiliser avec parcimonie pour mettre en valeur un point précis.\n" + "2.  **La taille :** les éléments plus grands signalent une importance supérieure.\n" + "3.  **La position :** ce qui est en haut à gauche est vu en premier.\n" + ":::\n" + "\n" + "::: {.column width=\"60%\"}\n" + "![](images/clipboard-578437428.png)\n" + ":::\n" + ":::::\n" + "\n" + "# Théorie : la grammaire visuelle {.transition-slide-ubdteal}\n" + "\n" + "## La grammaire fondamentale\n" + "\n" + "Un graphique n'est pas un dessin artistique, c'est une conversion systématique.\n" + "\n" + "**Le principe clé (C. Wilke) :** toutes les visualisations de données mappent des valeurs de données (chiffres, catégories) vers des caractéristiques visuelles quantifiables du graphique.\n" + "\n" + "Nous appelons ces caractéristiques des **esthétiques** (*aesthetics*).\n" + "\n" + "## Les types d'esthétiques {style=\"font-size:0.85em\"}\n" + "\n" + "::::: columns\n" + "::: {.column width=\"40%\"}\n" + "Une esthétique décrit un aspect d'un élément graphique.\n" + "\n" + "-   **Position (x, y) :** où se trouve l'élément.\n" + "-   **Forme (shape) :** rond, carré, triangle...\n" + "-   **Taille (size) :** rayon, aire.\n" + "-   **Couleur (color) :** teinte ou saturation.\n" + "-   **Ligne (type/width) :** plein, pointillé, épaisseur.\n" + ":::\n" + "\n" + "::: {.column width=\"60%\"}\n" + "![](images/clipboard-185596907.png)\n" + ":::\n" + ":::::\n" + "\n" + "::: callout-note\n" + "### Attention au type de données\n" + "\n" + "Certaines esthétiques (position, taille, couleur) peuvent représenter des données **continues**, tandis que d'autres (forme, type de ligne) ne peuvent représenter que des données **discrètes**.\n" + ":::\n" + "\n" + "## Comprendre vos données {style=\"font-size:0.8em\"}\n" + "\n" + "Avant de choisir une esthétique, il faut identifier le type de vos variables.\n" + "\n" + "| Type de variable | Description | Exemples | Échelle appropriée |\n" + "|:-----------------|:-----------------|:-----------------|:-----------------|\n" + "| **Quantitative continue** | Nombres arbitraires (réels) | 1.3, 5.7, Température | Continue |\n" + "| **Quantitative discrète** | Unités distinctes (entiers) | 1, 2, Nombre d'enfants | Discrète |\n" + "| **Qualitative non-ordonnée** | Catégories sans hiérarchie | Chien, Chat, Pays | Discrète (Facteur) |\n" + "| **Qualitative ordonnée** | Catégories avec hiérarchie | Bon, Moyen, Mauvais | Discrète (Facteur ordonné) |\n" + "| **Date / Temps** | Moments spécifiques | 14 Juillet, 12:00 | Continue ou Discrète |\n" + "\n" + "## Les échelles (scales) : le pont\n" + "\n" + "Pour passer de la donnée à l'esthétique, nous avons besoin d'une **échelle** (*scale*).\n" + "\n" + "C'est une fonction mathématique qui définit un mapping unique (*one-to-one*).\n" + "Si l'échelle n'est pas unique, le graphique est ambigu.\n" + "\n" + "![](images/clipboard-3396471075.png){fig-align=\"center\"}\n" + "\n" + "## Cas d'école : même données, visualisations différentes\n" + "\n" + "Imaginons des données météo (4 villes, températures journalières).\n" + "Selon le mapping choisi, l'histoire change.\n" + "\n" + "::::: columns\n" + "::: {.column .fragment width=\"50%\"}\n" + "**Mapping 1 : évolution temporelle**\n" + "\n" + "-   X : jour (Temps)\n" + "-   Y : température (Continu)\n" + "-   Couleur : ville (Discret)\n" + "\n" + "![](images/clipboard-1505836256.png){fig-align=\"center\" width=\"75%\"}\n" + ":::\n" + "\n" + "::: {.column .fragment width=\"50%\"}\n" + "**Mapping 2 : intensité et comparaison**\n" + "\n" + "-   X : mois (Discret ordonné)\n" + "-   Y : ville (Discret)\n" + "-   Couleur : température (Continu)\n" + "\n" + "![](images/clipboard-1354990438.png){fig-align=\"center\" width=\"100%\"}\n" + ":::\n" + ":::::\n" + "\n" + "## La multidimensionnalité\n" + "\n" + "::::: columns\n" + "::: {.column width=\"40%\"}\n" + "On peut mapper plus de 3 variables.\n" + "Exemple ici avec **5 variables** :\n" + "\n" + "1.  Cylindrée $\rightarrow$ X\n" + "2.  Efficacité $\rightarrow$ Y\n" + "3.  Puissance $\rightarrow$ Couleur\n" + "4.  Poids $\rightarrow$ Taille\n" + "5.  Cylindres $\rightarrow$ Forme\n" + ":::\n" + "\n" + "::: {.column width=\"60%\"}\n" + "![](images/clipboard-3231098592.png){fig-align=\"center\" width=\"100%\"}\n" + ":::\n" + ":::::\n" + "\n" + "## Exemple concret avec le jeu de données `ifood`\n" + "\n" + "Ce graphique illustre parfaitement le concept.\n" + "Chaque point est un client, et nous visualisons 4 dimensions d'information simultanément via `ggplot2`.\n" + "\n" + "```{r ifood-mapping-example}\n" + "#| echo: false\n" + "#| eval: true\n" + "#| message: false\n" + "#| warning: false\n" + "library(ggplot2)\n" + "library(dplyr)\n" + "\n" + "# Chargement des données\n" + "ifood <- read.csv(\"../data_full/ifood/ifood_df.csv\")\n" + "\n" + "# Correction : R remplace souvent les espaces par des points dans les noms de colonnes\n" + "# On utilise donc education_2n.Cycle au lieu de \"education_2n Cycle\"\n" + "\n" + "ifood_clean <- ifood %>% \n" + "  filter(Income < 200000) %>% \n" + "  mutate(Education = case_when(\n" + "    education_Graduation == 1 ~ \"Graduation\",\n" + "    education_PhD == 1 ~ \"PhD\",\n" + "    education_Master == 1 ~ \"Master\",\n" + "    education_Basic == 1 ~ \"Basic\",\n" + "    education_2n.Cycle == 1 ~ \"2n Cycle\", # <-- Note le point ici !\n" + "    TRUE ~ \"Other\"\n" + "  ))\n" + "\n" + "# Le graphique\n" + "ggplot(ifood_clean, \n" + "       aes(x = Income, \n" + "           y = MntWines, \n" + "           color = Education, \n" + "           size = NumWebPurchases)) +\n" + "  geom_point(alpha = 0.6) +\n" + "  labs(title = \"Dépenses en vin selon le revenu et l'éducation\",\n" + "       x = \"Revenu Annuel\",\n" + "       y = \"Dépenses annuelles en vin\",\n" + "       color = \"Niveau d'étude\",\n" + "       size = \"Nb. d'achats web\",\n" + "       caption = \"Source : ces données sont disponibles dans le dossier data_full sous ifood/ifood_df.csv\") +\n" + "  theme_minimal()\n" + "```\n" + "\n" + "# Atelier pratique : construire pas à pas {.transition-slide-ubdteal}\n" + "\n" + "## Méthodologie\n" + "\n" + "Nous allons suivre la méthode de **Kieran Healy** pour construire un graphique complexe, couche par couche, en appliquant rigoureusement la grammaire des graphiques.\n" + "\n" + "**Source :** *Data Visualization: A Practical Introduction*, Chapter 3.\n" + "\n" + "L'objectif est de comprendre comment `ggplot2` empile les couches :\n" + "\n" + "Données -\> mapping -\> géométrie -\> statistiques -\> échelles -\> thème\n" + "\n" + "## Préparation et \"Tidy Data\"\n" + "\n" + "Nous utilisons le jeu de données `gapminder` (Espérance de vie, PIB, Population par pays et par an) déjà inclus dans R de base.\n" + "\n" + "::: panel-tabset\n" + "### Le code de préparation\n" + "\n" + "```{r setup-gapminder}\n" + "#| message: false\n" + "#| warning: false\n" + "#| echo: true\n" + "library(tidyverse) # Charge ggplot2, dplyr, tidyr...\n" + "library(gapminder) # Le jeu de données\n" + "library(scales)    # Pour le formatage des axes ($, %, etc.)\n" + "library(gt)        # Pour les beaux tableaux\n" + "\n" + "```\n" + "\n" + "### Aperçu des données\n" + "\n" + "```{r}\n" + "#| echo: false\n" + "#| eval: true\n" + "gapminder %>%\n" + "  slice_sample(n = 10) %>%\n" + "  gt() %>%\n" + "  fmt_number(\n" + "    columns = c(pop, gdpPercap),\n" + "    decimals = 0,\n" + "    use_seps = TRUE\n" + "  ) %>%\n" + "  fmt_number(\n" + "    columns = lifeExp,\n" + "    decimals = 1\n" + "  ) %>%\n" + "  tab_header(\n" + "    title = md(\"**Sélection aléatoire de 10 lignes du jeu de données gapminder**\")\n" + "  ) %>%\n" + "  cols_label(\n" + "    country    = md(\"**Country**\"),\n" + "    continent  = md(\"**Continent**\"),\n" + "    year       = md(\"**Year**\"),\n" + "    lifeExp    = md(\"**Life exp**\"),\n" + "    pop        = md(\"**Population**\"),\n" + "    gdpPercap  = md(\"**GDP per capita**\")\n" + "  ) %>%\n" + "  tab_style(\n" + "    style = list(\n" + "      cell_fill(color = \"#f0f2f5\"),\n" + "      cell_text(weight = \"bold\")\n" + "    ),\n" + "    locations = cells_column_labels(everything())\n" + "  ) %>%\n" + "  opt_table_outline() %>%\n" + "  opt_row_striping() %>%\n" + "  tab_options(\n" + "    table.font.size = px(14),\n" + "    heading.align = \"center\"\n" + "  )\n" + "```\n" + ":::\n" + "\n" + "## Rappel du concept de Tidy Data\n" + "\n" + "Pour que `ggplot2` fonctionne, vos données doivent être **ordonnées** (*tidy*).\n" + "C'est une structure spécifique :\n" + "\n" + "1.  **Une variable** = une colonne.\n" + "2.  **Une observation** = une ligne.\n" + "3.  **Une valeur** = une cellule.\n" + "\n" + "::: callout-tip\n" + "### Le piège du format \"Large\"\n" + "\n" + "Si vos données sont en format \"Large\" (ex: une colonne par année : `1990`, `1991`, `1992`...), vous ne pourrez pas mapper l'année sur l'axe X.\n" + "Vous devez d'abord les pivoter en format \"Long\" (une colonne \"Année\", une colonne \"Valeur\") avec `pivot_longer()`.\n" + ":::\n" + "\n" + "## Exemple Tidy Data\n" + "\n" + "![](images/clipboard-1041945270.png){fig-align=\"center\" width=\"90%\"}\n" + "\n" + "## Étape 1 : la toile vierge {style=\"font-size:0.75em\"}\n" + "\n" + "On commence par déclarer l'objet graphique en lui fournissant les données.\n" + "\n" + "```{r gap-step1}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "\n" + "p <- ggplot(data = gapminder)\n" + "p\n" + "```\n" + "\n" + "**Résultat :** rien ne s'affiche !\n" + "C'est normal, nous avons défini la source des données, mais nous n'avons pas encore expliqué à R comment les représenter.\n" + "\n" + "## Étape 2 : le mapping (aes) {style=\"font-size:0.7em\"}\n" + "\n" + "On définit les axes dans l'esthétique (`aes`).\n" + "On dit à R : \"Prends la colonne PIB pour l'axe X et l'Espérance de vie pour l'axe Y\".\n" + "\n" + "```{r gap-step2}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "p <- ggplot(data = gapminder,\n" + "            mapping = aes(x = gdpPercap,\n" + "                          y = lifeExp))\n" + "p\n" + "```\n" + "\n" + "**Résultat :** `ggplot` a préparé la grille.\n" + "Il a scanné les données pour trouver les minimums et maximums et a dessiné les axes correspondants.\n" + "Mais il ne sait toujours pas *quelle forme* dessiner.\n" + "\n" + "## Étape 3 : ajouter un \"Geom\" {style=\"font-size:0.7em\"}\n" + "\n" + "On ajoute une couche géométrique (**geom**) pour représenter les données concrètement.\n" + "Ici, des points (`geom_point`) pour faire un nuage de points.\n" + "\n" + "```{r gap-step3}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "p + geom_point()\n" + "```\n" + "\n" + "**Observation :** nous avons un problème de lisibilité.\n" + "Les points se chevauchent massivement (overplotting) et la relation n'est pas linéaire, elle semble suivre une courbe.\n" + "\n" + "## Étape 4 : ajouter une tendance {style=\"font-size:0.7em\"}\n" + "\n" + "La grammaire fonctionne par **couches** (`layers`).\n" + "Ajoutons une couche de lissage statistique (`geom_smooth`) au-dessus des points pour visualiser la tendance générale.\n" + "\n" + "```{r gap-step4}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "p + geom_point() + geom_smooth()\n" + "```\n" + "\n" + "*Par défaut, `geom_smooth()` utilise une méthode GAM (Generalized Additive Model) pour les grands jeux de données, ce qui donne cette courbe flexible.*\n" + "\n" + "## Étape 5 : ajuster l'échelle (scales) {style=\"font-size:0.7em\"}\n" + "\n" + "Le PIB n'est pas distribué normalement.\n" + "La plupart des pays sont pauvres (à gauche), et quelques-uns très riches (à droite).\n" + "Cela \"écrase\" le graphique.\n" + "Utilisons une **échelle logarithmique** sur l'axe X.\n" + "\n" + "```{r gap-step5}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "p + geom_point() + \n" + "    geom_smooth(method = \"gam\") + \n" + "    scale_x_log10()\n" + "```\n" + "\n" + "**Résultat :** la relation devient beaucoup plus claire et linéaire.\n" + "L'échelle log est un outil puissant pour les données économiques.\n" + "\n" + "## Étape 6 : formater les étiquettes {style=\"font-size:0.7em\"}\n" + "\n" + "Les chiffres scientifiques sur l'axe X (`1e+04`) sont incompréhensibles pour une audience métier.\n" + "Utilisons le package `scales` pour formater cela en dollars.\n" + "\n" + "```{r gap-step6}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: column\n" + "#| fig-width: 6\n" + "#| fig-height: 5\n" + "\n" + "p + geom_point() + \n" + "    geom_smooth(method = \"gam\") + \n" + "    scale_x_log10(labels = scales::dollar)\n" + "```\n" + "\n" + "## Piège classique : mapping vs setting {style=\"font-size:0.8em\"}\n" + "\n" + "**Attention !** Il y a une différence fondamentale entre *mapper* une variable et *fixer* (setting) une valeur esthétique.\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "### L'erreur (Mapping)\n" + "\n" + "Mettre \"purple\" dans `aes()`.\n" + "\n" + "```{r gap-error}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| fig-height: 4.5\n" + "p + geom_point(aes(color = \"purple\")) +\n" + "    scale_x_log10()\n" + "```\n" + "\n" + "**Pourquoi ça rate ?** `aes()` s'attend à une variable (une colonne).\n" + "Comme elle ne la trouve pas, elle crée une colonne fictive nommée \"purple\" et utilise la palette de couleur par défaut (rouge).\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "### La solution (Setting)\n" + "\n" + "Sortir l'argument de `aes()`.\n" + "\n" + "```{r gap-correct}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| fig-height: 4.5\n" + "p + geom_point(color = \"purple\") + \n" + "    scale_x_log10()\n" + "```\n" + "\n" + "**Pourquoi ça marche ?** Ici, nous disons explicitement au `geom` : \"Peins tous les points en violet\", sans passer par le mapping de données.\n" + ":::\n" + ":::::\n" + "\n" + "## Étape 7 : finitions (labels & alpha)\n" + "\n" + "Rendons le graphique présentable pour une publication :\n" + "\n" + "1.  Ajout de **transparence** (`alpha`) pour mieux voir la densité des points.\n" + "2.  Ajout de **titres** clairs et sourcés (`labs`).\n" + "\n" + "```{r gap-step7}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: slide\n" + "#| fig-width: 10\n" + "#| fig-height: 6\n" + "#| code-line-numbers: \"3|6-10\"\n" + "#| code-line-steps: true\n" + "#| fig-align: center\n" + "#| fig-dpi: 300\n" + "\n" + "p <- ggplot(data = gapminder, mapping = aes(x = gdpPercap, y=lifeExp))\n" + "\n" + "p + geom_point(alpha = 0.3) +\n" + "    geom_smooth(method = \"gam\") +\n" + "    scale_x_log10(labels = scales::dollar) +\n" + "    labs(x = \"PIB par habitant (échelle log)\", \n" + "         y = \"Espérance de vie (années)\",\n" + "         title = \"Croissance économique et espérance de vie\",\n" + "         subtitle = \"L'espérance de vie augmente avec le PIB, mais plafonne.\",\n" + "         caption = \"Source: Gapminder. Adapté de K. Healy.\")\n" + "```\n" + "\n" + "## Étape 8 : ajouter de l'information\n" + "\n" + "Pouvons-nous ajouter une 3ème dimension sans surcharger ?\n" + "Mappons le `continent` à la couleur.\n" + "Cela permet de voir les disparités géographiques.\n" + "\n" + "```{r gap-step8}\n" + "#| echo: true\n" + "#| eval: true\n" + "#| output-location: slide\n" + "#| fig-width: 10\n" + "#| fig-height: 6\n" + "\n" + "\n" + "# Note : on ajoute color = continent dans le mapping global\n" + "p <- ggplot(data = gapminder, \n" + "            mapping = aes(x = gdpPercap, y = lifeExp, color = continent, fill = continent))\n" + "\n" + "p + geom_point(alpha = 0.3) +\n" + "    geom_smooth(method = \"loess\") +\n" + "    scale_x_log10(labels = scales::dollar) +\n" + "    labs(title = \"Disparités économiques et sanitaires par continent\",\n" + "         x = \"PIB par Habitant\", y = \"Espérance de vie\")\n" + "```\n" + "\n" + "## Sauvegarder son image\n" + "\n" + "Pour exporter votre image en haute qualité (vectoriel pour impression, PNG pour le web), utilisez la fonction `ggsave()`.\n" + "\n" + "```{r save-plot}\n" + "#| eval: false\n" + "#| echo: true\n" + "#| code-line-numbers: \"6|9\"\n" + "#| code-line-steps: true\n" + "\n" + "# 1. Créer l'objet final\n" + "mon_graphique <- p + geom_point(alpha = 0.3) + scale_x_log10()\n" + "\n" + "# 2. Sauvegarder\n" + "# Le format PDF est vectoriel : il ne pixelise pas au zoom.\n" + "ggsave(filename = \"graphique_final.pdf\", plot = mon_graphique, width = 8, height = 6)\n" + "\n" + "# Le format PNG est matriciel : définir un haut DPI pour la qualité.\n" + "ggsave(filename = \"graphique_final.png\", plot = mon_graphique, dpi = 300)\n" + "```\n" + "\n" + "# Partie 2 : la narration (storytelling) {.transition-slide-ubdyellow}\n" + "\n" + "## Du graphique à l'histoire\n" + "\n" + "Avoir un graphique *propre* et techniquement juste constitue la première étape.\n" + "La seconde consiste à l'utiliser pour convaincre une audience.\n" + "\n" + "**Le storytelling permet de passer de :**\n" + "\n" + "> « Voici les données sur les ventes du T3.\n" + "> »\n" + "\n" + "**À :**\n" + "\n" + "> « Voici *pourquoi* nos ventes ont chuté au T3 et *ce que* nous devons faire pour inverser la tendance au T4.\n" + "> »\n" + "\n" + "C'est l'art de transformer une observation froide en un **récit qui incite à l'action**.\n" + "\n" + "## Étape 1 : comprendre le contexte\n" + "\n" + "Avant même de créer un graphique, Knaflic suggère de fermer l'ordinateur pour définir le contexte.\n" + "Il est nécessaire de répondre clairement à la question : « *So what ?* » (et alors ?) [@knaflicStorytellingDataLets2019].\n" + "\n" + "**Trois questions fondamentales à se poser :**\n" + "\n" + "1.  **Qui** est l'audience ? (Être spécifique).\n" + "2.  **Que** doivent-ils savoir ou faire ?\n" + "3.  **Comment** les données vont-elles aider à faire ce point ?\n" + "\n" + "## L'outil de synthèse : la « Big Idea »\n" + "\n" + "Il est impératif de pouvoir articuler le message en une seule phrase.\n" + "Si cela est impossible, l'idée manque probablement de clarté [@knaflicStorytellingDataLets2019].\n" + "\n" + "::: {.callout-tip title=\"Les 3 composantes de la Big Idea\"}\n" + "1.  Articuler un **point de vue** unique ;\n" + "2.  Exprimer ce qui est **en jeu** (les enjeux) ;\n" + "3.  Former une phrase **complète** (sujet, verbe, complément).\n" + ":::\n" + "\n" + "**Exemple :** « Le programme pilote d'été a réussi à améliorer la perception des sciences par les élèves ; il convient d'approuver le budget pour continuer ce programme important.\n" + "»\n" + "\n" + "## L'histoire de 3 minutes\n" + "\n" + "Si le temps de présentation était réduit à 3 minutes (au lieu de 30), que faudrait-il dire ?\n" + "\n" + "Cet exercice est crucial pour :\n" + "\n" + "-   Aller à l'essentiel ;\n" + "-   Supprimer les détails superflus ;\n" + "-   Savoir exactement où emmener l'audience.\n" + "\n" + "> « Connaître son histoire de 3 minutes permet de rester concis et clair, même en disposant de davantage de temps.\n" + "> »\n" + "\n" + "## Étape 2 : le storyboarding (low-tech)\n" + "\n" + "Éviter de commencer par le logiciel de présentation.\n" + "L'outil force à penser en « slides » et en « titres », ce qui nuit à la créativité narrative.\n" + "\n" + "**Le processus en deux temps :**\n" + "\n" + "1.  **Brainstorming :** faire sortir les idées et les noter en vrac sur des post-it, sans filtre.\n" + "2.  **Édition :** organiser, trier et éliminer le superflu pour créer une structure logique.\n" + "\n" + "**Pourquoi les post-it ?** Il est aisé de jeter un post-it, alors qu'il est difficile de supprimer une slide ayant nécessité du temps de conception.\n" + "\n" + "## Étape 3 : l'arc narratif (the narrative arc) {style=\"font-size:0.7em\"}\n" + "\n" + "Une présentation business classique est souvent linéaire et ennuyeuse.\n" + "Une histoire captivante suit une forme en arc spécifique [@knaflicStorytellingDataLets2019].\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "1.  **Intrigue (plot) :** le contexte, le statu quo. Poser le décor.\n" + "2.  **Montée de l'action (rising action) :** introduire la **tension**. Le problème, le déséquilibre, l'opportunité manquée.\n" + "3.  **Climax :** le point de bascule. La révélation majeure des données. « Si rien n'est fait, voilà ce qui arrive ».\n" + "4.  **Action descendante (falling action) :** l'analyse des solutions, les options possibles.\n" + "5.  **Résolution (ending) :** l'appel à l'action clair et la nouvelle réalité future.\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "![](images/clipboard-1444889286.png)\n" + ":::\n" + ":::::\n" + "\n" + "## Le moteur de l'histoire : la tension\n" + "\n" + "Si l'histoire n'a pas de tension, l'audience ne l'écoutera pas.\n" + "Dans la data, la tension provient souvent de l'écart entre :\n" + "\n" + "-   Ce que nous voulons vs ce que nous avons ;\n" + "-   Les attentes vs la réalité ;\n" + "-   Le risque de l'inaction vs le bénéfice de l'action.\n" + "\n" + "::: callout-important\n" + "### Question clé\n" + "\n" + "Pour l'audience, **qu'est-ce qui est en jeu ?** (what is at stake ?) Si la réponse est « rien », la réunion et le graphique sont inutiles.\n" + ":::\n" + "\n" + "## Distinction : présentation live vs « slideument »\n" + "\n" + "Knaflic insiste sur la différence de format selon le mode de consommation [@knaflicStorytellingDataLets2019].\n" + "\n" + "**Le « slideument » (slide + document)** est l'ennemi : trop dense pour être présenté, pas assez détaillé pour être lu seul.\n" + "Il faut choisir.\n" + "\n" + "| Présentation live (en direct) | Document autonome (email / PDF) |\n" + "|:-----------------------------------|:-----------------------------------|\n" + "| **L'orateur est présent** pour expliquer. | **L'orateur est absent**. Le document doit parler seul. |\n" + "| **Construction progressive** : afficher les éléments un par un pour contrôler l'attention. | **Slide dense et annotée** : utiliser du texte pour guider la lecture (titres actifs, annotations). |\n" + "| Peu de texte à l'écran. | Plus de texte explicatif. |\n" + "\n" + "## Exemple d'application : le live vs statique\n" + "\n" + "*Source : exercice 6.6 de « Let's Practice! » - analyse des délais d'embauche.*\n" + "\n" + "::::: columns\n" + "::: {.column width=\"50%\"}\n" + "### En live (séquencé)\n" + "\n" + "1.  Afficher les axes vides (contexte).\n" + "2.  Afficher la ligne « objectif » (tension).\n" + "3.  Afficher les données réelles qui dépassent l'objectif (climax).\n" + "4.  Discuter des solutions (résolution).\n" + ":::\n" + "\n" + "::: {.column width=\"50%\"}\n" + "### En statique (annoté)\n" + "\n" + "Une seule slide finale contenant :\n" + "\n" + "-   Un titre d'action (« Les délais d'embauche dépassent l'objectif ») ;\n" + "-   Les graphiques complets ;\n" + "-   Des annotations textuelles pointant directement vers les pics de données critiques pour expliquer le « pourquoi ».\n" + ":::\n" + ":::::\n" + "\n" + "## La phrase mémorable (pithy repeatable phrase)\n" + "\n" + "Pour que l'histoire marque les esprits, il est recommandé de créer une phrase courte, accrocheuse et répétable qui résume la « Big Idea » [@knaflicStorytellingDataLets2019].\n" + "\n" + "**Caractéristiques :**\n" + "\n" + "-   Courte ;\n" + "-   Facile à dire ;\n" + "-   Mémorable.\n" + "\n" + "**Utilisation :** La répéter au début, au milieu et à la fin de la présentation garantit que l'audience reparte avec le message clé.\n" + "\n" + "## Exemples historiques : John Snow (1854) {style=\"font-size:0.7em\"}\n" + "\n" + "::::: columns\n" + "::: {.column width=\"40%\"}\n" + "En plaçant chaque décès sur une carte de Londres, le Dr Snow a révélé que les cas de choléra se concentraient autour d'une pompe à eau spécifique.\n" + "\n" + "\\n" + "\n" + "**L'arc narratif de Snow :**\n" + "\n" + "\\n" + "\n" + "1.  **Intrigue :** choléra à Londres, panique générale.\n" + "2.  **Tension :** les gens meurent, la cause est inconnue (théorie des miasmes vs contagion).\n" + "3.  **Climax :** la carte montre la concentration indéniable autour de Broad Street.\n" + "4.  **Résolution :** retirer la poignée de la pompe à eau pour stopper l'épidémie.\n" + ":::\n" + "\n" + "::: {.column width=\"60%\"}\n" + "![](images/Snow-cholera-map.jpg){fig-align=\"center\" width=\"100%\"}\n" + ":::\n" + ":::::\n" + "\n" + "## Exemples historiques : Florence Nightingale (1858) {style=\"font-size:0.70em\"}\n" + "\n" + "Infirmière et statisticienne, elle utilise ce « diagramme de la rose » dans un but politique précis : prouver que les maladies infectieuses (en bleu) tuent bien plus que les combats (en rouge).\n" + "\n" + "**Big Idea :** « Nous perdons plus de soldats à cause de l'hygiène qu'à cause de l'ennemi ; il faut financer la réforme sanitaire.\n" + "»\n" + "\n" + "![Le « Coxcomb » : la visualisation comme outil de persuasion politique](images/Nightingale-mortality.jpg){fig-align=\"center\" width=\"75%\"}\n" + "\n" + "## Exemples historiques : Minard (1869)\n" + "\n" + "Considéré par Edward Tufte comme « probablement le meilleur graphique statistique jamais dessiné ».\n" + "\n" + "Ce graphique retrace la **campagne de Russie de Napoléon** en 1812 et illustre l'intégration de six variables dans un seul visuel :\n" + "\n" + "-   **La taille de l'armée :** l'épaisseur de la ligne\n" + "-   **La position géographique :** les axes (x, y)\n" + "-   **La direction :** le sens de la ligne (aller en beige, retour en noir)\n" + "-   **Le temps :** le déroulé de l'histoire\n" + "-   **La température :** le graphique de températures en bas (pendant la retraite)\n" + "\n" + "## Image Minard\n" + "\n" + "![La campagne de Russie : 6 variables en 2D (Temps, Position, Température, Nombre d'hommes, Direction)](images/Minard.png){fig-align=\"center\" width=\"120%\"}\n" + "\n" + "# Partie 3 : la synthèse/dashboard {.transition-slide-ubdteal}\n" + "\n" + "## Le dashboard\n" + "\n" + "Un dashboard n'est pas un cimetière de graphiques où l'on déverse toutes les données disponibles.\n" + "C'est un **instrument de pilotage**.\n" + "\n" + "**Un bon dashboard :**\n" + "\n" + "-   Répond à des **questions précises** en un coup d'oeil.\n" + "-   Est lisible en **5 secondes** (règle des 5 secondes).\n" + "-   A une **hiérarchie visuelle claire** (du plus important au détail).\n" + "-   Applique tous les principes de design vus précédemment.\n" + "\n" + "## Qu'est-ce un dashboard marketing ?\n" + "\n" + "C'est le **cockpit du pilote** : il ne montre pas toutes les données, seulement les instruments essentiels pour ne pas se crasher.\n" + "\n" + "::: {.callout-note title=\"Définition (Pauwels et al.)\"}\n" + "Un **petit ensemble d’indicateurs interconnectés**, couvrant le **court terme** (performance) et le **long terme** (marque), **partagé** dans l’organisation pour guider les décisions.\n" + ":::\n" + "\n" + "Il agrège les sources (GA4, Meta, CRM, SEO) pour répondre à : *\"Que se passe-t-il et que faire maintenant ?\"*\n" + "\n" + "## Ce qu'un dashboard n'est pas\n" + "\n" + ":::::: columns\n" + "::: {.column width=\"50%\"}\n" + "**Ce n'est pas :**\n" + "\n" + "-   Un rapport PDF de 40 pages que personne ne lit.\n" + "-   Une galerie de \"jolis\" graphiques sans lien logique.\n" + "-   Un export Excel brut affiché sur un écran.\n" + ":::\n" + "\n" + ":::: {.column width=\"50%\"}\n" + "\\n" + "\n" + "::: callout-warning\n" + "### Un dashboard n'est pas bon si...\n" + "\n" + "-   Personne ne peut expliquer son utilité en une phrase.\n" + "-   Il n'aide à prendre aucune décision concrète (budget, ciblage...).\n" + "-   Les utilisateurs l'exportent systématiquement vers Excel pour \"vraiment\" travailler (mais ça reste utile)\n" + ":::\n" + "::::\n" + "::::::\n" + "\n" + "## Les trois types de dashboards {style=\"font-size:0.8em\"}\n" + "\n" + "Le design dépend de l'audience et de l'objectif temporel.\n" + "\n" + "| Type | Objectif | Audience | Caractéristiques |\n" + "|:-----------------|:-----------------|:-----------------|:-----------------|\n" + "| **Stratégique** | Santé globale (KPIs) | Direction (C-Level) | Vue d'hélicoptère, simple, peu d'interaction, mensuel/trimestriel. |\n" + "| **Analytique** | Comprendre les tendances | Analystes, Managers | Interactif, filtres, drill-down, comparaisons complexes. |\n" + "| **Opérationnel** | Temps réel, alertes | Terrain (Traffic Manager) | Mise à jour fréquente, très granulaire, focus sur l'immédiat. |\n" + "\n" + "## Construire un dashboard : la colonne vertébrale {style=\"font-size:0.85em\"}\n" + "\n" + "::::: columns\n" + "::: {.column width=\"40%\"}\n" + "1.  **Sources** : CRM, web analytics, campagnes média...\n" + "2.  **Préparation** : scripts R/Python (nettoyage, agrégations, calculs KPI).\n" + "3.  **Modèle métier** : définitions partagées (qu'est-ce qu'un lead, un CPA, une conversion ?).\n" + "4.  **App / BI** : Shiny, Looker Studio, Tableau, Power BI, etc.\n" + "5.  **Diffusion** : accès sécurisé, rafraîchissements, alertes, rituels d'usage.\n" + ":::\n" + "\n" + "::: {.column width=\"60%\"}\n" + "![](images/clipboard-4071259443.png)\n" + ":::\n" + ":::::\n" + "\n" + "## Organisation d'une app (exemple Shiny) {style=\"font-size:0.85em\"}\n" + "\n" + "1.  **Cadres de décision** : regrouper les KPI par question (Que se passe-t-il ? Pourquoi ? Que faire ?).\n" + "2.  **UI** : définir la structure (`fluidPage`, `tabsetPanel`, `valueBox`) pour guider l'œil.\n" + "3.  **Server** : créer des blocs *reactive* qui transforment les inputs en KPI, graphiques, alertes.\n" + "4.  **Storyline** : chaque onglet raconte un morceau de l'histoire (diagnostic → recommandation).\n" + "\n" + "```{r}\n" + "#| eval: false\n" + "ui <- fluidPage(\n" + "  titlePanel(\"Pilotage acquisition\"),\n" + "  fluidRow(\n" + "    valueBoxOutput(\"cpa\"),\n" + "    valueBoxOutput(\"conv_rate\"),\n" + "    valueBoxOutput(\"budget\")\n" + "  ),\n" + "  tabsetPanel(\n" + "    tabPanel(\"Vue globale\", plotOutput(\"cpa_plot\")),\n" + "    tabPanel(\"Segments\", plotOutput(\"segment_plot\"))\n" + "  )\n" + ")\n" + "```\n" + "\n" + "## Panorama express des outils {style=\"font-size:0.85em\"}\n" + "\n" + "| Outil | Quand l'utiliser ? | Points clés |\n" + "|:-----------------------|:-----------------------|:-----------------------|\n" + "| **Shiny** | Besoin de logique R, personnalisation fine | Contrôle total, nécessite hébergement (Shiny Server/Posit Connect). |\n" + "| **Looker Studio** | Partage rapide avec marketing/clients | No-code, connecteurs GA4/BigQuery, gouvernance limitée. |\n" + "| **Power BI / Tableau** | Organisations équipées BI/IT | Gestion des droits, rafraîchissements planifiés, collaboration. |\n" + "| **Quarto / Notebooks** | Livrables mixtes analyse + slides | Reproductible, parfait pour documenter la méthodologie. |\n" + "\n" + "## Plan de démo pour l'app Shiny\n" + "\n" + "1.  **Lancement** : ouvrir `app_shiny.R`, montrer les `valueBox` et filtres en action.\n" + "2.  **Scénario utilisateur** : filtrer sur Facebook vs AdWords, observer l'impact sur CPA/taux de conversion.\n" + "3.  **Bouclage avec la data** : rappeler le pipeline (sources → `pivot_longer()` → KPI → dashboard) et les décisions possibles.\n" + "\n" + "# Cas pratique : analyse A/B {.transition-slide-ubdblue}\n" + "\n" + "## Contexte et objectif\n" + "\n" + "Nous allons analyser les résultats d'une campagne publicitaire menée en parallèle sur **Google AdWords** et **Facebook**.\n" + "\n" + "**L'objectif :** déterminer quelle plateforme offre le meilleur retour sur investissement (ROI) et où allouer le budget futur.\n" + "\n" + "Nous allons charger des données brutes, les nettoyer, et créer des visualisations impactantes.\n" + "\n" + "## Préparation des données {style=\"font-size:0.8em\"}\n" + "\n" + "::: panel-tabset\n" + "### 1. Chargement\n" + "\n" + "Nous chargeons les librairies et le fichier CSV.\n" + "Notez que les données sont souvent dans un format \"Large\" (une colonne par plateforme et par métrique) qui n'est pas idéal pour l'analyse.\n" + "\n" + "```{r load-data}\n" + "#| message: false\n" + "#| warning: false\n" + "library(dplyr)\n" + "library(tidyr)\n" + "library(ggplot2)\n" + "library(gt)\n" + "\n" + "# Note: Chemin relatif à adapter selon votre dossier\n" + "data_wide <- read.csv(\"../data_full/facebook_vs_adword/A_B_testing_dataset.csv\")\n" + "\n" + "# Affichons les noms des colonnes pour comprendre le problème\n" + "names(data_wide)\n" + "```\n" + "\n" + "### 2. Nettoyage (Pivot)\n" + "\n" + "Nous transformons les données de format \"Large\" vers \"Long\".\n" + "C'est une étape cruciale : nous voulons une colonne `platform` pour pouvoir grouper nos analyses.\n" + "\n" + "```{r pivot-data}\n" + "data_long <- data_wide %>%\n" + "  pivot_longer(\n" + "    cols = starts_with(\"facebook_\") | starts_with(\"adword_\"),\n" + "    names_to = c(\"platform\", \".value\"),\n" + "    names_pattern = \"(facebook|adword)_(.*)\"\n" + "  ) %>%\n" + "  rename(views = ad_views, clicks = ad_clicks, \n" + "         conversions = ad_conversions, cost = cost_per_ad)\n" + "\n" + "# Vérifions le résultat\n" + "head(data_long)\n" + "```\n" + "\n" + "### 3. Calcul des KPIs\n" + "\n" + "Nous agrégeons les données pour calculer les indicateurs de performance clés (KPI) globaux.\n" + "\n" + "```{r calc-kpis}\n" + "summary_stats <- data_long %>%\n" + "  group_by(platform) %>%\n" + "  summarise(\n" + "    total_cost = sum(cost),\n" + "    total_conversions = sum(conversions),\n" + "    total_clicks = sum(clicks),\n" + "    .groups = 'drop'\n" + "  ) %>%\n" + "  mutate(\n" + "    # CPA = Coût Total / Nombre de Conversions\n" + "    cpa = total_cost / total_conversions,\n" + "    # Taux de Conv = (Conversions / Clics) * 100\n" + "    overall_conversion_rate = (total_conversions / total_clicks) * 100\n" + "  ) %>%\n" + "  # Esthétique : majuscules pour les graphiques\n" + "  mutate(platform = toupper(platform))\n" + "```\n" + ":::\n" + "\n" + "## Aperçu des résultats\n" + "\n" + "Voici le tableau récapitulatif de nos indicateurs calculés.\n" + "Le tableau est propre, mais il ne raconte pas encore une histoire immédiate.\n" + "\n" + "```{r show-table}\n" + "#| echo: true\n" + "#| eval: true\n" + "summary_stats %>% \n" + "  gt() %>% \n" + "  fmt_currency(columns = c(total_cost, cpa), currency = \"EUR\") %>%\n" + "  fmt_percent(columns = overall_conversion_rate, scale_values = FALSE, decimals = 2)\n" + "```\n" + "\n" + "## Comparaison du CPA (coût par acquisition)\n" + "\n" + "**Question :** combien nous coûte, en moyenne, l'acquisition d'un client sur chaque plateforme ?\n" + "*Interprétation : plus le CPA est bas, meilleure est la rentabilité.*\n" + "\n" + "```{r plot-cpa}\n" + "#| output-location: slide\n" + "#| fig-width: 10\n" + "#| fig-height: 5.5\n" + "\n" + "ggplot(summary_stats, aes(x = platform, y = cpa, fill = platform)) +\n" + "  geom_bar(stat = \"identity\", width = 0.6) +\n" + "  geom_text(aes(label = paste0(round(cpa, 2), \" €\")), vjust = -0.5, size = 6, fontface = \"bold\") +\n" + "  labs(\n" + "    title = \"Coût par acquisition (CPA) par plateforme\",\n" + "    subtitle = \"Facebook est nettement plus rentable pour acquérir un client.\",\n" + "    x = NULL, # Pas besoin de label X car évident\n" + "    y = \"Cout par Acquisition (€)\"\n" + "  ) +\n" + "  theme_minimal(base_size = 16) +\n" + "  theme(\n" + "    legend.position = \"none\",\n" + "    panel.grid.major.x = element_blank()\n" + "  ) +\n" + "  scale_fill_manual(values = c(\"#325494\", \"#58DDB3\")) # Couleurs UBD Theme\n" + "```\n" + "\n" + "## Comparaison du taux de conversion\n" + "\n" + "**Question :** une fois que l'utilisateur a cliqué, quelle est la probabilité qu'il achète ?\n" + "*Interprétation : un taux plus élevé indique un trafic plus qualifié ou une meilleure adéquation produit/audience.*\n" + "\n" + "```{r plot-conv}\n" + "#| output-location: slide\n" + "#| fig-width: 10\n" + "#| fig-height: 5.5\n" + "\n" + "ggplot(summary_stats, aes(x = platform, y = overall_conversion_rate, fill = platform)) +\n" + "  geom_bar(stat = \"identity\", width = 0.6) +\n" + "  geom_text(aes(label = paste0(round(overall_conversion_rate, 2), \" %\")), vjust = -0.5, size = 6, fontface = \"bold\") +\n" + "  labs(\n" + "    title = \"Taux de conversion global\",\n" + "    subtitle = \"Le trafic Facebook transforme mieux que celui d'AdWords.\",\n" + "    x = NULL,\n" + "    y = \"Taux de Conversion (%)\"\n" + "  ) +\n" + "  theme_minimal(base_size = 16) +\n" + "  theme(\n" + "    legend.position = \"none\",\n" + "    panel.grid.major.x = element_blank()\n" + "  ) +\n" + "  scale_fill_manual(values = c(\"#325494\", \"#58DDB3\"))\n" + "```\n" + "\n" + "# Conclusion {.transition-slide-ubdyellow}\n" + "\n" + "## De l'artisan à l'architecte {style=\"font-size:0.85em\"}\n" + "\n" + "Pour réussir dans la visualisation des données, il est essentiel d'adopter une approche structurée, de la conception initiale à la présentation finale.\n" + "\n" + "### Adopter les étapes clés\n" + "\n" + "1.  **Commencer comme un artisan :**\n" + "    -   Maîtriser les outils de construction graphique (`ggplot2`, `tidyr`).\n" + "    -   Nettoyer les graphiques en éliminant le **« chartjunk »** (bruit graphique).\n" + "    -   Rechercher l'excellence graphique en maximisant le ratio « encre-données ».\n" + "2.  **Penser comme un conteur :**\n" + "    -   Définir clairement la **« big idea »** (l'idée principale) du message.\n" + "    -   Guider l'œil de l'audience vers une conclusion unique et un appel à l'action.\n" + "    -   Utiliser l'arc narratif pour structurer l'histoire et maximiser l'impact.\n" + "3.  **Agir comme un architecte :**\n" + "    -   Assembler les graphiques de manière logique et hiérarchisée dans un **dashboard**.\n" + "    -   Faciliter la prise de décision en garantissant la lisibilité et la pertinence des indicateurs.\n" + "    -   Concevoir le dashboard comme un **instrument de pilotage** plutôt que comme un simple rapport.\n" + "\n" + "------------------------------------------------------------------------\n" + "\n" + "### Définir l'objectif final\n" + "\n" + "> Montrer les données à travers un bon graphique.\n" + "> Permettre de prendre de meilleures décisions grâce à un bon dashboard.\n" + "\n" + "# Démo dashboard app Shiny {.transition-slide-ubdblue}\n" + "\n" + "## Références\n" + "\n" + "::: {#refs}\n" + ":::\n" + "\n" + "## Revenir au début\n" + "\n" + "[[Accueil](#accueil)]{.button}\n" + ""</script>
+<script> window._input_filename = '/Users/lucilecaron/Documents/GitHub/web_data_mining_webi/cours_2/cours_2.qmd'</script>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
@@ -2674,266 +2776,211 @@ Pauwels, Koen, and David J. Reibstein. 2023. <span>“The <span>Modern Marketing
       });
     </script>
     
-
     <script>
-
       // htmlwidgets need to know to resize themselves when slides are shown/hidden.
-
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
-
       // slide changes (different for each slide format).
-
       (function () {
-
         // dispatch for htmlwidgets
-
         function fireSlideEnter() {
-
           const event = window.document.createEvent("Event");
-
           event.initEvent("slideenter", true, true);
-
           window.document.dispatchEvent(event);
-
         }
-
-    
 
         function fireSlideChanged(previousSlide, currentSlide) {
-
           fireSlideEnter();
 
-    
-
           // dispatch for shiny
-
           if (window.jQuery) {
-
             if (previousSlide) {
-
               window.jQuery(previousSlide).trigger("hidden");
-
             }
-
             if (currentSlide) {
-
               window.jQuery(currentSlide).trigger("shown");
-
             }
-
           }
-
         }
-
-    
 
         // hookup for slidy
-
         if (window.w3c_slidy) {
-
           window.w3c_slidy.add_observer(function (slide_num) {
-
             // slide_num starts at position 1
-
             fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
-
           });
-
         }
-
-    
 
       })();
-
     </script>
 
-    
-
     <script id="quarto-html-after-body" type="application/javascript">
-    window.document.addEventListener("DOMContentLoaded", function (event) {
-      const toggleBodyColorMode = (bsSheetEl) => {
-        const mode = bsSheetEl.getAttribute("data-mode");
-        const bodyEl = window.document.querySelector("body");
-        if (mode === "dark") {
-          bodyEl.classList.add("quarto-dark");
-          bodyEl.classList.remove("quarto-light");
-        } else {
-          bodyEl.classList.add("quarto-light");
-          bodyEl.classList.remove("quarto-dark");
-        }
-      }
-      const toggleBodyColorPrimary = () => {
-        const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
-        if (bsSheetEl) {
-          toggleBodyColorMode(bsSheetEl);
-        }
-      }
-      toggleBodyColorPrimary();  
-      const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
-      tabsets.forEach(function(tabset) {
-        const tabby = new Tabby('#' + tabset.id);
-      });
-      const isCodeAnnotation = (el) => {
-        for (const clz of el.classList) {
-          if (clz.startsWith('code-annotation-')) {                     
-            return true;
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
           }
+          return false;
         }
-        return false;
-      }
-      const onCopySuccess = function(e) {
-        // button target
-        const button = e.trigger;
-        // don't keep focus
-        button.blur();
-        // flash "checked"
-        button.classList.add('code-copy-button-checked');
-        var currentTitle = button.getAttribute("title");
-        button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
-        setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
           }
-          button.setAttribute("title", currentTitle);
-          button.classList.remove('code-copy-button-checked');
-        }, 1000);
-        // clear code selection
-        e.clearSelection();
-      }
-      const getTextToCopy = function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
           for (const childEl of codeEl.children) {
             if (isCodeAnnotation(childEl)) {
               childEl.remove();
             }
           }
           return codeEl.innerText;
-      }
-      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-        text: getTextToCopy
-      });
-      clipboard.on('success', onCopySuccess);
-      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-          text: getTextToCopy,
-          container: window.document.getElementById('quarto-embedded-source-code-modal')
-        });
-        clipboardModal.on('success', onCopySuccess);
-      }
-        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
-        var mailtoRegex = new RegExp(/^mailto:/);
-          var filterRegex = new RegExp('/' + window.location.host + '/');
-        var isInternal = (href) => {
-            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
         }
-        // Inspect non-navigation links and adorn them if external
-     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
-        for (var i=0; i<links.length; i++) {
-          const link = links[i];
-          if (!isInternal(link.href)) {
-            // undo the damage that might have been done by quarto-nav.js in the case of
-            // links that we want to consider external
-            if (link.dataset.originalHref !== undefined) {
-              link.href = link.dataset.originalHref;
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
             }
           }
-        }
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
-        const config = {
-          allowHTML: true,
-          maxWidth: 500,
-          delay: 100,
-          arrow: false,
-          appendTo: function(el) {
-              return el.closest('section.slide') || el.parentElement;
-          },
-          interactive: true,
-          interactiveBorder: 10,
-          theme: 'light-border',
-          placement: 'bottom-start',
-        };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
-          config['offset'] = [0,0];
-          config['maxWidth'] = 700;
-        window.tippy(el, config); 
-      }
-      const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
-      for (var i=0; i<noterefs.length; i++) {
-        const ref = noterefs[i];
-        tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
-          try { href = new URL(href).hash; } catch {}
-          const id = href.replace(/^#\/?/, "");
-          const note = window.document.getElementById(id);
-          if (note) {
-            return note.innerHTML;
-          } else {
-            return "";
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
           }
-        });
-      }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
           }
-        } else {
-          return undefined;
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
         }
-      };
-      var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
-      for (var i=0; i<bibliorefs.length; i++) {
-        const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
-              }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
           });
         }
-      }
-    });
-    </script>
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
     <script type="text/javascript">
       Reveal.on('ready', event => {
         if (event.indexh === 0) {
