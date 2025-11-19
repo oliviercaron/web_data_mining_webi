@@ -1,0 +1,55 @@
+---
+title: "Mini Flexdashboard Marketing"
+output:
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: fill
+runtime: shiny
+---
+
+```{r}
+library(shiny)
+library(flexdashboard)
+```
+
+## Inputs {.sidebar}
+
+### Paramètres de la campagne
+
+```{r}
+sliderInput("budget", "Budget (€)", min = 0, max = 100000, value = 30000, step = 5000)
+numericInput("conv", "Taux de conversion (%)", value = 3, min = 0.1, max = 50, step = 0.1)
+numericInput("cpl", "Coût par Lead (€)", value = 10, min = 1, max = 100, step = 1)
+```
+
+KPIs
+-----------------------------------------------------------------------
+
+### Objectif hebdomadaire
+
+```{r}
+renderValueBox({
+  total_leads <- input$budget / input$cpl
+  total_sales <- total_leads * (input$conv / 100)
+  sales_hebdo <- round(total_sales / 5)
+
+  flexdashboard::valueBox(
+    value = paste(format(sales_hebdo, big.mark = " ", scientific = FALSE), " ventes"),
+    caption = "Objectif estimé (par semaine)",
+    icon = "fa-flag-checkered",
+    color = "primary"
+  )
+})
+```
+
+### Récapitulatif
+
+```{r}
+renderText({
+  paste0(
+    "Budget : ", format(input$budget, big.mark = " ", scientific = FALSE), " €",
+    " | Taux de conversion : ", input$conv, " %",
+    " | Coût par Lead : ", input$cpl, " €"
+  )
+})
+```

@@ -831,17 +831,17 @@ Infirmière et statisticienne, elle utilise ce « diagramme de la rose » dans u
 
 ![Le « Coxcomb » : la visualisation comme outil de persuasion politique](images/Nightingale-mortality.jpg){fig-align="center" width="75%"}
 
-## Exemples historiques : Minard (1869) 
+## Exemples historiques : Minard (1869)
 
 Considéré par Edward Tufte comme « probablement le meilleur graphique statistique jamais dessiné ».
 
 Ce graphique retrace la **campagne de Russie de Napoléon** en 1812 et illustre l'intégration de six variables dans un seul visuel :
 
-* **La taille de l'armée :** l'épaisseur de la ligne
-* **La position géographique :** les axes (x, y)
-* **La direction :** le sens de la ligne (aller en beige, retour en noir)
-* **Le temps :** le déroulé de l'histoire
-* **La température :** le graphique de températures en bas (pendant la retraite)
+-   **La taille de l'armée :** l'épaisseur de la ligne
+-   **La position géographique :** les axes (x, y)
+-   **La direction :** le sens de la ligne (aller en beige, retour en noir)
+-   **Le temps :** le déroulé de l'histoire
+-   **La température :** le graphique de températures en bas (pendant la retraite)
 
 ## Image Minard
 
@@ -875,25 +875,22 @@ Il agrège les sources (GA4, Meta, CRM, SEO) pour répondre à : *"Que se passe-
 
 :::::: columns
 ::: {.column width="50%"}
-**Ce n'est pas :** 
+**Ce n'est pas :**
 
-- Un rapport PDF de 40 pages que personne ne lit.
-- Une galerie de "jolis" graphiques sans lien logique.
-- Un export Excel brut affiché sur un écran.
-
+-   Un rapport PDF de 40 pages que personne ne lit.
+-   Une galerie de "jolis" graphiques sans lien logique.
+-   Un export Excel brut affiché sur un écran.
 :::
 
 :::: {.column width="50%"}
-
 \
 
 ::: callout-warning
 ### Un dashboard n'est pas bon si...
 
-- Personne ne peut expliquer son utilité en une phrase.
-- Il n'aide à prendre aucune décision concrète (budget, ciblage...).
-- Les utilisateurs l'exportent systématiquement vers Excel pour "vraiment" travailler (mais ça reste utile)
-
+-   Personne ne peut expliquer son utilité en une phrase.
+-   Il n'aide à prendre aucune décision concrète (budget, ciblage...).
+-   Les utilisateurs l'exportent systématiquement vers Excel pour "vraiment" travailler (mais ça reste utile)
 :::
 ::::
 ::::::
@@ -907,6 +904,60 @@ Le design dépend de l'audience et de l'objectif temporel.
 | **Stratégique** | Santé globale (KPIs) | Direction (C-Level) | Vue d'hélicoptère, simple, peu d'interaction, mensuel/trimestriel. |
 | **Analytique** | Comprendre les tendances | Analystes, Managers | Interactif, filtres, drill-down, comparaisons complexes. |
 | **Opérationnel** | Temps réel, alertes | Terrain (Traffic Manager) | Mise à jour fréquente, très granulaire, focus sur l'immédiat. |
+
+## Construire un dashboard : la colonne vertébrale {style="font-size:0.85em"}
+
+::::: columns
+::: {.column width="40%"}
+1.  **Sources** : CRM, web analytics, campagnes média...
+2.  **Préparation** : scripts R/Python (nettoyage, agrégations, calculs KPI).
+3.  **Modèle métier** : définitions partagées (qu'est-ce qu'un lead, un CPA, une conversion ?).
+4.  **App / BI** : Shiny, Looker Studio, Tableau, Power BI, etc.
+5.  **Diffusion** : accès sécurisé, rafraîchissements, alertes, rituels d'usage.
+:::
+
+::: {.column width="60%"}
+![](images/clipboard-4071259443.png)
+:::
+:::::
+
+## Organisation d'une app (exemple Shiny) {style="font-size:0.85em"}
+
+1.  **Cadres de décision** : regrouper les KPI par question (Que se passe-t-il ? Pourquoi ? Que faire ?).
+2.  **UI** : définir la structure (`fluidPage`, `tabsetPanel`, `valueBox`) pour guider l'œil.
+3.  **Server** : créer des blocs *reactive* qui transforment les inputs en KPI, graphiques, alertes.
+4.  **Storyline** : chaque onglet raconte un morceau de l'histoire (diagnostic → recommandation).
+
+```{r}
+#| eval: false
+ui <- fluidPage(
+  titlePanel("Pilotage acquisition"),
+  fluidRow(
+    valueBoxOutput("cpa"),
+    valueBoxOutput("conv_rate"),
+    valueBoxOutput("budget")
+  ),
+  tabsetPanel(
+    tabPanel("Vue globale", plotOutput("cpa_plot")),
+    tabPanel("Segments", plotOutput("segment_plot"))
+  )
+)
+```
+
+## Panorama express des outils {style="font-size:0.85em"}
+
+| Outil | Quand l'utiliser ? | Points clés |
+|:-----------------------|:-----------------------|:-----------------------|
+| **Shiny** | Besoin de logique R, personnalisation fine | Contrôle total, nécessite hébergement (Shiny Server/Posit Connect). |
+| **Looker Studio** | Partage rapide avec marketing/clients | No-code, connecteurs GA4/BigQuery, gouvernance limitée. |
+| **Power BI / Tableau** | Organisations équipées BI/IT | Gestion des droits, rafraîchissements planifiés, collaboration. |
+| **Quarto / Notebooks** | Livrables mixtes analyse + slides | Reproductible, parfait pour documenter la méthodologie. |
+
+## Plan de démo pour l'app Shiny
+
+1.  **Lancement** : ouvrir `app_shiny.R`, montrer les `valueBox` et filtres en action.
+2.  **Scénario utilisateur** : filtrer sur Facebook vs AdWords, observer l'impact sur CPA/taux de conversion.
+3.  **Bouclage avec la data** : rappeler le pipeline (sources → `pivot_longer()` → KPI → dashboard) et les décisions possibles.
 
 # Cas pratique : analyse A/B {.transition-slide-ubdblue}
 
@@ -1056,26 +1107,24 @@ ggplot(summary_stats, aes(x = platform, y = overall_conversion_rate, fill = plat
 
 ## De l'artisan à l'architecte {style="font-size:0.85em"}
 
-Pour réussir dans la visualisation des données, il est essentiel d'adopter une approche structurée, de la conception initiale à la présentation finale. 
+Pour réussir dans la visualisation des données, il est essentiel d'adopter une approche structurée, de la conception initiale à la présentation finale.
 
 ### Adopter les étapes clés
 
 1.  **Commencer comme un artisan :**
-    * Maîtriser les outils de construction graphique (`ggplot2`, `tidyr`).
-    * Nettoyer les graphiques en éliminant le **« chartjunk »** (bruit graphique).
-    * Rechercher l'excellence graphique en maximisant le ratio « encre-données ». 
-
+    -   Maîtriser les outils de construction graphique (`ggplot2`, `tidyr`).
+    -   Nettoyer les graphiques en éliminant le **« chartjunk »** (bruit graphique).
+    -   Rechercher l'excellence graphique en maximisant le ratio « encre-données ».
 2.  **Penser comme un conteur :**
-    * Définir clairement la **« big idea »** (l'idée principale) du message.
-    * Guider l'œil de l'audience vers une conclusion unique et un appel à l'action.
-    * Utiliser l'arc narratif pour structurer l'histoire et maximiser l'impact. 
-
+    -   Définir clairement la **« big idea »** (l'idée principale) du message.
+    -   Guider l'œil de l'audience vers une conclusion unique et un appel à l'action.
+    -   Utiliser l'arc narratif pour structurer l'histoire et maximiser l'impact.
 3.  **Agir comme un architecte :**
-    * Assembler les graphiques de manière logique et hiérarchisée dans un **dashboard**.
-    * Faciliter la prise de décision en garantissant la lisibilité et la pertinence des indicateurs.
-    * Concevoir le dashboard comme un **instrument de pilotage** plutôt que comme un simple rapport.
+    -   Assembler les graphiques de manière logique et hiérarchisée dans un **dashboard**.
+    -   Faciliter la prise de décision en garantissant la lisibilité et la pertinence des indicateurs.
+    -   Concevoir le dashboard comme un **instrument de pilotage** plutôt que comme un simple rapport.
 
----
+------------------------------------------------------------------------
 
 ### Définir l'objectif final
 
@@ -1083,7 +1132,6 @@ Pour réussir dans la visualisation des données, il est essentiel d'adopter une
 > Permettre de prendre de meilleures décisions grâce à un bon dashboard.
 
 # Démo dashboard app Shiny {.transition-slide-ubdblue}
-
 
 ## Références
 
