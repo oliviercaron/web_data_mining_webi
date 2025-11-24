@@ -83,7 +83,7 @@ Toute réutilisation ou diffusion en dehors de ce contexte doit citer l'auteur :
 
 ---
 
-## 📚 Ressources supplémentaires (Cours 3)
+## 📚 Ressources supplémentaires (Stats et Big Book of R (généraliste))
 
 Ressources recommandées pour approfondir statistiques, tests, ACP et manipulation de données :
 
