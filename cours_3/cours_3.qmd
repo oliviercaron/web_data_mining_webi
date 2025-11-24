@@ -407,6 +407,8 @@ La médiane est la valeur qui **coupe les données en deux**.
 
 **Le concept est simple :**
 
+\
+
 1.  on trie toutes les valeurs du plus petit au plus grand.
 2.  on prend celle qui est pile au milieu.
 3.  50 % des valeurs sont en dessous, 50 % sont au-dessus.
@@ -622,6 +624,7 @@ $$
 r = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}
          {\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2} \;\sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2}}
 $$
+La formule compare la co-variation (numérateur) à la variation totale de chaque variable (dénominateur)
 
 ### Interprétation rapide
 
