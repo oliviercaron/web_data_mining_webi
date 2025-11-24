@@ -1,0 +1,2452 @@
+---
+title: "Web Data Mining & Business Intelligence"
+subtitle: "Statistiques, analyse factorielle, régression"
+author:
+  - name: "Olivier Caron"
+    affiliations: "Paris Dauphine - PSL"
+format:
+  ubd-revealjs:
+    fig-number: false
+    self-contained: false
+    chalkboard: true
+    transition: fade
+    auto-stretch: false
+    width: 1250
+    height: 760
+    toc: false
+    code-block-height: 700px
+execute:
+  echo: true
+  warning: false
+  message: false
+  fig-align: center
+bibliography: refs.bib
+revealjs-plugins:
+  - editable
+filters:
+  - editable
+crossref: false
+editor: 
+  markdown: 
+    wrap: sentence
+---
+
+## Objectifs de la séance {#accueil}
+
+-   Comprendre les fondements statistiques nécessaires au web data mining.
+-   Savoir appliquer analyse factorielle, régression et classification simples.
+-   Manipuler des jeux de données marketing digitaux (YouTube, Spotify, Facebook/AdWords, OpenFoodFacts, iFood, etc.).
+-   Être capable de formuler des questions marketing en termes de tests statistiques et de modèles prédictifs.
+
+------------------------------------------------------------------------
+
+## Structure de la séance
+
+:::::: columns
+::: {.column width="33%"}
+### 1. Statistiques de base
+
+-   Types de variables
+-   Statistiques descriptives
+-   Visualisation
+-   Corrélations
+:::
+
+::: {.column width="33%"}
+### 2. Tests & analyse factorielle
+
+-   Tests t & chi-deux
+-   Notion d'hypothèse
+-   Réduction de dimension (ACP)
+:::
+
+::: {.column width="33%"}
+### 3. Modèle prédictif simple
+
+-   Régression linéaire
+
+:::
+::::::
+
+------------------------------------------------------------------------
+
+## Rappel : Web Data Mining & Web Intelligence
+
+-   Données web :
+    -   Logs de navigation, clics, conversions
+    -   Réseaux sociaux, vidéos, musique
+    -   Open data (commerce, ville, etc.)
+-   Objectif : transformer des données brutes en **décisions marketing**.
+-   Rôle des statistiques :
+    -   Décrire les phénomènes
+    -   Tester des hypothèses
+    -   Prédire des comportements ou des résultats
+
+------------------------------------------------------------------------
+
+## Fondations : Observation vs. Expérimentation {style="font-size:0.8em"}
+
+Comprendre **comment** les données ont été collectées est aussi important que de les visualiser.
+Cela détermine la nature des conclusions que vous pouvez tirer.
+
+::::: columns
+::: {.column width="50%"}
+### Étude observationnelle
+
+On **observe** le monde tel qu'il est, sans intervenir.
+On collecte des données sur des comportements existants.
+
+-   **Exemple** : analyser les données publiques de YouTube pour voir si les vidéos avec plus de *likes* ont plus de *vues*.
+-   **Conclusion possible** : on peut trouver une **corrélation**.
+-   **Limite** : on ne peut **jamais prouver la causalité**. Est-ce que les *likes* causent les *vues*, ou est-ce que les vidéos populaires obtiennent simplement les deux ?
+:::
+
+::: {.column width="50%"}
+### Étude expérimentale
+
+On **intervient** et on manipule une variable pour mesurer son effet, en gardant tout le reste constant (ou aléatoire).
+
+-   **Exemple** : un **A/B test** où l'on montre à un groupe A une miniature de vidéo et à un groupe B une autre miniature, puis on compare le taux de clic.
+-   **Conclusion possible** : on peut inférer une **relation de cause à effet**.
+-   **Force** : c'est le *gold standard* pour la prise de décision.
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Les jeux de données de la séance
+
+Nous utiliserons plusieurs jeux de données réalistes :
+
+-   **YouTube FR viral** : `data_full/youtube_viral/FRvideos.csv`
+-   **Spotify tracks** : `data_full/spotify_tracks/dataset.csv`
+-   **A/B testing Facebook vs AdWords** : `data_full/facebook_vs_adword/A_B_testing_dataset.csv`
+-   **iFood Marketing** : `data_full/ifood/ifood_df.csv`
+-   (Optionnel) **OpenFoodFacts** & **BDCOM 2023** comme ressources complémentaires.
+
+------------------------------------------------------------------------
+
+## Préparation : packages & environnement R
+
+```{r}
+#| label: setup
+#| include: false
+
+# Options générales pour les chunks de code
+knitr::opts_chunk$set(
+  echo = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  fig.align = 'center'
+)
+
+# Packages nécessaires pour l'analyse
+library(tidyverse)
+library(gt)
+library(ggstats)
+library(GGally)
+library(car)
+library(lmtest)
+library(rpart) # Pour les arbres de décision
+library(class) # Pour KNN
+library(FactoMineR) # Pour l'ACP
+library(factoextra) # Pour visualiser l'ACP
+library(skimr)
+library(summarytools)
+library(ggcorrplot)
+library(ggrepel)
+
+# Thème ggplot personnalisé pour le cours
+theme_cours3 <- theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5, size = rel(1.2)),
+    plot.subtitle = element_text(hjust = 0.5, size = rel(1.05)),
+    axis.title = element_text(face = "italic", size = rel(1.1)),
+    axis.text = element_text(size = rel(1)),
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom",
+    plot.background = element_rect(fill = "#F8F9FA", color = NA),
+    panel.background = element_rect(fill = "#F8F9FA", color = NA)
+  )
+```
+
+-   `tidyverse` pour la manipulation des données & visualisation.
+-   `GGally` pour les matrices de graphiques.
+-   D'autres packages pourront être ajoutés (par ex. `rpart`, `class`, `FactoMineR`, `factoextra`).
+
+------------------------------------------------------------------------
+
+## Types de variables (rappel) {style="font-size:0.7em"}
+
+Avant de choisir un modèle (régression, classification…), il faut savoir **de quel type sont vos colonnes**.
+
+| Type de variable | Description | Exemples (dans nos données) | Rôle typique en modèle |
+|:---------------|:---------------|:------------------------|:---------------|
+| **Quantitative continue** | Valeurs numériques réelles | `Income`, `MntWines`, `views`, `duration_ms` | Cible ou prédictive |
+| **Quantitative discrète** | Nombres entiers (comptages) | `NumWebPurchases`, `comment_count`, `NumStorePurchases` | Plutôt prédictive |
+| **Qualitative nominale** | Catégories sans ordre | `track_genre`, `Type local`, `marital_Married` | Prédictive (facteur) |
+| **Qualitative ordonnée** | Catégories avec hiérarchie | Niveau d’éducation, satisfaction (si codée en niveaux) | Prédictive (facteur ordonné) |
+| **Date / Temps** | Moments dans le temps | `date_of_campaign`, `publish_time`, `Date mutation` | Séries temporelles, saisonnalité |
+
+-   Toujours identifier :
+    -   la **variable cible** ou variable **prédictive** (ce que l’on veut prédire, ex : `Response`, `views`, `Valeur fonciere`)
+    -   les **variables explicatives** ou **variables indépendantes** (ce qui aide à prédire).
+
+------------------------------------------------------------------------
+
+## Voir les types sur nos jeux de données {style="font-size:0.8em"}
+
+::: panel-tabset
+### iFood (marketing direct)
+
+```{r}
+#| echo: false
+
+ifood <- readr::read_csv("../data_full/ifood/ifood_df.csv",
+                         show_col_types = FALSE)
+
+ifood %>%
+  select(
+    Income,          # quantitative continue
+    Kidhome,         # quantitative discrète
+    Age,             # quantitative continue
+    Response,        # cible binaire (0/1)
+    marital_Married, # qualitative (dummy)
+    education_Graduation
+  ) %>%
+  slice_head(n = 8) %>%
+  gt() %>%
+  tab_header(
+    title = md("**Extrait du jeu de données iFood (cible : `Response`)**")
+  )
+```
+
+### YouTube FR viral
+
+```{r}
+#| echo: false
+
+yt <- readr::read_csv("../data_full/youtube_viral/FRvideos.csv",
+                      show_col_types = FALSE)
+
+yt %>%
+  select(
+    title,           # texte (non utilisé tel quel en modèle simple)
+    channel_title,   # qualitative nominale
+    views,           # quantitative continue (souvent en log)
+    likes,           # quantitative continue
+    comment_count,   # quantitative discrète
+    publish_time     # date / temps
+  ) %>%
+  slice_head(n = 6) %>%
+  gt() %>%
+  tab_header(
+    title = md("**Extrait de YouTube FR viral (cible possible : `views`)**")
+  )
+```
+
+### Spotify tracks
+
+```{r}
+#| echo: false
+
+spotify_raw <- readr::read_csv("../data_full/spotify_tracks/dataset.csv")
+
+spotify <- spotify_raw %>% 
+  distinct(track_id, .keep_all = TRUE)
+
+spotify %>%
+  select(
+    track_name,      # texte
+    popularity,      # quantitative discrète (0-100)
+    danceability,    # quantitative continue (0-1)
+    energy,          # quantitative continue (0-1)
+    valence,         # quantitative continue (0-1)
+    track_genre      # qualitative nominale
+  ) %>%
+  slice_head(n = 6) %>%
+  gt() %>%
+  tab_header(
+    title = md("**Extrait de Spotify (cible possible : `popularity`)**")
+  )
+```
+
+### Facebook vs AdWords (A/B test)
+
+```{r}
+#| echo: false
+
+ab <- readr::read_csv("../data_full/facebook_vs_adword/A_B_testing_dataset.csv",
+                      show_col_types = FALSE)
+
+ab %>%
+  select(
+    date_of_campaign,      # date
+    facebook_ad_views,     # quantitative discrète
+    facebook_ctr,          # quantitative continue (%)
+    facebook_conversion_rate,
+    adword_ad_views,
+    adword_ctr,
+    adword_conversion_rate
+  ) %>%
+  slice_head(n = 6) %>%
+  gt() %>%
+  tab_header(
+    title = md("**Extrait du dataset A/B test (Facebook vs AdWords)**")
+  )
+```
+:::
+
+## Aperçu rapide des données (skimr)
+
+Le package **skimr** offre un résumé compact et lisible d'un dataset :\
+- types de colonnes\
+- valeurs manquantes\
+- distributions\
+- min / max / médiane\
+- exemples de valeurs
+
+C’est un outil pratique pour se faire une idée rapide de la structure des données avant toute analyse.
+
+=\> Exemple complet d’un rapport *skimr* :\
+<https://oliviercaron.github.io/systematic_lit_review/networks_author.html#summary-of-the-authors-data>
+
+## Aperçu rapide des données (summarytools) {style="font-size:0.5em"}
+
+```{r}
+dfSummary(yt) %>%
+  summarytools::view(method = "pander")
+```
+
+## Statistiques descriptives univariées (views YouTube)
+
+Dans cette section, on illustre les mesures de position et de dispersion\
+sur la variable **`views`** du dataset *YouTube FR viral*.
+
+------------------------------------------------------------------------
+
+```{r}
+#| label: setup-descriptives
+#| include: false
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+
+yt <- readr::read_csv("../data_full/youtube_viral/FRvideos.csv", show_col_types = FALSE)
+
+theme_cours3 <- theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5, size = rel(1.2)),
+    plot.subtitle = element_text(hjust = 0.5, size = rel(1.05)),
+    axis.title = element_text(face = "italic", size = rel(1.1)),
+    axis.text = element_text(size = rel(1)),
+    panel.grid.minor = element_blank(),
+    legend.position = "bottom",
+    plot.background = element_rect(fill = "#F8F9FA", color = NA),
+    panel.background = element_rect(fill = "#F8F9FA", color = NA)
+  )
+```
+
+## Moyenne (mean) {style="font-size:0.9em"}
+
+:::::: columns
+::: {.column width="40%"}
+La moyenne mesure la **tendance centrale** :
+
+$$
+\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i
+$$
+
+### Exemple
+
+Prenons les vues des 3 premières vidéos : $x = [212\,702,\ 432\,721,\ 482\,153]$
+
+$$
+\bar{x} = \frac{212702 + \dots + 482153}{3} \approx 375\,858
+$$
+:::
+
+:::: {.column width="60%"}
+**Question :** quelle est la moyenne des vues du jeu de données (colonne `views`) ?
+
+```{r}
+#| echo: false
+#| fig-height: 3.5
+
+mean_val <- mean(yt$views, na.rm = TRUE)
+
+ggplot(yt, aes(x = views)) +
+  geom_histogram(bins = 50, fill="#007bff", alpha=0.7) +
+  geom_vline(xintercept = mean_val, color = "red", lwd=1) +
+  annotate("text", x = mean_val, y = 20000, label = "Moyenne", color = "red", angle=90, vjust = -1) +
+  scale_x_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
+  labs(
+    title = "Distribution des vues",
+    subtitle = "La moyenne est écrasée par les extrêmes",
+    x = "Vues (K = mille, M = million)",
+    y = "Nb vidéos"
+  ) +
+  theme_cours3
+```
+
+::: fragment
+```{r}
+#| echo: true
+mean(yt$views, na.rm = TRUE)
+```
+:::
+::::
+::::::
+
+## Médiane (median) {style="font-size:0.9em"}
+
+:::::: columns
+::: {.column width="40%"}
+La médiane est la valeur qui **coupe les données en deux**.
+
+**Le concept est simple :**
+
+1.  on trie toutes les valeurs du plus petit au plus grand.
+2.  on prend celle qui est pile au milieu.
+3.  50 % des valeurs sont en dessous, 50 % sont au-dessus.
+:::
+
+:::: {.column width="60%"}
+**Question :** la médiane est-elle plus petite ou plus grande que la moyenne ici ?
+
+```{r}
+#| echo: false
+#| fig-height: 3.5
+
+ggplot(yt, aes(x = views, y = "")) +
+  geom_boxplot(fill="#28a745", alpha=0.6, outlier.colour = "red", outlier.alpha = 0.1) +
+  scale_x_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
+  labs(
+    title = "Boxplot des vues",
+    subtitle = "La boîte est illisible à cause des outliers extrêmes",
+    x = "Vues",
+    y = ""
+  ) +
+  theme_cours3
+```
+
+::: fragment
+```{r}
+median(yt$views, na.rm = TRUE)
+```
+
+La médiane (\~74k) est **beaucoup plus petite** que la moyenne (\~420k) : la distribution est très asymétrique.
+:::
+::::
+::::::
+
+## Quantiles (Q1, Q2, Q3) {style="font-size:0.9em"}
+
+:::::: columns
+::: {.column width="40%"}
+Les quantiles découpent la distribution en **parts égales** :
+
+-   **Q1 (25 %)** : 25 % des vidéos ont moins de vues que ça.
+-   **Q2 (50 %)** : c’est la **Médiane**.
+-   **Q3 (75 %)** : 75 % des vidéos ont moins de vues que ça.
+:::
+
+:::: {.column width="60%"}
+**Question :** combien vaut le 75e percentile (Q3) des vues ?
+
+```{r}
+#| echo: false
+#| fig-height: 3.5
+
+q_vals <- quantile(yt$views, c(0.25, 0.5, 0.75), na.rm = TRUE)
+
+ggplot(yt, aes(x = views)) +
+  geom_histogram(bins = 40, fill="#6f42c1", alpha=.7) +
+  geom_vline(xintercept = q_vals, color = c("#ffa600", "#d62728", "#2ca02c"), linetype = "dashed", size = 1) +
+  scale_x_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
+  labs(
+    title = "Quantiles visualisés",
+    x = "Vues",
+    y = "Nb vidéos"
+  ) +
+  theme_cours3
+```
+
+::: fragment
+```{r}
+quantile(yt$views, 0.75, na.rm = TRUE)
+```
+:::
+::::
+::::::
+
+## Variance {style="font-size:0.9em"}
+
+:::::: columns
+::: {.column width="40%"}
+La variance mesure la **dispersion** autour de la moyenne :
+
+$$
+\sigma^2 = \frac{1}{n} \sum_{i=1}^n (x_i - \bar{x})^2
+$$
+
+-   plus les valeurs sont éloignées de la moyenne, plus la variance est grande.
+-   très sensible aux **valeurs extrêmes** (vidéos ultra virales).
+:::
+
+:::: {.column width="60%"}
+**Question :** pourquoi la variance des vues est-elle très élevée ?
+
+```{r}
+#| echo: false
+#| fig-height: 3.5
+
+ggplot(yt, aes(x = views)) +
+  geom_density(fill="#ff7f0e", alpha=.6) +
+  scale_x_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
+  labs(
+    title = "Densité des vues",
+    x = "Vues",
+    y = "Densité"
+  ) +
+  theme_cours3
+```
+
+::: fragment
+```{r}
+var(yt$views, na.rm = TRUE)
+```
+
+Parce que quelques vidéos font des millions de vues, ce qui explose le calcul des carrés.
+:::
+::::
+::::::
+
+## Écart-type (Standard Deviation) {style="font-size:0.9em"}
+
+:::::: columns
+::: {.column width="40%"}
+L’écart-type est la racine carrée de la variance :
+
+$$
+\sigma = \sqrt{\mathrm{Var}(X)}
+$$
+
+-   même unité que la variable originale (ici : **vues**).
+-   résume une « dispersion moyenne » autour de la moyenne.
+:::
+
+:::: {.column width="60%"}
+**Question :** l’écart-type des vues brutes est-il interprétable ?
+
+```{r}
+#| echo: false
+#| fig-height: 3.5
+
+ggplot(yt, aes(x = views)) +
+  geom_histogram(bins = 40, fill="#17a2b8", alpha=0.6) +
+  scale_x_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
+  labs(
+    title = "Histogramme des vues",
+    x = "Vues",
+    y = "Nombre de vidéos"
+  ) +
+  theme_cours3
+```
+
+::: fragment
+```{r}
+sd(yt$views, na.rm = TRUE)
+```
+
+Non : il est dominé par les vidéos ultra virales (écart-type \> **1,7M !**).
+:::
+::::
+::::::
+
+## IQR (écart interquartile) {style="font-size:0.9em"}
+
+:::::: columns
+::: {.column width="40%"}
+L’IQR mesure la **dispersion centrale** :
+
+$$
+IQR = Q3 - Q1
+$$
+
+-   zone où se trouvent les **50 % du milieu** des observations.
+-   peu sensible aux valeurs extrêmes → très adapté aux données web asymétriques.
+:::
+
+:::: {.column width="60%"}
+**Question :** l’IQR est-il moins sensible aux outliers que l’écart-type ?
+
+```{r}
+#| echo: false
+#| fig-height: 3.5
+
+ggplot(yt, aes(x = views)) +
+  geom_boxplot(fill="#20c997", alpha=.6) +
+  scale_x_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
+  labs(
+    title = "Boxplot avec IQR",
+    x = "Vues"
+  ) +
+  theme_cours3
+```
+
+::: fragment
+```{r}
+IQR(yt$views, na.rm = TRUE)
+```
+
+Oui : il ignore les extrêmes et se concentre sur le cœur de la distribution (\~250k d'écart).
+:::
+::::
+::::::
+
+## Corrélations bivariées : intuition {style="font-size:0.7em"}
+
+-   Une corrélation mesure la **force** et le **sens** de la relation entre deux variables quantitatives.
+-   Elle varie entre **-1** (relation parfaitement négative) et **+1** (relation parfaitement positive).
+-   Exemples dans nos jeux de données :
+    -   `views` ↔ `likes` (YouTube)
+    -   `danceability` ↔ `energy` (Spotify)
+
+### Le coefficient de corrélation de Pearson
+
+Soit deux variables quantitatives $X$ et $Y$, le coefficient de corrélation de Pearson est :
+
+$$
+r = \frac{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}
+         {\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2} \;\sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2}}
+$$
+
+### Interprétation rapide
+
+-   $r \approx 0$ → pas de relation linéaire\
+-   $r > 0$ → plus $X$ augmente, plus $Y$ a tendance à augmenter\
+-   $r < 0$ → plus $X$ augmente, plus $Y$ a tendance à diminuer\
+-   $|r|$ proche de 1 → relation linéaire forte
+
+------------------------------------------------------------------------
+
+## Exemple 2 : matrice de graphiques (YouTube) {style="font-size:0.6em"}
+
+```{r}
+#| label: -yt-ggpairs
+#| eval: true
+#| echo: false
+
+yt_num <- yt %>%
+  mutate(
+    log_views = log10(views + 1),
+    log_likes = log10(likes + 1),
+    log_comments = log10(comment_count + 1)
+  ) %>%
+  select(log_views, log_likes, log_comments)
+
+GGally::ggpairs(
+  yt_num,
+  title = "Corrélations (log10) : vues, likes, commentaires"
+)
+```
+
+-   Nuages de points + corrélations + distributions.
+-   Utile pour détecter :
+    -   Relations linéaires
+    -   Outliers
+    -   Variables redondantes.
+
+## Exemple 3 : corrélations sur Spotify {style="font-size:0.6em"}
+
+```{r}
+#| label: tbl-spotify-cor
+#| eval: true
+#| echo: false
+#| warning: false
+
+spotify <- readr::read_csv("../data_full/spotify_tracks/dataset.csv")
+
+spotify_num <- spotify %>%
+  select(
+    popularity,
+    danceability, energy, valence,
+    loudness, acousticness, instrumentalness,
+    speechiness, liveness,
+    tempo, duration_ms
+  )
+
+corr <- cor(spotify_num, use = "complete.obs")
+p.mat <- ggcorrplot::cor_pmat(spotify_num)
+
+ggcorrplot(
+  corr,
+  hc.order = TRUE,
+  type = "lower",
+  outline.col = "white",
+  lab = TRUE,
+  p.mat = p.mat,
+  lab_size = 3
+) +
+  labs(
+    title = "Corrélations des features Spotify",
+    subtitle = "Popularité et caractéristiques audio"
+  ) +
+  theme_minimal(base_size = 12) +
+  theme(
+    axis.text.x = element_text(
+      angle = 45,        # incline les labels
+      hjust = 1,         # aligne proprement
+      size  = 10         
+    ),
+    axis.text.y = element_text(
+      size = 10
+    )
+  )
+
+```
+
+-   `popularity` : proxy de succès.
+-   `danceability`, `energy`, `valence` : caractéristiques musicales.
+-   Interpréter corrélations en termes **d’insights marketing** (playlists, ciblage, mood).
+
+## Corrélation ≠ causalité
+
+Une corrélation indique simplement que **deux variables évoluent ensemble**.\
+Elle ne dit **rien** sur la cause.
+
+### Ce que la corrélation NE prouve pas
+
+-   X ⟶ Y\
+-   Y ⟶ X\
+-   ou même qu’il existe un lien direct
+
+### Exemple YouTube
+
+`likes` ↔ `views` sont fortement corrélés, mais :
+
+-   taille de la chaîne\
+-   algorithme de recommandation\
+-   sujet tendance\
+    peuvent expliquer les deux **en même temps**.
+
+## Pourquoi deux variables peuvent être corrélées ? {style="font-size:0.75em"}
+
+### Cause commune (variable confondante)
+
+Un facteur non mesuré influence X **et** Y.\
+Exemple : l’algorithme → plus de vues **et** plus de likes.
+
+### Effet inversé
+
+Ce n'est pas X → Y, mais Y → X.\
+Exemple : plus de vues → plus de likes.
+
+### Coïncidence / bruit
+
+Avec beaucoup de données, des corrélations apparaissent « par hasard ».
+
+::: callout-note
+### À retenir
+
+Corrélation = **association**\
+Causalité = **mécanisme**
+
+Pour démontrer une causalité, il faut d’autres méthodes :\
+A/B testing, modèles explicatifs, contrôle des variables confondantes, expériences naturelles.
+:::
+
+## La courbe normale : l’intuition essentielle {style="font-size:0.7em"}
+
+-   Beaucoup de phénomènes naturels et digitaux se distribuent en **cloche**.\
+-   La majorité des valeurs sont **près de la moyenne**.\
+-   Plus on s’éloigne de la moyenne, plus les valeurs sont **rares**.\
+-   Cette règle permet de situer un résultat : “typique”, “rare”, “exceptionnel”.
+
+```{r}
+#| label: -normal-empirical-rule-simple
+#| echo: false
+#| fig-height: 4.5
+
+library(ggplot2)
+
+x <- seq(-4, 4, length.out = 400)
+y <- dnorm(x)
+
+df <- data.frame(x = x, y = y)
+
+ggplot(df, aes(x, y)) +
+  # Zones colorées
+  geom_area(data = subset(df, x >= -1 & x <= 1),
+            fill = "#0B3C5D", alpha = 0.9) +
+  geom_area(data = subset(df, (x >= -2 & x < -1) |
+                                 (x > 1 & x <= 2)),
+            fill = "#2874A6", alpha = 0.7) +
+  geom_area(data = subset(df, x < -2 | x > 2),
+            fill = "#5DADE2", alpha = 0.5) +
+  # Courbe
+  geom_line(color = "white", size = 1) +
+  # Traits verticaux
+  geom_vline(xintercept = -3:3, color = "white", size = 0.4) +
+  # Labels des zones
+  geom_text(aes(x = -0.5, y = 0.1, label = "34,1 %"),
+            color = "white", size = 5, fontface = "bold") +
+  geom_text(aes(x = 0.5, y = 0.1, label = "34,1 %"),
+            color = "white", size = 5, fontface = "bold") +
+  geom_text(aes(x = -1.5, y = 0.06, label = "13,6 %"),
+            color = "white", size = 5, fontface = "bold") +
+  geom_text(aes(x = 1.5, y = 0.06, label = "13,6 %"),
+            color = "white", size = 5, fontface = "bold") +
+  scale_x_continuous(
+    breaks = -3:3,
+    labels = c("-3σ","-2σ","-1σ","μ","1σ","2σ","3σ"),
+    limits = c(-3.5, 3.5)
+  ) +
+  scale_y_continuous(NULL, breaks = NULL) +
+  labs(x = NULL, y = NULL) +
+  theme_minimal(base_size = 14) +
+  theme_cours3
+```
+
+## La logique du test d'hypothèse (NHST)
+
+C'est une procédure formelle pour prendre une décision sous incertitude.
+
+1.  **Hypothèse nulle (**$H_0$) : l'hypothèse du statu quo, de « l'absence d'effet ». *Exemple : « il n'y a pas de différence de CTR entre la campagne A et B. »*
+2.  **Hypothèse alternative (**$H_1$) : ce que l'on cherche à prouver. *Exemple : « le CTR de la campagne A est différent de celui de B. »*
+3.  **Le seuil de significativité (**$\alpha$) : le risque d'erreur que l'on est prêt à accepter, typiquement 5% (0.05).
+4.  **La p-value** : la probabilité d'observer nos données (ou des données plus extrêmes) **si l'hypothèse nulle était vraie**.
+
+::: callout-tip
+### Règle de décision
+
+Si **p-value \<** $\alpha$, on **rejette** $H_0$.
+On conclut que l'effet observé est « statistiquement significatif ».
+:::
+
+## Les erreurs de décision : un arbitrage {style="font-size:0.8em"}
+
+Notre décision n'est jamais certaine, il y a toujours un risque de se tromper.
+
+|   | **Réalité :** $H_0$ est vraie (pas d'effet) | **Réalité :** $H_0$ est fausse (effet réel) |
+|-----------------|:-------------------------:|:---------------------------:|
+| **Décision : on rejette** $H_0$ | **Erreur de type I (α)** <br> *Faux positif* | **Décision correcte** <br> *(Puissance)* |
+| **Décision : on ne rejette pas** $H_0$ | **Décision correcte** | **Erreur de type II (β)** <br> *Faux négatif* |
+
+**Exemple d'application marketing :**
+
+-   **erreur de type I** : lancer une campagne publicitaire coûteuse qui est en réalité inefficace.
+-   **erreur de type II** : arrêter une campagne publicitaire qui était en fait rentable.
+
+## Plus loin que la p-value : l’intervalle de confiance (IC) {style="font-size:0.8em"}
+
+:::::: columns
+::: column
+### L’idée
+
+Un IC à 95% donne une **fourchette plausible** pour un paramètre inconnu.
+
+### Définition intuitive
+
+Un IC à 95% :
+
+-   si on répète l’expérience 100 fois, **≈ 95** IC contiendront la vraie valeur.
+
+### Formule
+
+$$
+\bar{x} \pm t_{\text{critique}} \times \frac{s}{\sqrt{n}}
+$$
+:::
+
+:::: column
+### Exemple marketing (A/B test)
+
+Différence observée entre deux campagnes :\
+IC 95% = **\[0.5% ; 2.1%\]**
+
+::: fragment
+➡Le gain réel est probablement entre **+0.5% et +2.1%**.\
+Plus informatif qu’une simple p-value.
+:::
+::::
+::::::
+
+## Comparer deux groupes : Le choix du test {style="font-size:0.75em"}
+
+Pour comparer deux groupes (ex: A/B testing), le choix du test dépend de la forme de vos données.
+
+| Caractéristique | **Test Paramétrique** <br> *(Ex: Test t de Student/Welch)* | **Test Non-Paramétrique** <br> *(Ex: Wilcoxon-Mann-Whitney)* |
+|:-----------------------|:-----------------------|:-----------------------|
+| **Hypothèses** | Données Normales (courbe en cloche) <br> Indépendance des observations | Aucune hypothèse sur la distribution <br> Indépendance des observations |
+| **Quand l'utiliser ?** | $n \ge 30$ par groupe <br> Données quantitatives continues | $n < 30$ ou données très asymétriques <br> Présence d'**outliers** forts |
+| **Ce qu'on compare** | Une différence de **Moyennes** | Une différence de **Médianes / Rangs** |
+| **Avantages** | Plus puissant (détecte mieux l'effet) si les conditions sont respectées. | Très **robuste**. Fonctionne sur des distributions "moches" ou bruitées. |
+
+::: callout-tip
+### Résumé pratique
+
+-   Si vos données sont propres et nombreuses ($n>30$) $\rightarrow$ **Test t**.
+-   Si vos données ont des valeurs extrêmes ou peu nombreuses $\rightarrow$ **Wilcoxon**.
+:::
+
+## Exemple A/B : Facebook vs AdWords (description)
+
+Jeu de données : `A_B_testing_dataset.csv`
+
+-   Variables :
+    -   `facebook_ctr`, `facebook_conversion_rate`
+    -   `adword_ctr`, `adword_conversion_rate`
+-   Objectif :
+    -   Comparer les performances des deux canaux sur plusieurs jours.
+    -   Tester si les **différences observées** sont statistiquement significatives.
+
+## Chargement des données campagne marketing A/B {style="font-size:0.7em"}
+
+```{r}
+#| label: load-ab-data
+#| eval: true
+#| echo: true
+
+ab <- read_csv("../data_full/facebook_vs_adword/A_B_testing_dataset.csv")
+
+glimpse(ab)
+```
+
+-   Vérifier :
+    -   structure des colonnes
+    -   cohérence des types (numérique vs texte)
+    -   présence de valeurs manquantes.
+
+## Test t : CTR Facebook vs AdWords {style="font-size:0.7em"}
+
+::::: columns
+::: {.column width="48%"}
+### Explication + Code + Résultat
+
+```{r}
+#| label: ttest-ctr
+#| eval: true
+#| echo: true
+
+t.test(ab$facebook_ctr, ab$adword_ctr, paired = FALSE)
+```
+
+-   `paired = FALSE` : deux échantillons indépendants.
+-   Le test renvoie :
+    -   la statistique t
+    -   la p-value
+    -   les moyennes des deux groupes
+    -   l’intervalle de confiance de la différence de moyennes
+:::
+
+::: {.column width="52%"}
+### Interprétation des résultats
+
+-   Le CTR moyen Facebook est supérieur à celui d’AdWords.
+-   La p-value est très faible (p \< 2.2e-16) : on rejette l’hypothèse nulle.
+-   L’intervalle de confiance ne contient pas 0 : la différence est statistiquement significative.
+-   La différence moyenne de CTR se situe dans l’intervalle \[0.923 ; 1.081\].
+:::
+:::::
+
+## Test t : taux de conversion Facebook vs AdWords {style="font-size:0.6em"}
+
+::::: columns
+::: {.column width="48%"}
+### Explication + code + résultat
+
+```{r}
+#| label: ttest-conv
+#| eval: true
+#| echo: true
+
+t.test(ab$facebook_conversion_rate, ab$adword_conversion_rate, paired = FALSE)
+```
+
+-   Test paramétrique : **Welch Two Sample t-test**
+-   `paired = FALSE` : échantillons indépendants
+-   Hypothèses :
+    -   **H₀** : les taux de conversion moyens sont égaux
+    -   **H₁** : ils sont différents
+-   Le test renvoie :
+    -   la statistique t\
+    -   le nombre de degrés de liberté (df)\
+    -   la p-value\
+    -   l’intervalle de confiance à 95%\
+    -   les moyennes des deux groupes
+:::
+
+::: {.column width="52%"}
+### Interprétation des résultats
+
+-   p-value \< 2.2e-16 → **on rejette H₀**
+-   IC95% = \[20.572 ; 23.205\] → la différence est statistiquement significative
+-   Moyennes :
+    -   Facebook : 32.70\
+    -   AdWords : 10.81\
+-   Différence moyenne ≈ **+21.9 points de pourcentage**
+-   Même si les distributions ne sont pas normales, la **grande taille d’échantillon** rend le test de Welch **robuste et approprié**
+-   Conclusion : le taux de conversion est **nettement supérieur** sur Facebook
+:::
+:::::
+
+------------------------------------------------------------------------
+
+## Test du chi-deux : principe général {style="font-size:0.7em"}
+
+::::: columns
+::: {.column width="50%"}
+### Quand utiliser le chi-deux ?
+
+Le test du chi-deux d’indépendance s’utilise lorsque :
+
+-   les **deux variables sont qualitatives**
+-   on veut savoir si elles sont **associées** ou **indépendantes**
+-   l’échantillon est suffisamment grand
+
+Exemples typiques en marketing digital :
+
+\
+
+
+-   catégorie du contenu × réaction du public\
+-   type de campagne × conversion (oui/non)\
+-   type d’utilisateur × choix d’option
+
+### Hypothèses
+
+-   $H_0$ : les deux variables sont indépendantes\
+-   $H_1$ : les deux variables sont associées
+:::
+
+::: {.column width="50%"}
+### Comment fonctionne le test ?
+
+1.  On construit un **tableau de contingence** (effectifs observés).\
+2.  On calcule les **effectifs attendus** si les variables étaient indépendantes.\
+3.  Le test compare :
+
+$$
+\chi^2 = \sum \frac{(O - E)^2}{E}
+$$
+
+plus $\chi^2$ est grand → plus la différence entre observé/attendu est forte\
+→ plus l’association est probable
+
+\
+
+### Ce que renvoie `chisq.test()`
+
+-   statistique $\chi^2$\
+-   degrés de liberté\
+-   p-value\
+-   tableau des effectifs attendus
+
+### Règle de décision
+
+-   si **p-value \< 0.05** → on **rejette** $H_0$\
+    → les variables sont **associées**
+:::
+:::::
+
+## Application YouTube : catégorie × commentaires désactivés {style="font-size:0.65em"}
+
+::::: columns
+::: {.column width="50%"}
+### Question de recherche
+
+**La catégorie de vidéo influence-t-elle la probabilité de désactiver les commentaires ?**
+
+Variables du dataset YouTube :
+
+\
+
+-   `category_id` : catégorie officielle YouTube\
+-   `comments_disabled` : TRUE / FALSE
+
+### Code utilisé
+
+\
+
+```{r}
+#| label: chisq-yt-comments
+#| eval: true
+#| echo: true
+
+yt <- yt %>%
+  mutate(
+    category_id = as.factor(category_id),
+    comments_disabled = as.factor(comments_disabled)
+  )
+
+tab <- table(yt$category_id, yt$comments_disabled)
+
+chisq.test(tab)
+```
+
+Avertissement : *“approximation du Chi-2 incorrecte”*\
+→ dû à des catégories rares, mais échantillon très large.
+:::
+
+::: {.column width="50%"}
+### Résultats
+
+-   $\chi^2 = 1065.3$\
+-   $df = 17$\
+-   p-value \< 2.2e-16
+
+### Interprétation
+
+-   p-value extrêmement faible → **on rejette** $H_0$\
+-   Il existe une **association significative** entre :
+    -   la catégorie YouTube,
+    -   la désactivation des commentaires.
+
+### Quelle interprétation en faire ?
+
+-   Certaines catégories sont beaucoup plus susceptibles de désactiver les commentaires :
+    -   actualité / politique\
+    -   contenu sensible\
+    -   vidéos pour enfants\
+-   Cela reflète :
+    -   gestion du risque réputationnel\
+    -   prévention des polémiques\
+    -   modération renforcée selon l’audience
+:::
+:::::
+
+## Visualisation : % de commentaires désactivés par catégorie {style="font-size:0.7em"}
+
+```{r}
+#| label: comments-disabled
+#| eval: true
+#| echo: false
+#| fig-height: 7
+#| fig-width: 9
+
+# 1. Mapping ID -> label
+category_map <- tibble(
+  category_id = factor(c("1","2","10","15","17","19","20","22","23","24","25",
+                         "26","27","28","29","30","43","44")),
+  category_label = c(
+    "Film & Animation",
+    "Autos & Vehicles",
+    "Music",
+    "Pets & Animals",
+    "Sports",
+    "Travel & Events",
+    "Gaming",
+    "People & Blogs",
+    "Comedy",
+    "Entertainment",
+    "News & Politics",
+    "Howto & Style",
+    "Education",
+    "Science & Technology",
+    "Nonprofits & Activism",
+    "Movies",
+    "Shows",
+    "Trailers"
+  )
+)
+
+# 2. Joindre au dataset yt
+yt <- yt %>%
+  mutate(category_id = as.factor(category_id)) %>%
+  left_join(category_map, by = "category_id")
+
+# 3. Calcul des % et graphique
+plot_data <- yt %>%
+  mutate(comments_disabled = as.factor(comments_disabled)) %>%
+  group_by(category_label) %>%
+  summarise(
+    pct_comments_disabled = mean(comments_disabled == "TRUE") * 100,
+    n = n(),
+    .groups = "drop"
+  )
+
+ggplot(plot_data,
+       aes(x = reorder(category_label, pct_comments_disabled),
+           y = pct_comments_disabled)) +
+  geom_col(fill = "#ff6b6b", alpha = 0.8) +
+  coord_flip() +
+  labs(
+    title = "% de vidéos avec commentaires désactivés par catégorie",
+    x = "Catégorie YouTube",
+    y = "Pourcentage (%)"
+  ) +
+  theme_minimal(base_size = 14)
+
+```
+
+## Limite du test-t : comparer plus de 2 groupes
+
+Que faire si on veut comparer le CTR de 3 campagnes (A, B, C) ?
+On pourrait être tenté de faire 3 tests t : A vs B, B vs C, A vs C.
+
+**A éviter parce que :**
+
+Chaque test a un risque de 5% de faux positif (Erreur de Type I).
+En multipliant les tests, ce risque **s'accumule**.
+Avec 3 tests, la probabilité d'avoir au moins un faux positif est : $1 - (1 - 0.05)^3 \approx 14.3\%$.
+Le risque a presque triplé !
+
+La solution est d'utiliser un test qui compare tous les groupes simultanément : l'**ANOVA**.
+
+## L'Analyse de la variance (ANOVA)
+
+L'ANOVA est une généralisation du test-t pour comparer les moyennes de 3 groupes ou plus.
+
+-   $H_0$ : les moyennes de tous les groupes sont égales ($\mu_1 = \mu_2 = \dots = \mu_k$).
+-   $H_1$ : au moins une moyenne de groupe est différente des autres.
+
+**Principe :** l'ANOVA compare la variance *entre* les groupes à la variance *à l'intérieur* des groupes.
+Si la variance entre les groupes est significativement plus grande que celle à l'intérieur, on conclut que les groupes ne proviennent pas de la même population.
+
+## Application : dépenses en vin selon niveau d'éducation (iFood) {style="font-size:0.7em"}
+
+**Question :** Le montant moyen dépensé en vin (`MntWines`) est-il différent selon le niveau d'éducation du client ?
+
+### Visualisation
+
+```{r}
+#| label: anova-boxplot
+#| fig-height: 5
+#| echo: false
+
+# Chargement + création d'une variable Education propre
+ifood <- readr::read_csv("../data_full/ifood/ifood_df.csv") %>%
+  mutate(Education = case_when(
+    education_Graduation == 1 ~ "Graduation",
+    education_PhD == 1 ~ "PhD",
+    education_Master == 1 ~ "Master",
+    education_Basic == 1 ~ "Basic",
+    `education_2n Cycle` == 1 ~ "2n Cycle"
+  ))
+
+ggplot(ifood, aes(x = fct_reorder(Education, MntWines, .fun = median),
+                  y = MntWines, fill = Education)) +
+  geom_boxplot() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  labs(
+    title = "Dépenses en vin par niveau d'éducation",
+    y = "Dépenses en vin",
+    x = "Niveau d'éducation"
+  ) +
+  theme_cours3 +
+  theme(legend.position = "none")
+```
+
+## Application ANOVA {style="font-size:0.45em"}
+
+```{r}
+#| label: anova-model
+
+# Retirer les NA (si certains clients n'ont pas de catégorie Education)
+ifood_clean <- ifood %>% filter(!is.na(Education), Education != "Autre")
+# 2. On lance le modèle
+aov_model <- aov(MntWines ~ Education, data = ifood_clean)
+
+summary(aov_model)
+```
+
+| Colonne | Nom Complet | Explication Simple | Dans notre cas |
+|:-----------------|:-----------------|:-----------------|:-----------------|
+| **Df** | **Degrees of Freedom** <br>(Degrés de liberté) | Nombre de catégories moins 1. C'est la "complexité" de la variable. | **4** <br>*(car 5 niveaux d'éducation - 1)* |
+| **Sum Sq** | **Sum of Squares** | La quantité totale de variation (disparité des dépenses) expliquée par cette ligne. | *12M* : L'éducation explique une part, mais il reste beaucoup de variation inexpliquée (Residuals). |
+| **Mean Sq** | **Mean Squares** | La variance moyenne (Sum Sq / Df). | *3M* : C'est l'impact moyen de l'éducation. |
+| **F value** | **Statistique F** | **Le ratio Signal / Bruit.** <br> Est-ce que l'effet Education est plus fort que le hasard ? | **29.48** <br> Plus ce chiffre est grand (\>1), plus l'effet est réel. Ici, il est énorme. |
+| **Pr(\>F)** | **P-value** | **Le risque de se tromper.** Probabilité de voir ce résultat si l'éducation ne servait à rien. | **\< 2e-16** <br> (0.000000...) Le risque est nul. L'impact est certain. |
+
+**Interprétation :**
+
+-   La statistique $F = 29.48$ avec une p-value $< 2e-16$ : on **rejette** $H_0$ au seuil de 5 %.
+-   Il existe donc une **différence significative** de dépenses moyennes en vin entre au moins deux niveaux d’éducation.
+-   Le boxplot suggère que les clients **Basic / 2n Cycle** dépensent en moyenne moins que les clients **Master / Graduation / PhD**.
+-   En termes marketing, les clients les plus diplômés semblent être des **clients à plus fort budget “vin”**, ce qui en fait un **segment intéressant**.
+-   Mais l’ANOVA ne dit pas **quels** groupes sont différents : pour cela, il faudra faire des **tests post-hoc (Tukey)**.
+
+## Récapitulatif des tailles d’effet {style="font-size:0.65em"}
+
+Les p-values indiquent si un effet existe, la **taille d'effet** indique s'il est important.
+
+| Métrique | Contexte | Commande R suggérée | Seuils (Petit / Moyen / Grand) |
+|--------------|--------------|-----------------|---------------------------|
+| **Cohen’s d** | Test t (2 moyennes) | `lsr::cohensD(valeur ~ groupe)` | 0.2 / 0.5 / 0.8 |
+| **Cohen’s h** | Test prop. (2 %) | `pwr::ES.h(p1, p2)` | 0.2 / 0.5 / 0.8 |
+| **Eta-carré (η²)** | ANOVA (\> 2 groupes) | `lsr::etaSquared(modele)` | 0.01 / 0.06 / 0.14 |
+| **R-carré (R²)** | Régression | `summary(modele)$r.squared` | 0.02 / 0.13 / 0.26 |
+
+**Note :** Le $R^2$ est natif dans R.
+Pour les autres, des packages comme `lsr`, `effectsize` ou `pwr` sont souvent nécessaires pour obtenir la valeur directement.
+
+**À retenir :**
+
+-   Cohen’s d → **2 groupes, moyennes**
+-   Cohen’s h → **2 groupes, proportions**
+-   $η^2$ → **3+ groupes, ANOVA**
+-   $R^2$ → **modèles prédictifs**
+
+Ces indicateurs quantifient l’importance réelle d’un effet, au-delà de la significativité statistique.
+
+## Taille d’effet de l’ANOVA : quelle importance pratique ? {style="font-size:0.75em"}
+
+L’ANOVA nous dit si l’effet est **significatif**, mais pas s’il est **important**.\
+Pour cela, on calcule la **taille d’effet**.\
+La plus utilisée en marketing / sciences sociales : **eta² (η²)**.
+
+-   **η² = (Somme des carrés expliquée) / (Somme des carrés totale)**\
+-   Valeurs typiques (Cohen, 1988) :
+    -   0.01 → petit effet\
+    -   0.06 → effet moyen\
+    -   0.14 → grand effet
+
+### Calculer η²
+
+```{r}
+#| label: effect-size
+#anova_table <- summary(aov_model)[[1]]
+#ss_education <- anova_table["Education", "Sum Sq"]
+#ss_total <- sum(anova_table[ , "Sum Sq"])
+#eta_squared <- ss_education / ss_total
+#eta_squared
+#ou plus simple :
+library(effectsize)
+eta_squared(aov_model, partial = FALSE)
+```
+
+## Interprétation de la taille d’effet (η²)
+
+La taille d’effet **η²** mesure **la part de variance expliquée** par l’éducation.
+
+**Référentiel (Cohen, 1988)**\
+- 0.01 → petit effet\
+- 0.06 → effet moyen\
+- 0.14 → grand effet
+
+**Dans notre cas :**\
+- η² ≈ **0.05** → **effet faible à modéré**.
+
+L’éducation influence bien la dépense en vin, mais **n’explique qu’une petite part** du comportement d’achat.
+
+## Tests Post-Hoc : qui est différent de qui ? {style="font-size:0.65em"}
+
+L'ANOVA nous dit "OUI, il y a une différence quelque part".
+Elle ne nous dit pas où.
+Pour comparer chaque paire de groupes, on utilise un **test post-hoc**, comme le test de **Tukey (Honest Significant Difference)**.
+
+::::: columns
+::: {.column width="50%"}
+```{r}
+#| label: tukey-hsd
+
+tukey_results <- TukeyHSD(aov_model)
+print(tukey_results)
+```
+
+### Interprétation des résultats Tukey
+
+Le tableau présente, pour chaque paire de niveaux d’éducation :
+
+-   `diff` : différence de moyennes (ligne − colonne)\
+-   `lwr` / `upr` : bornes de l’intervalle de confiance à 95 %\
+-   `p adj` : p-value ajustée (corrigée pour comparaisons multiples)
+
+
+:::
+::: {.column width="50%"}
+On peut visualiser ces résultats : les intervalles de confiance qui ne traversent pas la ligne verticale du zéro indiquent une différence significative.
+
+```{r}
+#| label: tukey-plot
+#| fig-height: 6
+
+par(mar = c(6, 10, 4, 2))  # marges plus grandes
+plot(tukey_results,
+     las = 1,        # labels horizontaux
+     cex.axis = 0.8  # taille texte
+)
+```
+
+
+:::
+:::::
+
+## Limites des tests classiques
+
+-   Sensible à la taille d’échantillon :
+    -   très grandes bases ⇒ p-values \~ 0 pour des effets minuscules.
+-   Hypothèses (normalité, indépendance, etc.) rarement **exactes**.
+-   À articuler avec :
+    -   la taille d’effet
+    -   le contexte métier
+    -   les coûts/bénéfices des décisions.
+
+
+## Analyse factorielle / Réduction de dimension {style="font-size:0.8em"}
+
+**Pourquoi réduire la dimension ?**
+
+- Quand on a **beaucoup de variables**, l’analyse devient difficile :  
+  *likes, vues, commentaires, durée, fréquence…*
+- Beaucoup de ces variables sont **corrélées entre elles**  
+  → elles racontent presque la même histoire.
+- L’objectif est de **résumer** l’information essentielle.
+
+**Objectifs :**
+
+- extraire quelques **dimensions latentes** (méga-variables)
+- projeter les individus (vidéos, clients…) dans un **espace réduit** (2D)
+- simplifier la visualisation, la segmentation et les modèles prédictifs
+
+
+## Principe intuitif de l’ACP {style="font-size:0.8em"}
+
+L’ACP construit :
+
+- de **nouvelles variables** = combinaisons linéaires des variables d'origine  
+  → ce sont les **composantes principales**
+- la **1ʳᵉ composante** : direction où les données varient le plus  
+- la **2ᵉ composante** : variation orthogonale à la 1ʳᵉ (C1 ⟂ C2)
+
+**Ce que l’on interprète :**
+
+- **valeurs propres** → part de variance expliquée par chaque axe  
+- **charges factorielles** → corrélation entre variable et composante  
+- **coordonnées des individus** → position des vidéos dans l’espace factoriel  
+
+
+## Application Spotify {style="font-size:0.8em"}
+
+L’Analyse en Composantes Principales (ACP) permet de résumer plusieurs variables corrélées en quelques dimensions faciles à visualiser.
+
+Ici : les caractéristiques audio Spotify  
+(`danceability`, `energy`, `valence`, `acousticness`, `instrumentalness`, `speechiness`, `liveness`, `tempo`, `loudness`).
+
+Objectifs :
+
+- résumer **9 variables** → 2-3 dimensions latentes ;
+- visualiser les morceaux en **2D** ;
+- colorer par **genre** ou **artiste**.
+
+
+## Préparer les données Spotify pour l’ACP {style="font-size:0.6em"}
+
+:::: columns
+::: {.column width="48%"}
+
+### Pourquoi utiliser `scale()` ?
+
+L’ACP repose sur les **variances** : une variable qui a une grande échelle domine les autres.  
+Or ici :
+
+- `loudness` ≈ de –60 à 0  
+- `tempo` ≈ 60–200  
+- `danceability`, `energy` ≈ 0–1  
+- `instrumentalness` ≈ 0–1 (ultra concentrée)  
+
+Sans standardisation, l’ACP serait dominée par **loudness** ou **tempo**, et ignorerait les variables sur [0,1].
+
+\
+\
+
+`scale()` transforme chaque variable ainsi :
+
+$$
+z = \frac{x - \mu}{\sigma}
+$$
+
+- $\mu$ : moyenne  
+- $\sigma$ : écart-type  
+
+→ **moyenne = 0**  
+→ **écart-type = 1**
+
+\
+\
+
+Résultat :  
+Toutes les variables contribuent **équitablement** à l’ACP → interprétation fiable.
+
+:::
+
+::: {.column width="52%"}
+
+### Code utilisé pour préparer les données
+
+```{r}
+#| label: prepare-spotify-acp
+spotify_acp <- spotify %>%
+  select(danceability, energy, valence,acousticness, instrumentalness, speechiness, liveness,tempo, loudness) %>%
+  drop_na()
+spotify_acp_scaled <- scale(spotify_acp) # Standardisation indispensable pour l’ACP
+acp_spotify <- prcomp(spotify_acp_scaled) # Calcul de l'ACP
+acp_spotify
+```
+
+:::
+::::
+
+
+## Scree Plot : combien de dimensions garder ?
+
+```{r}
+#| label: scree-plot
+#| eval: true
+#| echo: true
+#| fig-height: 5
+#| fig-width: 7
+library(factoextra)
+
+fviz_screeplot(acp_spotify, addlabels = TRUE, ylim = c(0, 100)) +
+  labs(title = "Scree plot - Variance expliquée par composante") +
+  theme_minimal()
+```
+
+
+## Interpréter le scree plot & les composantes Spotify {style="font-size:0.8em"}
+
+### Lecture rapide des axes (méthode simple)
+
+1. Repérer les **plus fortes charges** (|0.4|, |0.5|, |0.6|).  
+2. Voir quelles variables « vont ensemble ».  
+3. Donner un **nom intuitif** à la composante.
+
+### Résumé des premières composantes
+
+| Composante | % var. | Interprétation intuitive |
+|-----------:|-------:|--------------------------|
+| **PC1**    | ~32 %  | **Énergie / loudness / tempo** ↔ **acoustique** |
+| **PC2**    | ~16 %  | **Valence + danceability** (mood joyeux/dansant) |
+| **PC3**    | ~13 %  | **Parlé / live** ↔ **instrumental studio** |
+| **PC4**    | ~10 %  | **Instrumentalité** ↔ **tempo/rythme** |
+| **PC5**    | ~10 %  | Variations fines (moins interprétables) |
+
+**Idée clé :** une composante = une **dimension latente** qui combine les variables corrélées.
+
+## Cercle des corrélations - interpréter les axes {style="font-size:0.6em"}
+
+:::: {.columns}
+
+::: {.column width="40%"}
+
+- **Dim1 (≈ Énergie ↔ Acoustique)**  
+  - Côté gauche : ↑ *energy*, ↑ *loudness*, ↑ *tempo* → morceaux **forts, énergiques, dansants**  
+  - Côté droit : ↑ *acousticness*, ↑ *instrumentalness* → morceaux **acoustiques / instrumentaux**
+
+- **Dim2 (≈ Humeur / Style sonore)**  
+  - En haut : ↑ *valence*, ↑ *danceability* → morceaux **joyeux et dansants**  
+  - En bas : ↑ *instrumentalness*, ↑ *liveness*, ↑ *tempo* → morceaux **plus instrumentaux / live / rapides**
+
+:::
+
+::: {.column width="60%"}
+
+**Interprétation générale :**  
+Le cercle des corrélations montre que *energy* et *loudness* sont fortement liées et s’opposent à *acousticness*: les morceaux puissants et énergiques sont rarement très acoustiques. La deuxième composante distingue plutôt les titres joyeux et dansants (valence, danceability) des morceaux plus instrumentaux ou live. Les variables les plus chaudes (orange/rouge) sont celles qui structurent le plus la carte factorielle.
+
+:::
+
+::: {.column width="60%"}
+```{r}
+#| label: pca-var
+#| eval: true
+#| fig-height: 7
+#| fig-width: 7
+#| output-location: slide
+
+fviz_pca_var(
+  acp_spotify,
+  col.var = "contrib",
+  gradient.cols = c("#00AFBB", "#E7B800", "#FC4E07"),
+  repel = TRUE
+) +
+  labs(title = "Cercle des corrélations - ACP Spotify (caractéristiques audio)") +
+  theme_minimal()
+```
+:::
+
+::::
+
+
+## Visualisation des morceaux - colorés par popularité
+
+```{r}
+#| label: acp-popularity
+#| eval: true
+#| echo: false
+#| fig-height: 6
+#| fig-width: 12
+
+pop_class <- cut(
+  spotify$popularity,
+  breaks = quantile(spotify$popularity, probs = c(0, .5, .8, .95, 1), na.rm = TRUE),
+  include.lowest = TRUE,
+  labels = c("Niche", "Moyenne", "Populaire", "Très populaire")
+)
+
+fviz_pca_ind(
+  acp_spotify,
+  geom = "point",
+  habillage = pop_class,
+  addEllipses = TRUE,
+  palette = "Dark2",
+  label = "none"
+) +
+  labs(
+    title = "Morceaux Spotify dans le plan ACP",
+    subtitle = "Couleur = classes de popularité",
+    x = "Dim1 (≈ 32 % — gauche : énergétiques / loud / dansants · droite : acoustiques / instrumentaux)",
+    y = "Dim2 (≈ 16 % — haut : mood joyeux / dansant · bas : instrumental / live / énergique)"
+  ) +
+  theme_minimal()
+```
+
+
+## Visualisation ACP : colorer par *genre musical* {style="font-size:0.7em"}
+
+```{r}
+#| label: acp-genre
+#| eval: true
+#| echo: false
+#| fig-height: 6
+#| fig-width: 12
+
+# 1. Genres principaux (top 5)
+genres <- spotify %>%
+  count(track_genre) %>%
+  arrange(desc(n)) %>%
+  slice(1:5) %>%
+  pull(track_genre)
+
+# 2. Sous-ensemble Spotify avec les colonnes utiles
+spotify_subset <- spotify %>%
+  filter(track_genre %in% genres) %>%
+  select(
+    artists,
+    track_name,
+    track_genre,
+    popularity,
+    danceability, energy, valence,
+    acousticness, instrumentalness,
+    speechiness, liveness,
+    tempo, loudness
+  ) %>%
+  drop_na()
+
+# 3. Matrice numérique pour l'ACP
+spotify_acp2 <- spotify_subset %>%
+  select(
+    danceability, energy, valence,
+    acousticness, instrumentalness,
+    speechiness, liveness,
+    tempo, loudness
+  )
+
+# 4. ACP
+acp2 <- prcomp(scale(spotify_acp2))
+
+# 5. Coordonnées des morceaux (PC1, PC2) + genre + popularité
+scores <- as.data.frame(acp2$x) %>%
+  mutate(
+    artists     = spotify_subset$artists,
+    track_genre = spotify_subset$track_genre,
+    popularity  = spotify_subset$popularity
+  )
+
+# 6. Sélection des 10 morceaux les plus populaires PAR GENRE
+top_labels <- scores %>%
+  group_by(track_genre) %>%
+  slice_max(popularity, n = 30, with_ties = FALSE) %>%
+  ungroup()
+
+# 7. Graphique de base ACP (par genre)
+p <- fviz_pca_ind(
+  acp2,
+  habillage   = spotify_subset$track_genre,
+  addEllipses = TRUE,
+  label       = "none",
+  palette     = "Dark2"
+) +
+  labs(
+    title    = "ACP Spotify sur 5 genres principaux",
+    subtitle = "Couleur = genre musical",
+    x = "Dim1 (41,5 % – énergie / loudness / tempo ↔ acousticness)",
+    y = "Dim2 (12,4 % – valence & danceability / mood joyeux)"
+  )
+
+# 8. Ajout des labels : artistes les plus populaires par genre
+p + geom_text_repel(
+  data        = top_labels,
+  aes(x = PC1, y = PC2, label = artists, color = track_genre),
+  size        = 3,
+  inherit.aes = FALSE
+)
+
+ggsave("images/spotify_acp_genre.png", width = 20, height = 15, dpi = 600)
+```
+L’axe horizontal oppose les morceaux énergétiques, rapides et bruyants (à gauche) aux titres plus calmes, acoustiques et ambients (à droite), tandis que l’axe vertical distingue les morceaux joyeux et dansants (en haut) des titres plus sombres ou introspectifs (en bas).
+
+## Visualisation ACP colorée par *artiste* {style="font-size:0.7em"}
+
+```{r}
+#| eval: true
+#| echo: false
+#| fig-height: 6
+#| fig-width: 12
+
+# 1. Sélection des 5 artistes les plus représentés
+top_artists <- spotify %>%
+  count(artists) %>%
+  arrange(desc(n)) %>%
+  slice(1:5) %>%
+  pull(artists)
+
+# 2. Sous-ensemble + top 5 chansons par artiste (selon popularity)
+spotify_subset2 <- spotify %>%
+  filter(artists %in% top_artists) %>%
+  distinct(track_id, .keep_all = TRUE) %>%        # 1 ligne par morceau
+  group_by(artists) %>%
+  slice_max(popularity, n = 5, with_ties = FALSE) %>%
+  ungroup()
+
+# 3. Données numériques pour l'ACP
+spotify_acp3 <- spotify_subset2 %>%
+  select(
+    danceability, energy, valence,
+    acousticness, instrumentalness,
+    speechiness, liveness,
+    tempo, loudness
+  ) %>%
+  drop_na()
+
+# 4. ACP
+acp3 <- prcomp(scale(spotify_acp3))
+
+# => La première composante (PC1) explique ~34 % de la variance :
+#    elle oppose les morceaux très "énergétiques" (energy, loudness,
+#    danceability positifs) aux morceaux très "acoustiques" (acousticness négatif).
+#    → Axe “intensité électrique / énergie” ↔ “calme / acoustique”.
+#
+# => La deuxième composante (PC2) explique ~18 % :
+#    elle distingue les morceaux “live / scène” (liveness positif, loudness positif)
+#    des morceaux studio plus joyeux/parlés (valence et speechiness négatifs).
+#    → Axe “live / concert” ↔ “studio pop joyeux”.
+#
+# Ensemble, ces deux axes permettent de visualiser les styles propres
+# aux artistes : où ils se situent selon l’intensité, l’acoustique,
+# l’ambiance live, la joie ou le caractère parlé de leurs morceaux.
+# ---------------------------------------------------------------------------
+
+# 5. Coordonnées + labels
+scores_artists <- as.data.frame(acp3$x) %>%
+  mutate(
+    artists    = spotify_subset2$artists,
+    track_name = spotify_subset2$track_name
+  )
+
+# 6. Visualisation de base
+p <- fviz_pca_ind(
+  acp3,
+  habillage   = scores_artists$artists,
+  addEllipses = TRUE,
+  label       = "none",
+  palette     = "Dark2"
+) +
+  labs(
+    title    = "ACP Spotify pour 5 artistes principaux",
+    subtitle = "Couleur = artiste – top 5 titres par artiste",
+    x = "Dim1 (≈ 34 % – gauche : morceaux acoustiques calmes · droite : morceaux énergiques / forts / dansants)",
+    y = "Dim2 (≈ 18 % – haut : ambiance live / scène · bas : studio plus joyeux / parlé)"
+  )
+
+# 7. Ajout des labels (titres des morceaux)
+p_lab <- p +
+  ggrepel::geom_text_repel(
+    data        = scores_artists,
+    aes(x = PC1, y = PC2, label = track_name, color = artists),
+    size        = 3,
+    inherit.aes = FALSE,
+    max.overlaps = 100
+  )
+
+p_lab
+
+# Export HD
+ggsave("images/spotify_acp_artists.png", plot = p_lab,
+       width = 20, height = 15, dpi = 600)
+```
+Linkin Park ressort comme très énergique (à droite), Ella Fitzgerald comme très acoustique et douce (à gauche). Stevie Wonder occupe une zone plus chaleureuse/groovy. Les Beatles couvrent un large spectre, et George Jones reste dans une zone calme et country. Voir https://everynoise.com/ pour plus d’analyses.
+
+## Interprétation globale
+
+- L’ACP Spotify donne un exemple **réellement multidimensionnel** (contrairement aux données YouTube).
+- Dim1 = **énergie, tempo, loudness**  
+- Dim2 = **humeur, valence, danceability**  
+- Certains genres / artistes occupent des zones différentes :  
+  - alt-rock → plutôt côté “énergétique”  
+  - ambient → calme et acoustique  
+  - pop / funk → valence + danceability  
+
+Conclusion  :
+
+> L’ACP détecte automatiquement les axes musicaux latents que Spotify utilise implicitement dans ses algorithmes de recommandation.
+
+
+
+## Régression linéaire : prédire une variable numérique {style="font-size:0.8em"}
+
+**Objectif :** Modéliser la relation entre une variable cible (Y) et une ou plusieurs variables explicatives (X).
+
+**Applications marketing typiques :**
+
+- Prédire le **chiffre d'affaires** en fonction du budget publicitaire
+- Estimer les **ventes** à partir du nombre de visiteurs web
+- Anticiper les **dépenses client** selon son profil (âge, revenu, etc.)
+- Mesurer l'impact d'une **campagne marketing** sur les conversions
+
+**Question centrale :** *"Si j'augmente X de 1 unité, de combien Y va-t-il augmenter en moyenne ?"*
+
+
+## Les hypothèses de la régression linéaire {style="font-size:0.75em"}
+
+Avant de construire un modèle, il faut comprendre ses **conditions de validité** :
+
+:::: {.columns}
+::: {.column width="50%"}
+### 1. Linéarité
+La relation entre X et Y est approximativement **une droite**.
+
+- Ventes = f(budget pub) → souvent linéaire
+- Engagement = f(temps) → peut être en courbe
+
+\
+\
+
+### 2. Indépendance des observations
+Chaque observation est **indépendante** des autres.
+
+- Clients différents dans une base
+- Données temporelles (ventes jour après jour)
+
+:::
+
+::: {.column width="50%"}
+### 3. Homoscédasticité
+La **variance des erreurs** est constante (pas d'effet entonnoir).
+
+- Les résidus ne doivent pas être plus dispersés pour certaines valeurs de X.
+
+\
+\
+
+### 4. Normalité des résidus
+Les erreurs du modèle suivent une **loi normale** (courbe en cloche).
+
+- Importante surtout pour les petits échantillons (n < 30).
+:::
+::::
+
+
+## Régression linéaire simple {style="font-size:0.8em"}
+
+**Le modèle le plus simple :** une seule variable explicative.
+
+$$
+Y = \beta_0 + \beta_1 X + \varepsilon
+$$
+
+- **Y** : variable à prédire (ex: dépenses en vin)
+- **X** : variable explicative (ex: revenu du client)
+- **β₀** : l'ordonnée à l'origine (valeur de Y quand X = 0)
+- **β₁** : la **pente** (effet marginal de X sur Y)
+- **ε** : l'erreur (ce que le modèle n'explique pas)
+
+**Interprétation de β₁ :**
+
+> "Quand X augmente de 1 unité, Y augmente en moyenne de β₁ unités."
+
+---
+
+## Application : dépenses en vin ~ Revenu (iFood) {style="font-size:0.4em"}
+
+**Question marketing :** *"Les clients à plus haut revenu dépensent-ils plus en vin ?"*
+
+```{r}
+#| label: reg-simple-ifood
+#| eval: true
+#| echo: true
+
+# Modèle simple
+mod_simple <- lm(MntWines ~ Income, data = ifood)
+summary(mod_simple)
+```
+
+**Lecture des résultats :**
+
+- **Coefficient `Income` = 0.0119** : pour chaque **1000€ de revenu** supplémentaire, le client dépense en moyenne **11.90€ de plus** en vin
+- **p-value < 2e-16** : l'effet est **statistiquement très significatif** (trois étoiles ***)
+- **R² = 0.5336** : le revenu explique **53%** de la variance des dépenses en vin → c'est un excellent modèle simple !
+- **Intercept = -308€** : valeur théorique (sans sens réel) quand revenu = 0
+
+## Visualisation régression linéaire simple
+
+```{r}
+#| label: plot-reg-simple
+#| eval: true
+#| echo: false
+ggplot(ifood, aes(x = Income, y = MntWines)) +
+  geom_point(alpha = 0.3, color = "#2C3E50") +
+  geom_smooth(method = "lm", se = TRUE, color = "#E74C3C", size = 1.2) +
+  labs(
+    title = "Relation entre Revenu et Dépenses en Vin",
+    subtitle = "Chaque point = un client",
+    x = "Revenu annuel (€)",
+    y = "Dépenses en vin (€)"
+  ) +
+  scale_x_continuous(labels = scales::label_number(scale_cut = scales::cut_short_scale())) +
+  theme_cours3
+```
+
+
+## Régression linéaire multiple {style="font-size:0.8em"}
+
+**Ajouter plusieurs prédicteurs** pour améliorer le modèle :
+
+$$
+Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_p X_p + \varepsilon
+$$
+
+**Avantages :**
+
+- Meilleure **précision** de prédiction
+- Contrôler l'effet d'une variable **toutes choses égales par ailleurs**
+
+**Attention :**
+
+- **Multicolinéarité** : si X₁ et X₂ sont trop corrélés, les coefficients deviennent instables
+- **Surapprentissage** : trop de variables → le modèle "mémorise" au lieu de généraliser
+
+
+## Application : Dépenses en vin ~ Revenu + Âge + Éducation {style="font-size:0.5em"}
+
+**Question :** *"Quels profils clients dépensent le plus en vin ?"*
+
+```{r}
+#| label: reg-multiple-ifood
+#| eval: true
+#| echo: true
+
+# Modèle multiple
+mod_multi <- lm(MntWines ~ Income + Age + education_PhD + education_Master, 
+                data = ifood)
+summary(mod_multi)
+```
+
+**Interprétation des coefficients :**
+
+- **Income (0.01175)** : à âge et éducation constants, +1000€ de revenu → **+11.75€** en vin (effet quasi identique au modèle simple)
+- **Age (-0.157)** : à revenu et éducation constants, +1 an d'âge → **-0.16€** en vin (effet **non significatif**, p = 0.715)
+- **education_PhD (87.33)** : les PhD dépensent **87€ de plus** que le niveau de référence (Basic), à revenu et âge égaux (***très significatif***)
+- **education_Master (41.86)** : les Master dépensent **42€ de plus** que le niveau de référence (**significatif**, p = 0.002)
+
+**R² ajusté = 0.5437** : le modèle explique maintenant **54.4%** de la variance (légère amélioration de +1% vs modèle simple).
+
+**Insight marketing :** Le niveau d'éducation (surtout PhD) est un prédicteur important des dépenses en vin, indépendamment du revenu. L'âge n'a pas d'effet significatif.
+
+## Visualisation multiple
+
+```{r}
+#| label: plot-coefs-multi
+#| eval: true
+#| echo: false
+# 2. Ensuite extraire les coefficients
+library(broom)
+library(jtools)
+
+coefs <- tidy(mod_multi) %>%
+  filter(term != "(Intercept)") %>%
+  mutate(
+    term = case_when(
+      term == "Income" ~ "Revenu (+1000€)",
+      term == "Age" ~ "Âge (+1 an)",
+      term == "education_PhD" ~ "Diplôme PhD",
+      term == "education_Master" ~ "Diplôme Master",
+      TRUE ~ term
+    ),
+    significatif = ifelse(p.value < 0.05, "Significatif", "Non significatif")
+  )
+
+# Visualisation des coefficients
+plot_summs(mod_multi,
+           coefs = c("Revenu (+1000€)" = "Income",
+                     "Âge (+1 an)" = "Age", 
+                     "Diplôme PhD" = "education_PhD",
+                     "Diplôme Master" = "education_Master")) +
+  labs(title = "Impact de chaque variable sur les dépenses en vin",
+       subtitle = "Intervalles de confiance à 95%") +
+  theme_minimal(base_size = 12)
+
+```
+
+
+## Visualisation prédiction
+
+```{r}
+#| label: plot-pred-vs-obs
+#| eval: true
+#| echo: false
+#| fig-height: 5
+
+# Créer un dataset avec les prédictions
+ifood_pred <- ifood %>%
+  mutate(
+    pred_wines = predict(mod_multi, newdata = ifood),
+    residu = MntWines - pred_wines
+  )
+
+# Graphique prédictions vs observations
+ggplot(ifood_pred, aes(x = pred_wines, y = MntWines)) +
+  geom_point(alpha = 0.3, color = "#3498DB") +
+  geom_abline(slope = 1, intercept = 0, color = "#E74C3C", linetype = "dashed", size = 1.2) +
+  labs(
+    title = "Qualité des prédictions du modèle",
+    subtitle = "Si le modèle était parfait, tous les points seraient sur la ligne rouge",
+    x = "Dépenses prédites par le modèle (€)",
+    y = "Dépenses réelles observées (€)"
+  ) +
+  theme_cours3
+```
+
+**Interprétation :** les points sont assez bien alignés autour de la diagonale : le modèle prédit correctement dans la plupart des cas. Les écarts représentent la variance non expliquée (≈46%).
+
+
+## Interpréter le R² et le R² ajusté {style="font-size:0.8em"}
+
+:::: {.columns}
+::: {.column width="50%"}
+### R² (coefficient de détermination)
+
+**Définition :** Part de la variance de Y expliquée par le modèle.
+
+$$
+R^2 = 1 - \frac{\text{variance non expliquée}}{\text{variance totale}}
+$$
+
+- **R² = 0** : le modèle n'explique rien
+- **R² = 1** : le modèle explique tout (parfait)
+- **R² = 0.53** : 53% de la variance expliquée
+
+**Problème :** R² augmente mécaniquement quand on ajoute des variables, même inutiles.
+:::
+
+::: {.column width="50%"}
+### R² ajusté
+
+**Définition :** R² corrigé du nombre de variables.
+
+- Pénalise l'ajout de variables non informatives
+- **Toujours inférieur ou égal** au R² classique
+- **À privilégier** pour comparer des modèles
+
+**Règle pratique :**
+
+\
+
+- R² ajusté **> 0.70** : excellent modèle
+- R² ajusté **0.40-0.70** : bon modèle
+- R² ajusté **< 0.30** : modèle faible (mais peut être utile quand même !)
+
+\
+
+**En marketing, un R² de 0.30-0.50 est souvent acceptable.**
+:::
+::::
+
+
+## Utiliser le modèle pour prédire {style="font-size:0.6em"}
+
+Une fois le modèle construit, on peut **prédire** pour de nouveaux clients.
+```{r}
+#| label: prediction-example
+#| eval: true
+#| echo: true
+
+# Créer un nouveau client hypothétique
+nouveau_client <- data.frame(
+  Income = 60000,
+  Age = 45,
+  education_PhD = 0,
+  education_Master = 1
+)
+
+# Prédire ses dépenses en vin
+prediction <- predict(mod_multi, newdata = nouveau_client)
+prediction
+```
+
+**Interprétation :**  
+Ce client devrait dépenser environ **422€ en vin** selon notre modèle.
+
+**Utilité marketing :**
+
+- Cibler les clients à **fort potentiel** (ceux avec prédiction > 300€)
+- Personnaliser les **offres promotionnelles** (pack premium pour clients Master/PhD)
+- Estimer le **chiffre d'affaires prévisionnel** par segment
+- Identifier les clients **sous-performants** (dépenses réelles < prédiction) pour campagnes de réactivation
+
+
+## Limites et précautions {style="font-size:0.8em"}
+
+:::: {.columns}
+::: {.column width="50%"}
+### Ce que la régression NE fait PAS
+
+**Prouver la causalité**  
+Corrélation ≠ Causalité. Le revenu cause-t-il les dépenses en vin, ou est-ce un autre facteur ?
+
+**Extrapoler hors des données**  
+Si vous n'avez que des revenus entre 20k€ et 100k€, ne prédisez pas pour 200k€.
+
+\
+\
+
+**Gérer la non-linéarité**  
+Si la relation est en courbe, il faut transformer les variables (log, carré...).
+:::
+
+::: {.column width="50%"}
+### Bonnes pratiques
+
+**Vérifier les hypothèses** (linéarité, homoscédasticité)
+
+**Interpréter dans le contexte métier**  
+Un coefficient significatif n'est pas forcément important économiquement.
+
+:::
+::::
+
+
+
+## Récapitulatif : Régression linéaire {style="font-size:0.75em"}
+
+| **Concept** | **Définition** | **Exemple marketing** |
+|:------------|:---------------|:----------------------|
+| **Régression simple** | 1 variable explicative | Ventes ~ Budget pub |
+| **Régression multiple** | Plusieurs variables explicatives | Ventes ~ Budget pub + Saison + Promo |
+| **β (coefficient)** | Effet marginal de X sur Y | +1000€ de revenu → +11.90€ de dépenses |
+| **p-value** | Significativité statistique | p < 0.05 → effet réel |
+| **R²** | % de variance expliquée | R² = 0.53 → bon modèle |
+| **Prédiction** | Estimer Y pour un nouveau X | Estimer les ventes du mois prochain |
+
+**Message clé :** La régression linéaire est l'outil de base pour **quantifier l'impact** d'un levier marketing et **prédire** des comportements.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## Diagnostiquer un modèle de régression linéaire {style="font-size:0.8em"}
+
+| Graphique                        | Ce qu’on cherche                                             | Ce qu’on observe ici                                                                 | Conclusion                                                   |
+|----------------------------------|---------------------------------------------------------------|----------------------------------------------------------------------------------------|--------------------------------------------------------------|
+| **1. Residuals vs Fitted**       | Nuage sans forme, centré autour de 0                         | Courbure légère + dispersion qui augmente pour les grandes valeurs                    | Linéarité globalement OK, mais quelques non-linéarités       |
+| **2. Normal Q-Q Plot**           | Points alignés sur la diagonale                              | Alignement correct sauf aux extrémités (résidus extrêmes)                              | Normalité « raisonnable », légère déviation en queue        |
+| **3. Scale-Location**            | Variance constante (ligne rouge plate)                       | Dispersion qui augmente avec les valeurs prédites → léger effet « entonnoir »          | Hétéroscédasticité modérée (variance non constante)         |
+| **4. Residuals vs Leverage**     | Peu de points influents hors des lignes de Cook              | Quelques points avec levier élevé mais pas au niveau critique                          | Quelques observations influentes mais pas dangereuses        |
+
+### Diagnostic visuel : la commande `plot(model)`
+
+La façon la plus rapide d'évaluer un modèle `lm` est d'utiliser la commande `plot()`, qui génère 4 graphiques de diagnostic essentiels.
+Appliquons-la à notre `mod_multi`.
+
+```{r}
+#| label: reg-diag-plots
+#| fig-height: 6
+#| fig-width: 10
+#| output-location: slide
+
+# Affiche les 4 graphiques de diagnostic
+par(mfrow = c(2, 2))
+plot(mod_multi)
+par(mfrow = c(1, 1)) # Rétablit la configuration graphique
+```
+
+
+## Analyse qualitative de quelques valeurs/profils extrêmes {style="font-size:0.75em"}
+
+```{r}
+#| label: influential-obs
+#| eval: true
+#| echo: false
+
+idx <- c(1873, 2135, 1617)
+
+ifood_diag <- ifood %>%
+  mutate(
+    .row          = row_number(),
+    MntWines_pred = predict(mod_multi, newdata = ifood),
+    resid         = MntWines - MntWines_pred
+  )
+
+tbl_extremes <- ifood_diag %>%
+  filter(.row %in% idx) %>%
+  arrange(.row) %>%
+  mutate(Commentaire = case_when(
+    .row == 1617 ~ "Méga acheteur de vin → le modèle sous-prédit massivement (gros résidu positif).",
+    .row == 1873 ~ "Très haut revenu mais quasi pas de vin → gros résidu négatif (client riche atypique).",
+    .row == 2135 ~ "Vin modéré (~162€). Le modèle sur-prédit (résidu négatif), mais point influent modéré."
+  )) %>%
+  transmute(
+    Obs = .row,
+    Income,
+    Age,
+    `MntWines (réel)`   = sprintf("**%0.0f**", MntWines),
+    `MntWines (prédit)` = sprintf("**%0.0f**", MntWines_pred),
+    Commentaire
+  )
+
+knitr::kable(tbl_extremes, format = "markdown")
+
+```
+
+
+
+## Diagnostic quantitatif : VIF et test de Breusch-Pagan {style="font-size:0.6em"}
+
+Les graphiques donnent une intuition, mais pour valider les hypothèses du modèle, on utilise aussi des **tests statistiques formels**.
+
+::::: columns
+::: {.column width="50%"}
+
+### Multicolinéarité (VIF)
+
+Le VIF (Variance Inflation Factor) mesure à quel point un prédicteur est expliqué par les autres.
+
+- **Règle pratique :**  
+
+\
+
+  - VIF = 1 → aucune corrélation entre prédicteurs  
+  - VIF > 5 (ou 10) → multicolinéarité problématique
+
+```{r}
+#| label: vif-test
+vif(mod_multi)
+```
+
+**Interprétation :**  
+Les VIF sont tous proches de **1** (≈ 1.05 à 1.09).  
+→ Les variables Income, Age et Education ne sont pas redondantes.  
+→ **Aucune multicolinéarité problématique** : les coefficients du modèle sont stables et interprétables.
+
+:::
+
+::: {.column width="50%"}
+
+### Homoscédasticité (Test de Breusch-Pagan)
+
+Ce test vérifie si la variance des résidus est constante.
+
+- **$H_0$ :** variance constante (homoscédasticité)  
+- **$H_1$ :** variance non constante (hétéroscédasticité)
+
+```{r}
+#| label: bp-test
+bptest(mod_multi)
+```
+
+**Interprétation :**  
+La p-value est **< 2.2e-16** → on **rejette $H_0$**.  
+→ Il existe donc une **hétéroscédasticité significative** :  
+les résidus sont plus dispersés chez les clients qui dépensent beaucoup en vin.
+
+\
+\
+
+En pratique, avec **n = 2200**, les tests sont très sensibles :  
+le graphique montre une hétéroscédasticité **modérée**, pas catastrophique.  
+Selon le besoin, on peut :  
+- utiliser des **erreurs robustes**,  
+- ou transformer la variable (ex : `log(MntWines)`).
+
+:::
+:::::
+
+
+
+## Prédire un choix : la régression logistique
+
+Jusqu'ici, nous avons prédit des variables quantitatives (régression linéaire).
+Mais que faire si notre cible est un **choix binaire** ?
+
+-   Le client va-t-il **acheter** ou **ne pas acheter** ?
+-   Va-t-il **cliquer** sur la pub ou **l'ignorer** ?
+-   Se **désabonnera-t-il** ou **restera-t-il** ?
+
+C'est le domaine de la **classification** comme vu dans le précédent cours d'études qualitatives (NLP), et la régression logistique est le modèle le plus fondamental pour cette tâche.
+
+
+## Pourquoi la régression linéaire ne fonctionne pas ? {style="font-size:0.7em"}
+
+Si on code notre cible "Non"=0 et "Oui"=1, une régression linéaire pourrait prédire des valeurs de 0.8, ce qui est interprétable comme une probabilité.\\
+**Le problème :** elle peut aussi prédire 1.5 ou -0.2, ce qui n'a aucun sens en tant que probabilité.
+
+On a besoin d'un modèle qui contraint la sortie entre 0 et 1.
+
+::::: columns
+::: {.column width="50%"}
+### La fonction Sigmoïde à la rescousse
+
+La fonction sigmoïde (ou logistique) prend n'importe quel nombre réel et le transforme en une valeur entre 0 et 1.
+$$ \sigma(z) = \frac{1}{1 + e^{-z}} $$ Où $z$ est notre bonne vieille combinaison linéaire : $z = \beta_0 + \beta_1 X_1 + \dots$
+
+Le modèle prédit donc la probabilité que Y=1 : $$ P(Y=1) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 X_1 + \dots)}} $$
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: sigmoid-plot
+#| echo: false
+#| fig-height: 4
+
+z <- seq(-10, 10, by = 0.1)
+sigma_z <- 1 / (1 + exp(-z))
+ggplot(data.frame(z, sigma_z), aes(x = z, y = sigma_z)) +
+  geom_line(color = "navy", size = 1.5) +
+  labs(
+    title = "La Fonction Sigmoïde", 
+    x = "z (combinaison linéaire des prédicteurs)", 
+    y = "Probabilité P(Y=1)"
+    ) +
+  theme_cours3
+```
+:::
+:::::
+
+
+## Application : prédire la réponse à la Campagne iFood {style="font-size:0.5em"}
+
+**Objectif :** Identifier le profil des clients les plus susceptibles de répondre positivement à une campagne (`Response = 1`).
+Nous allons modéliser la probabilité de réponse en fonction du revenu (`Income`) et des dépenses en vin (`MntWines`).
+
+```{r}
+#| label: logit-model-glm
+
+# On utilise glm() (Generalized Linear Model) avec family="binomial"
+logit_model <- glm(Response ~ Income + MntWines, 
+                   data = ifood, 
+                   family = "binomial")
+
+summary(logit_model)
+```
+
+### Interprétation :
+
+- **Income (p = 0.424)** → *non significatif*.  
+  Le revenu **n’explique pas** la probabilité de répondre.
+
+- **MntWines (p ≈ 1.9e-12)** → *très significatif*.  
+  Plus un client dépense en vin, plus il est susceptible de répondre à la campagne.
+
+Le modèle améliore légèrement la déviance :  
+- Null deviance : 1871.9  
+- Residual deviance : 1753.2  
+→ amélioration modérée.
+
+
+## Interpréter les coefficients : log-odds et odds ratios {style="font-size:0.7em"}
+
+Les coefficients du résumé sont en **log-odds**, une échelle peu intuitive.
+Pour les interpréter, on les convertit en **Odds Ratios (OR)** en calculant leur exponentielle.
+
+-   **Odds (Cotes) :** $Odds = \frac{p}{1-p}$. Une probabilité de 75% (p=0.75) correspond à une cote de 3 (ou "3 contre 1").
+-   **Odds Ratio :** Il mesure de combien les *odds* sont multipliées pour chaque augmentation d'une unité du prédicteur.
+    -   OR \> 1 : Le prédicteur augmente les chances de l'événement.
+    -   OR \< 1 : Le prédicteur diminue les chances de l'événement.
+
+```{r}
+#| label: odds-ratios-tableau
+
+exp(coef(logit_model))
+```
+
+### Interprétation :
+
+- **Income (OR ≈ 1.00000348)**  
+  → Effet *minuscule* et **non significatif**.  
+  → Même 10 000€ de revenu en plus ne changent quasiment rien.
+
+- **MntWines (OR ≈ 1.00161868)**  
+  → Chaque **1€** dépensé en vin **augmente les chances** de réponse de **+0.16%**.  
+  → Pour **100€ de vin**, les chances sont multipliées par :  
+    $$
+    1.00161868^{100} \approx 1.18
+    $$
+    soit **+18%**.
+
+
+## Synthèse & démarche projet
+
+Étapes typiques d’un projet de Web Intelligence :
+
+1.  Définir la **question marketing** (KPI, cible, contraintes).
+2.  Explorer les données :
+    -   statistiques descriptives
+    -   visualisations.
+3.  Tester des hypothèses simples (t, chi-deux…).
+4.  Réduire la dimension si besoin (ACP).
+5.  Construire un ou plusieurs modèles (régression, arbres, KNN…).
+6.  Évaluer sur jeu test, interpréter, itérer.
+
+## Checklist pour vos futurs projets
+
+-   Les données sont-elles :
+    -   propres ? (NA, doublons, valeurs aberrantes)
+    -   suffisamment nombreuses ?
+-   Les choix de modèles sont-ils :
+    -   justifiés par la question métier ?
+    -   évalués correctement ?
+-   Les résultats sont-ils :
+    -   compréhensibles pour un décideur ?
+    -   actionnables dans une logique marketing ?
+
+## Pistes de mini-projets (idées)
+
+-   Prédire la popularité d’une vidéo YouTube (vues/log-vues) à partir de :
+    -   catégorie, longueur du titre, channel, etc.
+-   Optimiser un budget média entre Facebook et AdWords à partir de l’A/B test.
+-   Cibler les clients à forte probabilité de répondre à une campagne iFood.

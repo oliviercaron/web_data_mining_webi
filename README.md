@@ -34,13 +34,13 @@ Pour aller plus loin sur la théorie et la pratique de la Dataviz (références 
 Outils essentiels pour la partie Business Intelligence et le rendu des projets :
 
 - **Shiny (Web Apps)** :
-  - [Mastering Shiny (Hadley Wickham)](https://mastering-shiny.org/) : La bible pour comprendre la réactivité.
-  - [Shiny Gallery](https://shiny.posit.co/r/gallery/) : Pour s'inspirer d'exemples existants.
-  - [bslib (Thèmes)](https://rstudio.github.io/bslib/) : Pour faire des dashboards modernes et esthétiques.
+  - [Mastering Shiny (Hadley Wickham)](https://mastering-shiny.org/)
+  - [Shiny Gallery](https://shiny.posit.co/r/gallery/)
+  - [bslib (Thèmes)](https://rstudio.github.io/bslib/)
 
 - **Quarto (Reporting)** :
   - [Documentation officielle](https://quarto.org/)
-  - [Quarto Dashboards](https://quarto.org/docs/dashboards/) : Créer des dashboards statiques ou interactifs sans serveur complexe.
+  - [Quarto Dashboards](https://quarto.org/docs/dashboards/)
 
 ---
 
@@ -55,9 +55,9 @@ Outils essentiels pour la partie Business Intelligence et le rendu des projets :
 ## 🎓 Projet & Évaluation
 
 Le cours est validé par un projet de groupe (2-3 étudiants) consistant en :
-1.  **Collecte de données** (Web scraping / API / Open Data).
-2.  **Analyse & Visualisation** (Nettoyage, Dataviz, Storytelling, Data Mining).
-3.  **Livrable** : Un rapport reproductible (format HTML Quarto) intégrant code et analyse métier.
+1. **Collecte de données** (Web scraping / API / Open Data).
+2. **Analyse & Visualisation** (Nettoyage, Dataviz, Storytelling, Data Mining).
+3. **Livrable** : Un rapport reproductible (format HTML Quarto) intégrant code et analyse métier.
 
 ---
 
@@ -69,10 +69,10 @@ Le dépôt est organisé par séance.
 
 ## 🚀 Utilisation
 
-1.  Clonez ce dépôt ou téléchargez les fichiers.
-2.  Ouvrez les fichiers `.qmd` ou `.R` dans **RStudio**.
-3.  Assurez-vous d'avoir installé les librairies nécessaires (`tidyverse`, `quarto`, `shiny`, etc.).
-4.  Les **slides** sont accessibles directement via GitHub Pages (liens dans le tableau ci-dessus).
+1. Clonez ce dépôt ou téléchargez les fichiers.
+2. Ouvrez les fichiers `.qmd` ou `.R` dans **RStudio**.
+3. Assurez-vous d'avoir installé les librairies nécessaires (`tidyverse`, `quarto`, `shiny`, etc.).
+4. Les **slides** sont accessibles directement via GitHub Pages (liens dans le tableau ci-dessus).
 
 ---
 
@@ -80,3 +80,24 @@ Le dépôt est organisé par séance.
 
 Ces supports sont mis à disposition pour un usage pédagogique dans le cadre du **M2 Marketing Digital**.  
 Toute réutilisation ou diffusion en dehors de ce contexte doit citer l'auteur : **Olivier Caron**.
+
+---
+
+## 📚 Ressources supplémentaires (Cours 3)
+
+Ressources recommandées pour approfondir statistiques, tests, ACP et manipulation de données :
+
+- Learning Statistics with R – Danielle Navarro  
+  https://github.com/djnavarro/rbook/blob/main/docs/lsr-0.6.pdf
+
+- R for Data Science – Hadley Wickham  
+  https://r4ds.hadley.nz
+
+- R Statistics (GeeksforGeeks)  
+  https://www.geeksforgeeks.org/r-language/r-statistics/
+
+- Modern Statistics with R – Måns Thulin  
+  https://www.modernstatisticswithr.com
+
+- The Big Book of R  
+  https://www.bigbookofr.com
