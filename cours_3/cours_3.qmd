@@ -1570,6 +1570,8 @@ fviz_pca_var(
   labs(title = "Cercle des corrélations - ACP Spotify (caractéristiques audio)") +
   theme_minimal()
 ```
+**Lecture rapide :** Dim1 oppose des morceaux **énergétiques et bruyants** (gauche : energy, loudness) à des morceaux **acoustiques** (droite : acousticness), tandis que Dim2 distingue plutôt les morceaux **joyeux/dansants** (haut : valence, danceability) des morceaux plus **instrumentaux/rythmiques** (bas : instrumentalness, tempo).
+
 :::
 
 ::::

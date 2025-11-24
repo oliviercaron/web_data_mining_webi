@@ -54,7 +54,7 @@ ads_long <- ads_raw %>%
     names_from  = metric,
     values_from = value
   ) %>%
-  mutate(
+  dplyr::mutate(
     platform = recode(
       platform,
       "facebook" = "Facebook",
