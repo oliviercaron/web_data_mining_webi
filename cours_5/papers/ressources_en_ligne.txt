@@ -5,3 +5,4 @@ https://www.networkatlas.eu/index.htm
 https://networksciencebook.com/
 https://olizardo.github.io/networks-textbook/
 https://ona-book.org/index.html
+https://bookdown.org/mike/marketing_research/structural-virality.htm
