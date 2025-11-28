@@ -1,0 +1,7 @@
+https://schochastics.github.io/R4SNA/
+https://github.com/briatte/awesome-network-analysis
+https://beauguitte.github.io/analyse-de-reseau-en-shs/
+https://www.networkatlas.eu/index.htm
+https://networksciencebook.com/
+https://olizardo.github.io/networks-textbook/
+https://ona-book.org/index.html

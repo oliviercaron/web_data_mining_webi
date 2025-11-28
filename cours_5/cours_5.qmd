@@ -1,0 +1,38 @@
+---
+title: "Web Data Mining & Business Intelligence"
+subtitle: "Analyse de réseaux (Network Science)"
+author:
+  - name: "Olivier Caron"
+    affiliations: "Paris Dauphine - PSL"
+format:
+  ubd-revealjs:
+    fig-number: false
+    self-contained: false
+    chalkboard: true
+    transition: fade
+    auto-stretch: false
+    width: 1250
+    height: 760
+    toc: false
+    code-block-height: 700px
+execute:
+  echo: true
+  warning: false
+  message: false
+  fig-align: center
+bibliography: refs.bib
+revealjs-plugins:
+  - editable
+filters:
+  - editable
+crossref: false
+editor:
+  markdown:
+    wrap: sentence
+---
+
+## Objectifs de la séance {#accueil}
+
+
+## Plan global du cours
+

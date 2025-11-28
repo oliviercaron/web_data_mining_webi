@@ -2,3 +2,5 @@ data_full/fr_real_estate
 cours_3/.Rhistory
 cours_3/_extensions/.DS_Store
 cours_3/cours_3.rmarkdown
+data_full/registre_national_cantines/registre-national-des-cantines.parquet
+data_full/base_permanente_equipements/BPE24.parquet
