@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns
+         http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+<!-- Created by igraph -->
+  <key id="v_name" for="node" attr.name="name" attr.type="string"/>
+  <key id="v_segment" for="node" attr.name="segment" attr.type="string"/>
+  <key id="v_degree" for="node" attr.name="degree" attr.type="double"/>
+  <key id="v_btw" for="node" attr.name="btw" attr.type="double"/>
+  <key id="v_pr" for="node" attr.name="pr" attr.type="double"/>
+  <graph id="G" edgedefault="undirected">
+    <node id="n0">
+      <data key="v_name">Mr Hi</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">16</data>
+      <data key="v_btw">231.071428571429</data>
+      <data key="v_pr">0.0969972853882947</data>
+    </node>
+    <node id="n1">
+      <data key="v_name">Actor 2</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">9</data>
+      <data key="v_btw">28.4785714285714</data>
+      <data key="v_pr">0.0528769240611457</data>
+    </node>
+    <node id="n2">
+      <data key="v_name">Actor 3</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">10</data>
+      <data key="v_btw">75.8507936507936</data>
+      <data key="v_pr">0.057078509488462</data>
+    </node>
+    <node id="n3">
+      <data key="v_name">Actor 4</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">6</data>
+      <data key="v_btw">6.28809523809524</data>
+      <data key="v_pr">0.0358598577864114</data>
+    </node>
+    <node id="n4">
+      <data key="v_name">Actor 5</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">3</data>
+      <data key="v_btw">0.333333333333333</data>
+      <data key="v_pr">0.0219779523645895</data>
+    </node>
+    <node id="n5">
+      <data key="v_name">Actor 6</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">4</data>
+      <data key="v_btw">15.8333333333333</data>
+      <data key="v_pr">0.0291111546783701</data>
+    </node>
+    <node id="n6">
+      <data key="v_name">Actor 7</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">4</data>
+      <data key="v_btw">15.8333333333333</data>
+      <data key="v_pr">0.0291111546783701</data>
+    </node>
+    <node id="n7">
+      <data key="v_name">Actor 9</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">5</data>
+      <data key="v_btw">29.5293650793651</data>
+      <data key="v_pr">0.029766056081017</data>
+    </node>
+    <node id="n8">
+      <data key="v_name">Actor 10</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">2</data>
+      <data key="v_btw">0.447619047619048</data>
+      <data key="v_pr">0.0143093971290329</data>
+    </node>
+    <node id="n9">
+      <data key="v_name">Actor 14</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">5</data>
+      <data key="v_btw">24.215873015873</data>
+      <data key="v_pr">0.0295364561519137</data>
+    </node>
+    <node id="n10">
+      <data key="v_name">Actor 15</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">2</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.0145359939979213</data>
+    </node>
+    <node id="n11">
+      <data key="v_name">Actor 16</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">2</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.0145359939979213</data>
+    </node>
+    <node id="n12">
+      <data key="v_name">Actor 19</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">2</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.0145359939979213</data>
+    </node>
+    <node id="n13">
+      <data key="v_name">Actor 20</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">3</data>
+      <data key="v_btw">17.1468253968254</data>
+      <data key="v_pr">0.0196046363256528</data>
+    </node>
+    <node id="n14">
+      <data key="v_name">Actor 21</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">2</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.0145359939979213</data>
+    </node>
+    <node id="n15">
+      <data key="v_name">Actor 23</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">2</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.0145359939979213</data>
+    </node>
+    <node id="n16">
+      <data key="v_name">Actor 24</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">5</data>
+      <data key="v_btw">9.3</data>
+      <data key="v_pr">0.031522514776678</data>
+    </node>
+    <node id="n17">
+      <data key="v_name">Actor 25</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">3</data>
+      <data key="v_btw">1.16666666666667</data>
+      <data key="v_pr">0.0210760335592228</data>
+    </node>
+    <node id="n18">
+      <data key="v_name">Actor 26</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">3</data>
+      <data key="v_btw">2.02777777777778</data>
+      <data key="v_pr">0.021006197394493</data>
+    </node>
+    <node id="n19">
+      <data key="v_name">Actor 27</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">2</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.0150440380827256</data>
+    </node>
+    <node id="n20">
+      <data key="v_name">Actor 28</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">4</data>
+      <data key="v_btw">11.7920634920635</data>
+      <data key="v_pr">0.025639767482848</data>
+    </node>
+    <node id="n21">
+      <data key="v_name">Actor 29</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">3</data>
+      <data key="v_btw">0.947619047619048</data>
+      <data key="v_pr">0.0195734594638285</data>
+    </node>
+    <node id="n22">
+      <data key="v_name">Actor 30</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">4</data>
+      <data key="v_btw">1.54285714285714</data>
+      <data key="v_pr">0.0262885376951149</data>
+    </node>
+    <node id="n23">
+      <data key="v_name">Actor 31</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">4</data>
+      <data key="v_btw">7.60952380952381</data>
+      <data key="v_pr">0.0245901552485801</data>
+    </node>
+    <node id="n24">
+      <data key="v_name">Actor 32</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">6</data>
+      <data key="v_btw">73.0095238095238</data>
+      <data key="v_pr">0.0371580870691453</data>
+    </node>
+    <node id="n25">
+      <data key="v_name">Actor 33</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">12</data>
+      <data key="v_btw">76.6904761904762</data>
+      <data key="v_pr">0.0716932260057545</data>
+    </node>
+    <node id="n26">
+      <data key="v_name">Actor 8</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">4</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.0244904970352824</data>
+    </node>
+    <node id="n27">
+      <data key="v_name">Actor 11</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">3</data>
+      <data key="v_btw">0.333333333333333</data>
+      <data key="v_pr">0.0219779523645895</data>
+    </node>
+    <node id="n28">
+      <data key="v_name">Actor 12</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">1</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.00956474549213551</data>
+    </node>
+    <node id="n29">
+      <data key="v_name">Actor 13</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">2</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.0146448920118771</data>
+    </node>
+    <node id="n30">
+      <data key="v_name">Actor 18</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">2</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.0145586772090215</data>
+    </node>
+    <node id="n31">
+      <data key="v_name">Actor 22</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">2</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.0145586772090215</data>
+    </node>
+    <node id="n32">
+      <data key="v_name">Actor 17</data>
+      <data key="v_segment">B</data>
+      <data key="v_degree">2</data>
+      <data key="v_btw">0</data>
+      <data key="v_pr">0.0167840054441897</data>
+    </node>
+    <node id="n33">
+      <data key="v_name">John A</data>
+      <data key="v_segment">A</data>
+      <data key="v_degree">17</data>
+      <data key="v_btw">160.551587301587</data>
+      <data key="v_pr">0.100919182332626</data>
+    </node>
+    <edge source="n0" target="n1">
+    </edge>
+    <edge source="n0" target="n2">
+    </edge>
+    <edge source="n0" target="n3">
+    </edge>
+    <edge source="n0" target="n4">
+    </edge>
+    <edge source="n0" target="n5">
+    </edge>
+    <edge source="n0" target="n6">
+    </edge>
+    <edge source="n0" target="n26">
+    </edge>
+    <edge source="n0" target="n7">
+    </edge>
+    <edge source="n0" target="n27">
+    </edge>
+    <edge source="n0" target="n28">
+    </edge>
+    <edge source="n0" target="n29">
+    </edge>
+    <edge source="n0" target="n9">
+    </edge>
+    <edge source="n0" target="n30">
+    </edge>
+    <edge source="n0" target="n13">
+    </edge>
+    <edge source="n0" target="n31">
+    </edge>
+    <edge source="n0" target="n24">
+    </edge>
+    <edge source="n1" target="n2">
+    </edge>
+    <edge source="n1" target="n3">
+    </edge>
+    <edge source="n1" target="n26">
+    </edge>
+    <edge source="n1" target="n9">
+    </edge>
+    <edge source="n1" target="n30">
+    </edge>
+    <edge source="n1" target="n13">
+    </edge>
+    <edge source="n1" target="n31">
+    </edge>
+    <edge source="n1" target="n23">
+    </edge>
+    <edge source="n2" target="n3">
+    </edge>
+    <edge source="n2" target="n26">
+    </edge>
+    <edge source="n2" target="n7">
+    </edge>
+    <edge source="n2" target="n8">
+    </edge>
+    <edge source="n2" target="n9">
+    </edge>
+    <edge source="n2" target="n20">
+    </edge>
+    <edge source="n2" target="n21">
+    </edge>
+    <edge source="n2" target="n25">
+    </edge>
+    <edge source="n3" target="n26">
+    </edge>
+    <edge source="n3" target="n29">
+    </edge>
+    <edge source="n3" target="n9">
+    </edge>
+    <edge source="n4" target="n6">
+    </edge>
+    <edge source="n4" target="n27">
+    </edge>
+    <edge source="n5" target="n6">
+    </edge>
+    <edge source="n5" target="n27">
+    </edge>
+    <edge source="n5" target="n32">
+    </edge>
+    <edge source="n6" target="n32">
+    </edge>
+    <edge source="n7" target="n23">
+    </edge>
+    <edge source="n7" target="n25">
+    </edge>
+    <edge source="n7" target="n33">
+    </edge>
+    <edge source="n8" target="n33">
+    </edge>
+    <edge source="n9" target="n33">
+    </edge>
+    <edge source="n10" target="n25">
+    </edge>
+    <edge source="n10" target="n33">
+    </edge>
+    <edge source="n11" target="n25">
+    </edge>
+    <edge source="n11" target="n33">
+    </edge>
+    <edge source="n12" target="n25">
+    </edge>
+    <edge source="n12" target="n33">
+    </edge>
+    <edge source="n13" target="n33">
+    </edge>
+    <edge source="n14" target="n25">
+    </edge>
+    <edge source="n14" target="n33">
+    </edge>
+    <edge source="n15" target="n25">
+    </edge>
+    <edge source="n15" target="n33">
+    </edge>
+    <edge source="n16" target="n18">
+    </edge>
+    <edge source="n16" target="n20">
+    </edge>
+    <edge source="n16" target="n22">
+    </edge>
+    <edge source="n16" target="n25">
+    </edge>
+    <edge source="n16" target="n33">
+    </edge>
+    <edge source="n17" target="n18">
+    </edge>
+    <edge source="n17" target="n20">
+    </edge>
+    <edge source="n17" target="n24">
+    </edge>
+    <edge source="n18" target="n24">
+    </edge>
+    <edge source="n19" target="n22">
+    </edge>
+    <edge source="n19" target="n33">
+    </edge>
+    <edge source="n20" target="n33">
+    </edge>
+    <edge source="n21" target="n24">
+    </edge>
+    <edge source="n21" target="n33">
+    </edge>
+    <edge source="n22" target="n25">
+    </edge>
+    <edge source="n22" target="n33">
+    </edge>
+    <edge source="n23" target="n25">
+    </edge>
+    <edge source="n23" target="n33">
+    </edge>
+    <edge source="n24" target="n25">
+    </edge>
+    <edge source="n24" target="n33">
+    </edge>
+    <edge source="n25" target="n33">
+    </edge>
+  </graph>
+</graphml>

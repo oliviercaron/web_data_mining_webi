@@ -101,3 +101,9 @@ Ressources recommandées pour approfondir statistiques, tests, ACP et manipulati
 
 - The Big Book of R  
   https://www.bigbookofr.com
+
+### Théorie marketing / research design
+
+- Marketing Research (bookdown) – Mike Braun  
+  https://bookdown.org/mike/marketing_research/  
+  Synthèse des concepts marketing (théorie, designs, revue de littérature) avec rappels sur la construction de théorie et les approches empiric-first.

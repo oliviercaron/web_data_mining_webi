@@ -4,3 +4,5 @@ cours_3/_extensions/.DS_Store
 cours_3/cours_3.rmarkdown
 data_full/registre_national_cantines/registre-national-des-cantines.parquet
 data_full/base_permanente_equipements/BPE24.parquet
+data_full/ALL_FOLLOWING_DATA.json
+cours_5/.Rhistory
